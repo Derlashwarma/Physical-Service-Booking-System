@@ -10,8 +10,12 @@
   
 ## Gantt Chart
 ### Link: 
-https://teams.microsoft.com/l/message/19:330e6164064742f982cb97b3923bd00e@thread.v2/1726892471599?context=%7B%22contextType%22%3A%22chat%22%7D
+https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk
 
 ## ERD
+### Link: 
+https://online.visual-paradigm.com/share.jsp?id=323735393232392d34#diagram:workspace=sbrqepbv&proj=0&id=4
 
 ## UI/UX Design
+### Link: 
+https://www.figma.com/design/2cT7xOfB4RbNKPmW5BSNpM/CSIT327-UI-UX?node-id=1-2
