@@ -1,5 +1,10 @@
 # Physical Service Booking System
 
+## Members
+- Benitez, Mars L.
+- Lauron, Ardel Tioco Jeff L.
+- Perpetua, Van Woodroe
+
 ## Functional Requirements
 - User Management System
 - Profile System
