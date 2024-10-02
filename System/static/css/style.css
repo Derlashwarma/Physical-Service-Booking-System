@@ -68,3 +68,18 @@
 .login-btn{
     background-color: var(--primary-color);
 }
+
+.choices{
+    display: flex;
+    flex-direction: row;
+}
+.professional .client{
+    display: flex;
+    flex-direction: column;
+}
+.client label, .professional label{
+    color: white;
+}
+form h1 {
+    font-weight: 800;
+}
