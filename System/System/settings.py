@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'login',
     'register',
     'landing',
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+TAILWIND_APP_NAME = "theme"
 ROOT_URLCONF = 'System.urls'
 
 TEMPLATES = [
@@ -122,8 +125,12 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"

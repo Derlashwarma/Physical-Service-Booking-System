@@ -1,4 +1,5 @@
 {% load static %}
+{% load static tailwind_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviso Landing Page</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   {% tailwind_css %}
 </head>
 <body>
     <nav class="navbar">
@@ -26,7 +28,7 @@
         <div class="flex-container">
             <div class="overlay-text">
                 <h1>AFFORDABLE</h1>
-                <h2>SKILLED WORKERS</h2>
+                <h2 class="text-blue-600">SKILLED WORKERS</h2>
                 <div class="search-bar">
                     <input type="text" placeholder="Search for jobs, workers, skills, or industries…">
                     <img src="{% static 'images/search-icon.png' %}" alt="Search" class="search-icon">
