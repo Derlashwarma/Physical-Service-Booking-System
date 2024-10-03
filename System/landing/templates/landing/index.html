@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviso Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/Serviso.png' %}" alt="Logo"> 
+        </div>
+        <ul class="nav-links">
+            <li><a href="#explore">Explore</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Hire</a></li>
+            <li><a href="{% url "landing:login" %}">Sign In</a></li>
+            <li><a class="join-button" href="{% url "login:register" %}">Join</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <div class="flex-container">
+            <div class="overlay-text">
+                <h1>AFFORDABLE</h1>
+                <h2>SKILLED WORKERS</h2>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for jobs, workers, skills, or industries…">
+                    <img src="{% static 'images/search-icon.png' %}" alt="Search" class="search-icon">
+                </div>
+            </div>
+            <div class="sidebar-image">
+                <img src="{% static 'images/worker.png' %}" alt="Man" class="man-image"> 
+            </div>
+        </div>    
+    </div>
+    
+    
+    <div id="explore" class="explore-section">
+        <a href="#explore" class="explore-link">
+            <img src="{% static 'images/Explore.png' %}" alt="Explore" class="explore-image"> 
+        </a>
+    </div>
+
+    <div id="about" class="about-section">
+        <a href="#about" class="about-link">
+            <img src="{% static 'images/About-Top.png' %}" alt="About" class="about-image"> 
+        </a>
+        <a href="#about" class="about-link"> 
+            <img src="{% static 'images/About-Bottom.png' %}" alt="About" class="about-image"> 
+        </a>
+    </div>
+    
+
+    <footer>
+        <p>&copy; 2024 Serviso. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
