@@ -19,16 +19,16 @@
             <li><a href="#explore">Explore</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#">Hire</a></li>
-            <li><a href="{% url "landing:login" %}">Sign In</a></li>
-            <li><a class="join-button" href="{% url "login:register" %}">Join</a></li>
+            <li><a href="{% url "login:login" %}">Sign In</a></li>
+            <li><a class="join-button" href="{% url "register:register" %}">Join</a></li>
         </ul>
     </nav>
 
     <div class="content">
         <div class="flex-container">
             <div class="overlay-text">
-                <h1>AFFORDABLE</h1>
-                <h2 class="text-blue-600">SKILLED WORKERS</h2>
+                <h2>AFFORDABLE</h2>
+                <h2 class="text-blue">SKILLED WORKERS</h2>
                 <div class="search-bar">
                     <input type="text" placeholder="Search for jobs, workers, skills, or industries…">
                     <img src="{% static 'images/search-icon.png' %}" alt="Search" class="search-icon">
