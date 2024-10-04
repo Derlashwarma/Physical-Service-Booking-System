@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/',include('register.urls', namespace="register")),
     path('login/',include('login.urls', namespace="login")),
-    path('', include('landing.urls')),
+    path('', include('landing.urls', namespace="landing")),
 ]

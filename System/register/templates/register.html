@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,40 +19,44 @@
         <div class="left-right w-100 container  d-flex flex-column align-items-center">
             <form method="POST" class="w-70 justify-self-center ">
                 {% csrf_token %}
-                <div class="main-container top_part">
-                    <h3 class="mb-4">Join as a client or a freelancer</h3>
-                    <div class="form-group choices">
-                        <div class=" w-50 border rounded-3 p-5 m-2">
-                            <div class="client ">
-                                {{ form.is_worker.0 }}
-                                <p class="mt-4">I am a client seeking someone who can provide the services I seek</p>
-                            </div>
-                        </div>
-                        <div class="w-50 border rounded-3 p-5 m-2">
-                            <div class="professional">
-                                {{ form.is_worker.1 }}
-                                <p class="mt-4">I am a professional capable of delivering the physical services</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="next_btn" class="btn btn-success form-control mt-5 mb-2 w-50">Next</button>
-                    <p>Already have an account? <a href="{% url "login:login" %}" class="text-success w-100 align-center">click here</a></p>
-                </div>
-                <div class="main-container bottom_part w-100" style="display: none;">
+                <div class="main-container bottom_part w-100">
                     <div style="width: 50vw;" class=" m-5">
-                        <h1 class="to_find mb-5 w-100">Sign up to find </h1>
+                        <h1 class="to_find mb-5 w-100">Sign up </h1>
                         <div class="form-group w-100">
                             <label for="username">Username</label>
                             {{ form.username }}
+                            {% if username_error %}
+                            <small class="text-danger"> {{ username_error }} </small>
+                            {% endif %}
                         </div>
                         
-                        <div class="form-group w-100">
+                        <div class="form-group w-100 mt-2">
                             <label for="password">Password</label>
                             {{ form.password }}
+                            {% if password_error %}
+                            <small class="text-danger"> {{ password_error }} </small>
+                            {% endif %}
                         </div>
+                        <div class="form-group choices">
+                            <div class=" w-50 border rounded-3 px-2 mt-3 mx-3">
+                                <div class="client">
+                                    <div class="w-100 d-flex justify-content-end">{{ form.is_worker.0 }}</div>
+                                    <p class="mt-2 hover:color-blue-800">join as a client seeking someone who can provide the services I seek</p>
+                                </div>
+                            </div>
+                            <div class="w-50 border rounded-3 px-2 mt-3">
+                                <div class="professional">
+                                    <div class="w-100 d-flex justify-content-end">{{ form.is_worker.1 }}</div>
+                                    <p class="mt-2">Join as a professional capable of delivering the physical services</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if is_worker_error %}
+                        <small class="text-danger"> {{ is_worker_error }} </small>
+                        {% endif %}
                     <button class="form-control btn btn-success mt-5" type="submit">Sign up</button>
-                    <p>Already have an account? <a href="{% url "login:login" %}" class="text-success w-100 align-center">click here</a></p>
-                    <button id="back_btn" class="btn form-control border border-success mt-3">back</button>    
+                    <p>Already have an account? <a href="{% url "login:login" %}" class="text-success w-100 align-center">click here</a></p>  
                     </div>
                 </div>
             </form>

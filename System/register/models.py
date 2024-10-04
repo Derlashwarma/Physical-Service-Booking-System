@@ -11,7 +11,3 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
-
-    def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
-        super().save(*args,**kwargs)

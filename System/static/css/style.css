@@ -268,3 +268,11 @@ body {
   height: auto;               
   object-fit: cover;          
 }
+
+.errorlist{
+  list-style: none;
+  color: red;
+}
+label{
+  font-weight: 500;
+}
