@@ -9,6 +9,12 @@ def register(request):
             form.save()
             request.session['is_worker'] = form.cleaned_data.get('is_worker')
             return redirect('register:register_success')
+        else:
+            password_error = form.errors.get('password')
+            username_error = form.errors.get('username')
+            is_worker_error = form.errors.get('is_worker')
+
+            return render(request,'register.html', {'form':form, 'password_error':password_error, 'username_error':username_error, 'is_worker_error': is_worker_error})
     else:
         form = RegistrationForm()
 
