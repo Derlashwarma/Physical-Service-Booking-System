@@ -16,7 +16,9 @@ def login_user(request):
                 if user is not None and check_password(password, user.password):
                     return HttpResponse("LOGGED IN")
                 else:
-                    form.add_error(None, 'Invalid username or password')
+                    error = "invalid credintials"
+                    form = LoginForm()
+                    return render(request, 'login.html',{'error': error, 'form':form} )
             except Exception:
                 form.add_error(None, 'Something happend bad')    
     else:

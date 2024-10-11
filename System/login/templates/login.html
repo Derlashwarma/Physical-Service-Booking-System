@@ -25,14 +25,11 @@
                     <div class="mb-2">
                         <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
                         {{ form.password }}
-                        {% if form.password.errors %}
+                        {% if error %}
                             <div class="text-danger">
-                                {{ form.errors }}
+                                {{ error }}
                             </div>
                         {% endif %}
-                    </div>
-                    <div class="mb-3">
-                        <p class="forgot">Forgot password?</p>
                     </div>
                     <button type="submit" class="btn btn-success form-control mt-5 login-btn">Login</button>
                 </form>
