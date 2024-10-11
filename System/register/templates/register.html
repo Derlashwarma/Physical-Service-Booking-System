@@ -25,26 +25,20 @@
                         <div class="form-group w-100">
                             <label for="username">Username</label>
                             {{ form.username }}
-                            {% if username_error %}
-                            <small class="text-danger"> {{ username_error }} </small>
-                            {% endif %}
                         </div>
                         
                         <div class="form-group w-100 mt-2">
                             <label for="password">Password</label>
                             {{ form.password }}
-                            {% if password_error %}
-                            <small class="text-danger"> {{ password_error }} </small>
-                            {% endif %}
                         </div>
                         <div class="form-group choices">
-                            <div class=" w-50 border rounded-3 px-2 mt-3 mx-3">
+                            <div class=" w-50 border rounded-3 px-2 mt-4 mx-3">
                                 <div class="client">
                                     <div class="w-100 d-flex justify-content-end">{{ form.is_worker.0 }}</div>
                                     <p class="mt-2 hover:color-blue-800">join as a client seeking someone who can provide the services I seek</p>
                                 </div>
                             </div>
-                            <div class="w-50 border rounded-3 px-2 mt-3">
+                            <div class="w-50 border rounded-3 px-2 mt-4">
                                 <div class="professional">
                                     <div class="w-100 d-flex justify-content-end">{{ form.is_worker.1 }}</div>
                                     <p class="mt-2">Join as a professional capable of delivering the physical services</p>
@@ -52,9 +46,12 @@
                             </div>
                         </div>
                         
-                        {% if is_worker_error %}
-                        <small class="text-danger"> {{ is_worker_error }} </small>
-                        {% endif %}
+                            {% if error %}
+                            <small class="px-3 text-danger">
+                                {{ error }} 
+                            </small>    
+                            {% endif %}
+                        
                     <button class="form-control btn btn-success mt-5" type="submit">Sign up</button>
                     <p>Already have an account? <a href="{% url "login:login" %}" class="text-success w-100 align-center">click here</a></p>  
                     </div>
