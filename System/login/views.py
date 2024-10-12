@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .forms import LoginForm
 from django.contrib.auth import login
 from django.contrib.auth.hashers import check_password
@@ -14,7 +14,9 @@ def login_user(request):
             try:
                 user = User.objects.get(username=username)
                 if user is not None and check_password(password, user.password):
-                    return HttpResponse("LOGGED IN")
+                    request.session['username'] = user.username
+                    request.session['id'] = user.id
+                    return HttpResponse("Logged in")
                 else:
                     error = "invalid credintials"
                     form = LoginForm()
