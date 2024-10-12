@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static "css/font.css" %}" rel="stylesheet" />
+    <link href="{% static 'ckeditor/ckeditor/contents.css' %}" rel="stylesheet">
+    <title>Edit {{username}}</title>
+</head>
+<body class="h-auto bg-slate-100 flex flex-col w-full">
+    <div class="bg flex flex-col w-10/12 h-fit px-28 mx-5 border self-center ">
+        <div class="middle bg-white w-11/12 overflow-scroll overflow-x-hidden rounded-md shadow-md p-8 justify-center self-center mt-5">
+            <p class="text-green-600 text-3xl font-bold text-center my-4">Edit Profile</p>
+            <form method="POST" class="w-full" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="w-full py-2 bg-green-600 text-white text-lg mt-2 rounded-md">Save<button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
