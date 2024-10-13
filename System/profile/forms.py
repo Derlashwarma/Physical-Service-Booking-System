@@ -1,9 +1,9 @@
 from django import forms
-from register.models import User
+from register.models import CustomUser
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['first_name','last_name','email','professional_summary', 'professional_experience',
                   'key_skills','social_contacts','image','field_of_work',
                   'previous_employment']

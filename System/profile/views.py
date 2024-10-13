@@ -1,13 +1,13 @@
 from django.shortcuts import render, HttpResponse, redirect
-from register.models import User
+from register.models import CustomUser
 from .forms import UserProfileForm
 from django.shortcuts import render, get_object_or_404, redirect
 
 #This function will accept username as a parameter and render the profile of the username 
 def profile(request, username):
-    user = User.objects.get(username=username)
+    user = CustomUser.objects.get(username=username)
     user_id = request.session.get('id')
-    logged_in_user = User.objects.get(id=user_id)
+    logged_in_user = CustomUser.objects.get(id=user_id)
 
     owner = user == logged_in_user
     if user_id is None:
@@ -45,7 +45,7 @@ def display_employer_profile():
     pass
 
 def edit_profile(request,username):
-    user = get_object_or_404(User, username=username)
+    user = get_object_or_404(CustomUser, username=username)
     if request.method == "POST":
         form = UserProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
