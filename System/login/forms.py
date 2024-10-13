@@ -1,5 +1,4 @@
 from django import forms
-from register.models import User
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150, widget = forms.TextInput(attrs={

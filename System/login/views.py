@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .forms import LoginForm
 from django.contrib.auth import login
 from django.contrib.auth.hashers import check_password
-from register.models import User
+from register.models import CustomUser
 
 # Create your views here.
 def login_user(request):
@@ -12,7 +12,7 @@ def login_user(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             try:
-                user = User.objects.get(username=username)
+                user = CustomUser.objects.get(username=username)
                 if user is not None and check_password(password, user.password):
                     request.session['username'] = user.username
                     request.session['id'] = user.id
