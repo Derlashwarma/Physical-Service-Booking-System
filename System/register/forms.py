@@ -1,6 +1,6 @@
 import re
 from django import forms
-from .models import User 
+from .models import CustomUser 
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 
@@ -18,7 +18,7 @@ class RegistrationForm(forms.ModelForm):
     }))
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'password', 'is_worker']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control mx-2'}),

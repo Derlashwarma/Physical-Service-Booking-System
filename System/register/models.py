@@ -1,20 +1,27 @@
 from django.db import models
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractUser
 
 class Rating(models.Model):
     name = models.CharField(max_length=30)
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='ratings_given')  
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='ratings_given')  
     score = models.IntegerField()
 
     def __str__(self):
         return self.name
 
-class User(models.Model):
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(max_length=100, blank=True)
-    username = models.CharField(max_length=100, blank=True, unique=True)
-    password = models.CharField(max_length=100)
+class CustomUser(AbstractUser):
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_set',  # Custom related name
+        blank=True,
+        help_text='The groups this user belongs to.'
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_set',  # Custom related name
+        blank=True,
+        help_text='Specific permissions for this user.'
+    )
     is_worker = models.BooleanField(default=False)
     professional_summary = models.TextField(blank=True)
     professional_experience = models.TextField(blank=True)
