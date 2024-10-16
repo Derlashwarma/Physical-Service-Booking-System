@@ -40,10 +40,13 @@ INSTALLED_APPS = [
     'login',
     'register',
     'landing',
+    'employee',
+    'employer',
     'tailwind',
     'theme',
     'profile',
     'ckeditor',
+    'django_components',
 ]
 
 MIDDLEWARE = [

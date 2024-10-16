@@ -12,25 +12,21 @@
   </title>
 </head>
 <body class="overflow-x-hidden">
-  <!-- Sticky Navbar -->
   <nav class="sticky top-0 z-50 bg-white shadow-md py-4 px-6">
     <div class="flex justify-between items-center">
       <div class="logo">
-        <a href="#">
+        <a href="#index">  
           <img class="h-5" src="{% static 'images/Serviso.png' %}" alt="Serviso Logo">
         </a>
       </div>
 
-      <!-- Check if user is authenticated -->
       <ul class="nav-links flex space-x-6">
         {% if user.is_authenticated %}
-          <!-- Conditional rendering based on whether the user is a worker -->
           {% if user.is_worker %}
-            <li><a class="hover:text-green-600" href="{% url 'worker_feed' %}">Worker Feed</a></li>
+            <li><a class="hover:text-green-600" href="{% url 'employee:employee_feed' %}">Worker Feed</a></li>
           {% else %}
-            <li><a class="hover:text-green-600" href="{% url 'user_feed' %}">User Feed</a></li>
+            <li><a class="hover:text-green-600" href="{% url 'employer:employer_feed' %}">User Feed</a></li>
           {% endif %}
-          <!-- Common links for both workers and users -->
           <li><a class="hover:text-green-600" href="{% url 'chat' %}">Chat</a></li>
           <li><a class="hover:text-green-600" href="{% url 'profile' %}">Profile</a></li>
           <li>
@@ -40,7 +36,6 @@
             </form>
           </li>
         {% else %}
-          <!-- Links for guest users (not logged in) -->
           <li><a class="hover:text-green-600" href="#explore">Explore</a></li>
           <li><a class="hover:text-green-600" href="#about">About</a></li>
           <li><a class="hover:text-green-600" href="#">Hire</a></li>
@@ -51,8 +46,7 @@
     </div>
   </nav>
 
-  <!-- Main Content with Padding for Navbar -->
-  <main class="pt-24">
+  <main class="pt-0">
     {% block content %}
     {% endblock %}
   </main>
