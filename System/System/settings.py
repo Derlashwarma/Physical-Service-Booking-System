@@ -40,10 +40,13 @@ INSTALLED_APPS = [
     'login',
     'register',
     'landing',
+    'employee',
+    'employer',
     'tailwind',
     'theme',
     'profile',
     'ckeditor',
+    'django_components',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'System.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

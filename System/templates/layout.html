@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+{% load static tailwind_tags %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  {% tailwind_css %}
+  <title>
+    {% block title %}App name{% endblock %}
+  </title>
+</head>
+<body class="overflow-x-hidden">
+  <nav class="sticky top-0 z-50 bg-white shadow-md py-4 px-6">
+    <div class="flex justify-between items-center">
+      <div class="logo">
+        <a href="#index">  
+          <img class="h-5" src="{% static 'images/Serviso.png' %}" alt="Serviso Logo">
+        </a>
+      </div>
+
+      <ul class="nav-links flex space-x-6">
+        {% if user.is_authenticated %}
+          {% if user.is_worker %}
+            <li><a class="hover:text-green-600" href="{% url 'employee:employee_feed' %}">Worker Feed</a></li>
+          {% else %}
+            <li><a class="hover:text-green-600" href="{% url 'employer:employer_feed' %}">User Feed</a></li>
+          {% endif %}
+          <li><a class="hover:text-green-600" href="{% url 'chat' %}">Chat</a></li>
+          <li><a class="hover:text-green-600" href="{% url 'profile' %}">Profile</a></li>
+          <li>
+            <form method="POST" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+            </form>
+          </li>
+        {% else %}
+          <li><a class="hover:text-green-600" href="#explore">Explore</a></li>
+          <li><a class="hover:text-green-600" href="#about">About</a></li>
+          <li><a class="hover:text-green-600" href="#">Hire</a></li>
+          <li><a class="hover:text-green-600" href="{% url 'login:login' %}">Sign In</a></li>
+          <li><a class="join-button bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600" href="{% url 'register:register' %}">Join</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <main class="pt-0">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+</body>
+</html>
