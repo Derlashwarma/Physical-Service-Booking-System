@@ -1,64 +1,39 @@
+{% extends 'layout.html' %}
 {% load static %}
-{% load static tailwind_tags %}
+{% block title %}
+    Landing
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serviso Landing Page</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-   {% tailwind_css %}
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="{% static 'images/Serviso.png' %}" alt="Logo"> 
+{% block content %}
+    <!-- Hero Section -->
+    <div class="content relative h-screen bg-gray-100 flex items-right ">
+        <div class="max-w-8xl mx-12 px-8 md:px-12 mb-2">
+            <h1 class="text-8xl font-extrabold text-black leading-tight text-left">AFFORDABLE</h1>
+            <h1 class="text-8xl font-extrabold text-black leading-tight mt-[-15px] text-left">SKILLED WORKERS</h1>
+            <h1 class="text-8xl font-extrabold text-black leading-tight mt-[-15px] text-left">NEAR YOU</h1>
+            <p class="text-lg text-neutral-600 mt-2 text-left">
+                With over 100,000+ trusted and certified professionals<br>
+                with just a click of a button.
+            </p>
+            <a href="{% url 'register:register' %}" class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg">
+                Get Started
+            </a>
         </div>
-        <ul class="nav-links">
-            <li><a href="#explore">Explore</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#">Hire</a></li>
-            <li><a href="{% url "login:login" %}">Sign In</a></li>
-            <li><a class="join-button" href="{% url "register:register" %}">Join</a></li>
-        </ul>
-    </nav>
-
-    <div class="content">
-        <div class="flex-container">
-            <div class="overlay-text">
-                <h2>AFFORDABLE</h2>
-                <h2 class="text-blue">SKILLED WORKERS</h2>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search for jobs, workers, skills, or industries…">
-                    <img src="{% static 'images/search-icon.png' %}" alt="Search" class="search-icon">
-                </div>
-            </div>
-            <div class="sidebar-image">
-                <img src="{% static 'images/worker.png' %}" alt="Man" class="man-image"> 
-            </div>
-        </div>    
     </div>
-    
-    
-    <div id="explore" class="explore-section">
+
+    <!-- Other sections (Explore, About, etc.) -->
+    <div id="explore" class="mt-12 text-center">
         <a href="#explore" class="explore-link">
-            <img src="{% static 'images/Explore.png' %}" alt="Explore" class="explore-image"> 
+            <img src="{% static 'images/Explore.png' %}" alt="Explore" class="explore-image mx-auto">
         </a>
     </div>
 
-    <div id="about" class="about-section">
+    <div id="about" class="mt-12 text-center">
         <a href="#about" class="about-link">
-            <img src="{% static 'images/About-Top.png' %}" alt="About" class="about-image"> 
+            <img src="{% static 'images/About-Top.png' %}" alt="About" class="about-image mx-auto">
         </a>
-        <a href="#about" class="about-link"> 
-            <img src="{% static 'images/About-Bottom.png' %}" alt="About" class="about-image"> 
+        <a href="#about" class="about-link">
+            <img src="{% static 'images/About-Bottom.png' %}" alt="About" class="about-image mx-auto mt-4">
         </a>
     </div>
-    
-
-    <footer>
-        <p>&copy; 2024 Serviso. All Rights Reserved.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}
