@@ -10,12 +10,9 @@ def register(request):
             request.session['is_worker'] = form.cleaned_data.get('is_worker')
             return redirect('register:register_success')
         else:
-            error = "Invalid credintials"
-
-            return render(request,'register.html', {'form':form, 'error': error})
+            return render(request,'register.html', {'form':form})
     else:
         form = RegistrationForm()
-
     return render(request,'register.html', {'form':form})
 
 def register_success(request):
