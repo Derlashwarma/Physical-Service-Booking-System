@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import LoginForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.hashers import check_password
 from register.models import CustomUser
 
@@ -9,26 +9,23 @@ def login_user(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            try:
-                user = CustomUser.objects.get(username=username)
-                if user is not None and check_password(password, user.password):
-                    request.session['username'] = user.username
-                    request.session['id'] = user.id
-                    login(request, user)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-                    print(request.user.is_authenticated)
-                    
-                    if user.is_worker:  
-                        return redirect('employee:employee_feed') 
-                    else:
-                        return redirect('employer:employer_feed') 
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                if user.is_worker:
+                    return redirect('employee:employee_feed')
                 else:
-                    form.add_error('password', "Incorrect Password")
-                    return render(request, 'login.html', {'form': form})
-            except CustomUser.DoesNotExist:
-                form.add_error('username', 'Username not found')
+                    return redirect('employer:employer_feed')
+            else:
+                form.add_error('username', "Invalid username or password")
+                return render(request,'login.html',{'form':form})
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+def logout_user(request):
+    logout(request)
+    return redirect('landing:landing_page')

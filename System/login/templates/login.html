@@ -19,20 +19,16 @@
                     <div class="flex flex-col">
                         <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
                         {{ form.username }}
-                        {% if form.username.errors %}
-                            <small class="text-red-500">
-                                {{ form.username.errors }}
-                            </small>
-                        {% endif %}
                     </div>
                     <div class="flex flex-col mt-5">
                         <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
                         {{ form.password }}
-                        {% if form.password.errors %}
-                            <small class="text-red-500">
-                                {{ form.password.errors }}
-                            </small>
-                        {% endif %}
+                        
+                        <div class="w-full text-red-600 h-fit">
+                            {% if form.username.errors %}
+                                {{form.username.errors}}
+                            {% endif %}
+                        </div>
                     </div>
                     <button type="submit" class="my-10 w-full py-3 bg-green-600 rounded-lg text-white transition hover:bg-green-700">Login</button>
                 </form>
