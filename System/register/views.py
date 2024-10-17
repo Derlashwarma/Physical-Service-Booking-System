@@ -6,6 +6,12 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
+            password1 = form.cleaned_data['password']
+            password2 = request.POST.get('confirm_password')
+            if password1 != password2:
+                form.add_error("password", 'Passwords do not match')
+                return render(request,'register.html', {'form':form})
+
             form.save()
             request.session['is_worker'] = form.cleaned_data.get('is_worker')
             return redirect('register:register_success')
