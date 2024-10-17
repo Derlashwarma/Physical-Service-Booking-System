@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block title %}
-    Employer Feed
+    Employer Feed {{user.is_authenticated}}
 {% endblock %}
 
 {% block content %}
