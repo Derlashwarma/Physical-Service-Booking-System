@@ -1,27 +1,8 @@
+{% extends 'layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="{% static "css/font.css" %}" rel="stylesheet" />
-    <link href="{% static 'ckeditor/ckeditor/contents.css' %}" rel="stylesheet">
-    <title>{{username}}</title>
-</head>
-<body class="h-screen bg-slate-100 overflow-x-hidden">
-    <nav class="flex flex-row bg-white text-gray-800 px-24 py-2 w-full border-b-green-600 border-b-2">
-        <div class="w-1/2 left">
+{% block title %}{{user.username}}{% endblock %}
 
-        </div>
-        <div class="right w-1/2 flex flex-row-reverse ">
-            <a class="justify-end text-l ml-5 text-red-800" href="{% url "login:login" %}">Log out</a>
-            <a class="justify-end text-l ml-5" href="{% url "profile:profile" logged_in_user.username %}">Profile</a>
-            <a class="justify-end text-l ml-5" href="{% url "login:login" %}">Chat</a>
-            <a class="justify-end text-l ml-5" href="{% url "login:login" %}">Discover</a>
-            <a class="justify-end text-l ml-5" href="{% url "login:login" %}">Home</a>
-        </div>
-    </nav>
+{% block content %}
     <div class="bg flex flex-row w-full h-fit px-28 m-5">
         <div class="left w-1/4 h-full mr-5 flex flex-col">
             <div class="top-left bg-white w-full h-full mr-5 rounded-md shadow-md flex flex-col">
@@ -69,5 +50,4 @@
             {% endif %}
         </div>
     </div>
-</body>
-</html>
+{% endblock content %}

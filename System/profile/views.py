@@ -2,11 +2,13 @@ from django.shortcuts import render, HttpResponse, redirect
 from register.models import CustomUser
 from .forms import UserProfileForm
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 
-#This function will accept username as a parameter and render the profile of the username 
+#This function will accept username as a parameter and render the profile of the username
+@login_required(login_url="login:login")
 def profile(request, username):
     user = CustomUser.objects.get(username=username)
-    user_id = request.session.get('id')
+    user_id = request.user.id
     logged_in_user = CustomUser.objects.get(id=user_id)
 
     owner = user == logged_in_user
@@ -20,6 +22,7 @@ def profile(request, username):
         return HttpResponse('not a worker')
     
 #This function will render the template and pass the requirements
+@login_required(login_url="login:login")
 def display_worker_profile(request, user, logged_in_user,owner):
     professional_experience = user.professional_experience
     professional_summary = user.professional_summary
@@ -41,9 +44,11 @@ def display_worker_profile(request, user, logged_in_user,owner):
     return render(request, 'profile.html', context)
 
 #This function will render the template for the Employer's profile
+@login_required(login_url="login:login")
 def display_employer_profile():
     pass
 
+@login_required(login_url="login:login")
 def edit_profile(request,username):
     user = get_object_or_404(CustomUser, username=username)
     if request.method == "POST":
