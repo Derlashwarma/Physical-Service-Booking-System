@@ -28,8 +28,12 @@ def display_worker_profile(request, user, logged_in_user,owner):
     professional_summary = user.professional_summary
     key_skills = user.key_skills
     social_contacts = user.social_contacts
-    ratings = user.ratings.all()
     profile_picture = user.image
+    ratings = {
+        'Timeliness': user.get_average_rating('timeliness'),
+        'Communication': user.get_average_rating('communication'),
+        'Professionalism': user.get_average_rating('professionalism')
+    }
     context = {
         'owner': owner,
         'logged_in_user': logged_in_user ,
@@ -38,8 +42,8 @@ def display_worker_profile(request, user, logged_in_user,owner):
         'summary': professional_summary,
         'skills': key_skills,
         'social': social_contacts,
-        'ratings': ratings,
         'profile': profile_picture,
+        'ratings': ratings
     }
     return render(request, 'profile.html', context)
 
