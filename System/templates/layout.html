@@ -7,11 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
   {% tailwind_css %}
+  {% block customCSS %}{% endblock customCSS %}
   <title>
     {% block title %}App name{% endblock %}
   </title>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden h-screen">
   <nav class="sticky top-0 z-50 bg-white shadow-md py-4 px-8">
     <div class="flex justify-between items-center">
       <div class="logo">
@@ -53,7 +54,7 @@
     </div>
   </nav>
 
-  <main class="pt-0">
+  <main class="pt-0 bg-slate-100 h-full">
     {% block content %}
 
     {% endblock %}
