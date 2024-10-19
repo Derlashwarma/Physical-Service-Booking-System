@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Avg
+from ckeditor.fields import RichTextField
 
 class Rating(models.Model):
     name = models.CharField(max_length=30)
@@ -13,10 +14,10 @@ class Rating(models.Model):
 
 class CustomUser(AbstractUser):
     is_worker = models.BooleanField(default=False)
-    professional_summary = models.TextField(blank=True)
-    professional_experience = models.TextField(blank=True)
-    key_skills = models.TextField(blank=True)
-    social_contacts = models.TextField(blank=True)
+    professional_summary = RichTextField()
+    professional_experience = RichTextField()
+    key_skills = RichTextField()
+    social_contacts = RichTextField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     contact_number = models.IntegerField(blank=True, null=True)
     field_of_work = models.TextField(blank=True)

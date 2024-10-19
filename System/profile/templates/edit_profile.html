@@ -10,12 +10,53 @@
     <title>Edit {{username}}</title>
 </head>
 <body class="h-auto bg-slate-100 flex flex-col w-full">
-    <div class="bg flex flex-col w-10/12 h-fit px-28 mx-5 border self-center ">
+    <div class="bg flex flex-col w-3/5 h-fit px-28 mx-5 self-center ">
         <div class="middle bg-white w-11/12 overflow-scroll overflow-x-hidden rounded-md shadow-md p-8 justify-center self-center mt-5">
             <p class="text-green-600 text-3xl font-bold text-center my-4">Edit Profile</p>
             <form method="POST" class="w-full" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{form.as_p}}
+                {% csrf_token %} 
+                {{ form.media }} 
+                
+                <div class="mb-4">
+                    <p>Last name</p>
+                    {{form.last_name}}
+                </div>
+                <div class="mb-4">
+                    <p>First name</p>
+                    {{form.first_name}}
+                </div>
+                <div class="mb-4">
+                    <p>Email</p>
+                    {{form.email}}
+                </div>
+                <div class="mb-4">
+                    <div class="mb-4">
+                        <p>Professional summary</p>
+                        {{form.professional_summary}}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p>Professional experience</p>
+                    {{form.professional_experience}}
+                </div>
+                <div class="mb-4">
+                    <p>Key skills</p>
+                    {{form.key_skills}}
+                </div>
+                <div class="mb-4">
+                    <div class="mb-4">
+                        <p>Social contacts</p>
+                        {{form.social_contacts}}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p>Field of work</p>
+                    {{form.field_of_work}}
+                </div>
+                <div class="mb-4">
+                    <p>Previous employment</p>
+                    {{form.previous_employment}}
+                </div>
                 <button type="submit" class="w-full py-2 bg-green-600 text-white text-lg mt-2 rounded-md">Save<button>
             </form>
         </div>
