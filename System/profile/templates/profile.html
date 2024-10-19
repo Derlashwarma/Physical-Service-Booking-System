@@ -3,11 +3,14 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {% block content %}
-    <div class="bg flex flex-row w-full h-fit px-28 m-5">
+    <div class="bg flex flex-row w-full px-28 p-5 bg-slate-100">
         <div class="left w-1/4 h-full mr-5 flex flex-col">
-            <div class="top-left bg-white w-full h-full mr-5 rounded-md shadow-md flex flex-col">
+            <div class="top-left bg-white w-full h-full mr-5 rounded-md shadow flex flex-col">
                 {% if profile %}
                     <img class="justify-center self-center min-w-60 min-h-60 w-2/3 aspect-h-1 rounded-full mt-8" src="{{profile.url}}" alt="Profile picture of {{username}}"/>
+                    {% else %}
+                    <img class="justify-center self-center min-w-60 min-h-60 w-2/3 aspect-h-1 rounded-full mt-8" src="{% static "/images/default.webp" %}" alt="Profile picture of {{username}}"/>
+
                 {% endif %}
                     <p class="text-center text-xl font-bold text-green-600 my-4">{{username}}</p>
                 {% if social %}
@@ -21,7 +24,7 @@
                 class="text-center mt-5 bg-green-600 text-white py-2 rounded-md shadow-md">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="middle bg-white w-1/2 overflow-scroll overflow-x-hidden rounded-md shadow-md p-8">
+        <div class="middle bg-white w-1/2 rounded-md shadow-md p-8">
             <h2 class="text-green-600 text-xl font-medium">Professional Summary</h2>
             {% if summary %}
                 <p class="text-sm mt-2 text-justify">{{ summary|safe }}</p>
@@ -44,10 +47,16 @@
             {% endif %}
         </div>
         <div class="right bg-white w-1/4 h-full ml-5 p-8 rounded-md shadow-md">
-            {% if rating %}
-            {% else %}
-            <div class="text-red-600">No ratings available</div>
-            {% endif %}
+            <p class="text-green-600 text-xl font-medium">Ratings</p>
+
+            <ul class="mt-5">
+                <li class="text-green-600">Timeliness</li>
+                <li class="text-green-600 font-extrabold text-3xl ">{{ratings.Timeliness}}</li>
+                <li class="text-green-600 mt-5">Professionalism</li>
+                <li class="text-green-600 font-extrabold text-3xl">{{ratings.Professionalism}}</li>
+                <li class="text-green-600 mt-5">Communication</li>
+                <li class="text-green-600 font-extrabold text-3xl">{{ratings.Communication}}</li>
+            </ul>
         </div>
     </div>
 {% endblock content %}
