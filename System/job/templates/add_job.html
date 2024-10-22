@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static "css/font.css" %}" rel="stylesheet" />
+    <link href="{% static 'ckeditor/ckeditor/contents.css' %}" rel="stylesheet">
+    <title>Edit {{username}}</title>
+</head>
+<body class="h-full bg-slate-100 flex flex-col w-full border">
+    <div class="bg flex flex-col w-3/5 h-fit px-28 mx-5 self-center ">
+        <div class="middle bg-white w-11/12 overflow-scroll overflow-x-hidden rounded-md shadow-md p-8 justify-center self-center mt-5">
+            <p class="text-green-600 text-3xl font-bold text-center my-4">Create Job</p> 
+            <form method='POST'>
+                {% csrf_token %} 
+                {{ form.media }}
+                <div class="mt-5">
+                    <label for=>Title</label>
+                    {{form.title}}
+                </div>
+                <div class="mt-5">
+                    <label for=>Budget</label>
+                    {{form.budget}}
+                </div>
+                <div class="mt-5">
+                    <label for="title">Description</label>
+                    {{form.description}}
+                </div>
+                <button type="submit" class="w-full py-2 bg-green-600 text-white text-lg mt-2 rounded-md">Post<button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
