@@ -10,9 +10,9 @@
             <div class="w-1/4 h-full flex flex-col space-y-2 border-solid border-slate-800">
                 <div class="h-64 w-full border border-slate-200 bg-white shadow-md flex flex-col items-center justify-center space-y-4">
                     <h2 class="text-4xl font-bold">Looking to hire?</h2>
-                    <button class="bg-green-600 w-2/3 h-12 text-white text-xs px-2 py-1 rounded hover:bg-green-700">
+                    <a href="{% url "job:add_job" %}" class="bg-green-600 w-2/3 h-12 text-white px-2 py-1 rounded hover:bg-green-70 text-center flex items-center justify-center">
                         Post a Job
-                    </button>
+                    </a>
                 </div>                
                 <div class="flex-1 bg-white border border-slate-200 p-6">
                     <div class='max-w-md mx-auto'>

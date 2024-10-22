@@ -54,7 +54,7 @@ def display_employer_profile():
 
 @login_required(login_url="login:login")
 def edit_profile(request,username):
-    user = get_object_or_404(CustomUser, username=username)
+    user = request.user
     if request.method == "POST":
         form = UserProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():

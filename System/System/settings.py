@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'theme',
     'profile',
     'django_components',
-    'ckeditor'
+    'ckeditor',
+    'job',
 ]
 
 MIDDLEWARE = [
