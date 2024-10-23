@@ -1,0 +1,35 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static "css/font.css" %}" rel="stylesheet" />
+    <link href="{% static 'ckeditor/ckeditor/contents.css' %}" rel="stylesheet">
+    {% tailwind_css %}
+    <title>Edit {{username}}</title>
+</head>
+<body class="h-screen w-screen bg-slate-100 flex flex-row  py-20 px-28">
+    <div class="w-1/4 flex flex-col h-auto bg-white rounded-lg mr-2 shadow-md border border-gray-200 px-4">
+        <div>
+            {% if job.employer.image %}
+            <img class="w-1/2 aspect-h-1 rounded-lg mt-4" src="{{job.employer.profile.url}}" alt="Profile picture of {{job.employerusername}}"/>
+                {% else %}
+            <img class="w-1/2 aspect-h-1 rounded-lg mt-4 border border-gray-400" src="{% static "/images/default.webp" %}" alt="Default Profile"/>
+            {% endif %}
+        </div>
+        <div class="mt-4 max-h-80 overflow-hidden">
+            {{job.get_short_description | safe}}
+        </div>
+        <div class=" mb-4">
+            <a href="#" class="bg-green-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-green-700">Apply Now</a>
+            <a href="#" class="white border border-green-600 w-full p-3 text-green-600 block text-center rounded-md mt-4 transition-all hover:bg-green-600 hover:text-white">Message Me</a>
+            <a href="#" class="white bg-red-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</a>
+        </div>
+    </div>
+    <div class="w-3/4 h-full bg-white rounded-lg ml-3 shadow-md border border-gray-200 p-4">
+        {{job.description | safe}}
+    </div>
+</body>
+</html>
