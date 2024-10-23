@@ -15,7 +15,7 @@ class Job(models.Model):
         return self.title
     
     def get_short_description(self):
-        return self.description[:100]
+        return self.description[:500] or None
     
 class JobApplication(models.Model):
     STATUS_CHOICES = [
