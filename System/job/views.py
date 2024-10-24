@@ -47,3 +47,34 @@ class JobViews:
             'user': user
         }
         return render(request, 'apply_job.html', context)
+    
+    @login_required(login_url="login:login")
+    def show_applications(request, job_id):
+        if request.user.is_worker:
+            return redirect("employee:employee_feed")
+        
+        job = Job.objects.get(id=job_id) 
+        if job.employer != request.user:
+            return HttpResponse({job.employer," ", request.user})
+        applications = JobApplication.objects.filter(job=job)
+        context = {
+            'job': job,
+            'applications': applications
+        }
+        return render(request, 'my_jobs.html',context)
+    
+    def accept_application(request, application_id):
+        if request.method == 'POST':
+            application = JobApplication.objects.get(pk=application_id)
+            application.status = "Accepted"
+            application.save()
+
+            return redirect("job:my_jobs", job_id=application.job.id)
+        
+    def reject_application(request, application_id):
+        if request.method == 'POST':
+            application = JobApplication.objects.get(pk=application_id)
+            application.status = "Rejected"
+            application.save()
+
+            return redirect("job:my_jobs", job_id=application.job.id)

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}My Jobs{% endblock title %}
+
+{% block content %}
+{% for application in applications %}
+<div class=" flex flex-col w-full ">
+    {{application}}
+    <br>
+    {{application.status}}
+    <br>
+    <a href="{% url "profile:profile" username=application.worker %}">{{application.worker}}</a>
+    {% if application.status == "Accepted" or application.status == "Rejected" %}
+            <button type="submit" disabled>Accept</button>
+            <button type="submit" disabled>Reject</button>
+    {% else %}
+        <form action="{% url 'job:accept' application.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Accept</button>
+        </form>
+        
+        <form action="{% url 'job:reject' application.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Reject</button>
+        </form>
+    {% endif %}
+
+</div>
+{% endfor %}
+{% endblock content %}
