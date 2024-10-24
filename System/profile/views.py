@@ -1,34 +1,35 @@
 from django.shortcuts import render, HttpResponse, redirect
 from register.models import CustomUser
 from .forms import UserProfileForm
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.contrib.auth.decorators import login_required
+from job.models import JobApplication
 
 #This function will accept username as a parameter and render the profile of the username
 @login_required(login_url="login:login")
 def profile(request, username):
     user = CustomUser.objects.get(username=username)
     user_id = request.user.id
-    logged_in_user = CustomUser.objects.get(id=user_id)
 
-    owner = user == logged_in_user
+    owner = user == request.user
     if user_id is None:
         return redirect('login:login')
 
     #If worker render the template profile.html and pass necessary values
     if user.is_worker:
-        return display_worker_profile(request, user, logged_in_user, owner)
+        return display_worker_profile(request, user, request.user, owner)
     else:
         return HttpResponse('not a worker')
     
 #This function will render the template and pass the requirements
 @login_required(login_url="login:login")
-def display_worker_profile(request, user, logged_in_user,owner):
+def display_worker_profile(request, user, logged_in_user, owner):
     professional_experience = user.professional_experience
     professional_summary = user.professional_summary
     key_skills = user.key_skills
     social_contacts = user.social_contacts
     profile_picture = user.image
+    jobs_applied = JobApplication.objects.filter(worker=user)
     ratings = {
         'Timeliness': user.get_average_rating('timeliness'),
         'Communication': user.get_average_rating('communication'),
@@ -43,7 +44,8 @@ def display_worker_profile(request, user, logged_in_user,owner):
         'skills': key_skills,
         'social': social_contacts,
         'profile': profile_picture,
-        'ratings': ratings
+        'ratings': ratings,
+        'jobs': jobs_applied
     }
     return render(request, 'profile.html', context)
 
