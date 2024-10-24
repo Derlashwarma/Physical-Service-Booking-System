@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="bg flex flex-row w-full px-28 p-5 bg-slate-100">
-        <div class="left w-1/4 h-full mr-5 flex flex-col">
+        <div class="left w-1/4 h-full mr-4 flex flex-col">
             <div class="top-left bg-white w-full h-full mr-5 rounded-md shadow flex flex-col">
                 {% if profile %}
                     <img class="justify-center self-center min-w-60 min-h-60 w-2/3 aspect-h-1 rounded-full mt-8" src="{{profile.url}}" alt="Profile picture of {{username}}"/>
@@ -14,7 +14,7 @@
                 {% endif %}
                     <p class="text-center text-xl font-bold text-green-600 my-4">{{username}}</p>
                 {% if social %}
-                    <div class="text-justify text-sm px-4 text-green-600 my-6 mx-5">
+                    <div class="text-justify text-sm text-green-600 my-6 mx-4">
                         {{social|safe}}
                     </div>
                 {% endif %}
@@ -24,7 +24,7 @@
                 class="text-center mt-5 bg-green-600 text-white py-2 rounded-md shadow-md">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="middle bg-white w-1/2 rounded-md shadow-md p-8">
+        <div class="middle bg-white w-1/2 rounded-md shadow-md p-5">
             <h2 class="text-green-600 text-xl font-medium">Professional Summary</h2>
             {% if summary %}
                 <p class="text-sm mt-2 text-justify">{{ summary|safe }}</p>
@@ -46,17 +46,38 @@
                 <p class="text-sm mt-2 text-red-600 text-justify">No result found</p>
             {% endif %}
         </div>
-        <div class="right bg-white w-1/4 h-full ml-5 p-8 rounded-md shadow-md">
-            <p class="text-green-600 text-xl font-medium">Ratings</p>
-
-            <ul class="mt-5">
-                <li class="text-green-600">Timeliness</li>
-                <li class="text-green-600 font-extrabold text-3xl ">{{ratings.Timeliness}}</li>
-                <li class="text-green-600 mt-5">Professionalism</li>
-                <li class="text-green-600 font-extrabold text-3xl">{{ratings.Professionalism}}</li>
-                <li class="text-green-600 mt-5">Communication</li>
-                <li class="text-green-600 font-extrabold text-3xl">{{ratings.Communication}}</li>
-            </ul>
+        <div class="right  w-1/4 h-full ml-4">
+            <div class="p-5 bg-white rounded-md shadow-md">
+                <p class="text-green-600 text-xl font-medium">Ratings</p>
+                <ul class="mt-5">
+                    <li class="text-green-600">Timeliness</li>
+                    <li class="text-green-600 font-extrabold text-3xl ">{{ratings.Timeliness}}</li>
+                    <li class="text-green-600 mt-5">Professionalism</li>
+                    <li class="text-green-600 font-extrabold text-3xl">{{ratings.Professionalism}}</li>
+                    <li class="text-green-600 mt-5">Communication</li>
+                    <li class="text-green-600 font-extrabold text-3xl">{{ratings.Communication}}</li>
+                </ul>
+            </div>
+            
+            {% if owner %}
+                <div class="mt-4 p-5 bg-white rounded-md shadow-md">
+                    <p class="text-green-600 text-xl font-medium">History</p>
+                    {% for job  in jobs %}
+                    <div class="border border-gray-300 p-3 rounded-md my-3">
+                        <h3 class="font-bold text-xl">{{job.job}}</h3>
+                        <p class="text-xs">Status:
+                        {% if job.status == "pending" or job.status == "accepted" %}
+                                <span class="text-orange-600">{{job.status}}</span>
+                            {% elif job.status == "completed" %}
+                                <span class="text-green-600-700">{{ job.status }}</span>
+                            {% elif job.status == "Rejected" %}
+                                <span class="text-red-700">{{ job.status }}</span>
+                            {% else %}
+                        {% endif %}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
