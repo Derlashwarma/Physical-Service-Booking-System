@@ -23,9 +23,16 @@
             {{job.get_short_description | safe}}
         </div>
         <div class=" mb-4">
-            <a href="#" class="bg-green-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-green-700">Apply Now</a>
-            <a href="#" class="white border border-green-600 w-full p-3 text-green-600 block text-center rounded-md mt-4 transition-all hover:bg-green-600 hover:text-white">Message Me</a>
-            <a href="#" class="white bg-red-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</a>
+            <form action="{% url 'job:apply_job' job.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="bg-green-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-green-700">Apply Now</button>
+            </form>
+                <a href="#" class="white border border-green-600 w-full p-3 text-green-600 block text-center rounded-md mt-4 transition-all hover:bg-green-600 hover:text-white">Message Me</a>
+            {% if user.is_worker %}
+                <a href="{% url "employee:employee_feed" %}" class="white bg-red-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</a>
+            {% else %}
+                <a href="{% url "employer:employer_feed" %}" class="white bg-red-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</a>
+            {% endif %}
         </div>
     </div>
     <div class="w-3/4 h-full bg-white rounded-lg ml-3 shadow-md border border-gray-200 p-4">
