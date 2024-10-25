@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_components',
     'ckeditor',
     'job',
+    'livereload',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 TAILWIND_APP_NAME = "theme"

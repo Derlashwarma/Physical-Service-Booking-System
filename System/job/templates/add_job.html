@@ -1,8 +1,22 @@
 {% extends "layout.html" %}
+{% load static %}
+{% block custom_head_tag %}
+    <script src="{% static "js/job.js" %}"></script>
+    <link rel="stylesheet" href="{% static 'css/job.css' %}">
+{% endblock custom_head_tag %}
 
 {% block title %}Add Job{% endblock title %}
 
 {% block content %}
+<div id="custom-popup" class="transition-all">
+    <div class="bg-white p-6 rounded shadow-lg text-center">
+        <p id="popup-message" class="mb-4 text-xl"></p>
+        <div class="flex justify-center gap-4">
+            <button id="confirm-btn" class="bg-green-500 text-white px-4 py-2 rounded">Confirm</button>
+            <button id="cancel-btn" class="bg-red-600 text-white px-4 py-2 rounded">Cancel</button>
+        </div>
+    </div>
+</div>
 <div class=" flex flex-col w-full ">
     <div class="bg flex flex-col w-3/5 h-fit px-28 mx-5 self-center py-5">
         <div class="bg-white w-11/12 rounded-md shadow-md p-8 justify-center self-center">
@@ -15,6 +29,10 @@
                     {{form.title}}
                 </div>
                 <div class="mt-5">
+                    <label for="location">Location</label>
+                    {{form.location}}
+                </div> 
+                <div class="mt-5">
                     <label for=>Budget</label>
                     {{form.budget}}
                 </div>
@@ -22,7 +40,7 @@
                     <label for="title">Description</label>
                     {{form.description}}
                 </div>
-                <button type="submit" class="w-full py-2 bg-green-600 text-white text-lg mt-2 rounded-md">Post<button>
+                <button id="post" type="submit" class="w-full py-2 bg-green-600 text-white text-lg mt-2 rounded-md">Post<button>
             </form>
         </div>
     </div>
