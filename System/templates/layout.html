@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 {% load static %}
 {% load static tailwind_tags %}
+{% load livereload_tags %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
   {% tailwind_css %}
-  {% block customCSS %}{% endblock customCSS %}
+  {% livereload_script %}
+  {% block custom_head_tag %}{% endblock custom_head_tag %}
   <title>
     {% block title %}App name{% endblock %}
   </title>
 </head>
-<body class="overflow-x-hidden h-screen">
+<body class="overflow-x-hidden h-screen bg-slate-100">
   <nav class="sticky top-0 z-50 bg-white shadow-md py-4 px-8">
     <div class="flex justify-between items-center">
       <div class="logo">
@@ -54,7 +58,7 @@
     </div>
   </nav>
 
-  <main class="pt-0 bg-slate-100">
+  <main class="pt-0">
     {% block content %}
 
     {% endblock %}
