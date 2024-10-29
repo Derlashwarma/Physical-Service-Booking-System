@@ -6,14 +6,6 @@
  */
 
 module.exports = {
-    theme: {
-        extend: {
-            colors: {
-                primaryColor: '#4EAB47',
-                secondary: '#99D4CE'
-            }
-        }
-    },
     content: [
         /**
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.
@@ -51,7 +43,15 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                primary_color: '#4EAB47',
+                secondary: '#99D4CE',
+            },
+            boxShadow: {
+                custom_spread: '0 0 10px rgba(0, 0, 0, 0.1)',
+            }
+        },
     },
     plugins: [
         /**
