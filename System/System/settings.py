@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'job',
     'livereload',
+    'custom_admin',
 ]
 
 MIDDLEWARE = [

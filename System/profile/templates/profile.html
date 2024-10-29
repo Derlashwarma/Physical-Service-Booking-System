@@ -66,7 +66,7 @@
                     <div class="border border-gray-300 p-3 rounded-md my-3">
                         <h3 class="font-bold text-xl">{{job.job}}</h3>
                         <p class="text-xs">Status:
-                        {% if job.status == "pending" or job.status == "Accepted" %}
+                        {% if job.status == "pending" or job.status == "accepted" %}
                                 <span class="text-orange-600">{{job.status}}</span>
                             {% elif job.status == "completed" %}
                                 <span class="text-green-600-700">{{ job.status }}</span>
