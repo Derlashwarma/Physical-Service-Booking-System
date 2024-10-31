@@ -35,7 +35,9 @@ class JobApplication(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
-        ('declined', 'Declined')
+        ('declined', 'Declined'),
+        ('incomplete', 'Incomplete'),
+        ('completed', 'Completed')
     ]
 
     job = models.ForeignKey(Job, on_delete= models.CASCADE)

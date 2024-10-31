@@ -76,7 +76,7 @@ class JobViews:
     def reject_application(request, application_id):
         if request.method == 'POST':
             application = JobApplication.objects.get(pk=application_id)
-            application.status = "rejected"
+            application.status = "declined"
             application.save()
 
             return redirect("job:job_detail", job_id=application.job.id)
