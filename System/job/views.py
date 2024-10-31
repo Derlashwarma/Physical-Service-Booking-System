@@ -90,8 +90,8 @@ class JobViews:
                 return redirect("job:my_jobs", job_id=job.id)
         else:
             form = JobPostForm(instance=job)
-            context = {
-                'form': form,
-                'job': job
-            }
+        context = {
+            'form': form,
+            'job': job
+        }
         return render(request, 'edit_job.html', context)
