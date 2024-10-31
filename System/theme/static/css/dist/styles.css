@@ -795,6 +795,10 @@ select {
   position: static;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .absolute {
   position: absolute;
 }
@@ -805,6 +809,10 @@ select {
 
 .sticky {
   position: sticky;
+}
+
+.left-0 {
+  left: 0px;
 }
 
 .left-2\/4 {
@@ -819,8 +827,8 @@ select {
   top: 50%;
 }
 
-.right-0 {
-  right: 0px;
+.top-10 {
+  top: 2.5rem;
 }
 
 .z-50 {
@@ -888,6 +896,11 @@ select {
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .mb-2 {
@@ -1045,14 +1058,6 @@ select {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-80 {
-  height: 20rem;
-}
-
-.h-60 {
-  height: 15rem;
 }
 
 .max-h-80 {
@@ -1506,11 +1511,6 @@ select {
   background-clip: border-box;
 }
 
-.object-fill {
-  -o-object-fit: fill;
-     object-fit: fill;
-}
-
 .p-1 {
   padding: 0.25rem;
 }
@@ -1543,6 +1543,16 @@ select {
   padding: 2rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1563,6 +1573,11 @@ select {
   padding-right: 12rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1571,6 +1586,11 @@ select {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .py-1 {
@@ -1601,21 +1621,6 @@ select {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-.py-0\.5 {
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 
 .pr-2 {
@@ -1745,6 +1750,11 @@ select {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
@@ -1773,6 +1783,11 @@ select {
 .text-neutral-600 {
   --tw-text-opacity: 1;
   color: rgb(82 82 82 / var(--tw-text-opacity));
+}
+
+.text-orange-500 {
+  --tw-text-opacity: 1;
+  color: rgb(249 115 22 / var(--tw-text-opacity));
 }
 
 .text-orange-600 {
@@ -1996,6 +2011,11 @@ select {
 .hover\:bg-green-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-red-700:hover {
