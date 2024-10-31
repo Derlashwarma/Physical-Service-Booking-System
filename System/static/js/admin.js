@@ -14,12 +14,12 @@ $(document).ready(function() {
     }
 
     $('#confirm-btn').click(function(){
+        if(cancel == 1) {
+            history.back();
+            return;
+        }
         if(formToSubmit){
             formToSubmit.submit()
-        }
-        else {
-            alert("something is wrong")
-            alert(formToSubmit)
         }
     })
     $('#cancel-btn').click(function(){
@@ -38,4 +38,10 @@ $(document).ready(function() {
     $('#sort_option').change(function() {
         $("#sort-form").submit();
     });
+
+    var cancel = 0;
+    $("#cancel-changes").click(function(){
+        cancel = 1
+        showPopup("exit and discard changes?")
+    })
 });

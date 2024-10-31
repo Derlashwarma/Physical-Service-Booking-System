@@ -26,6 +26,9 @@
                 </div>
             </div>
         </div>
+        <div class="fixed w-fit left-0 px-10">
+            <button id="cancel-changes" class="bg-red-700 py-2 px-5 rounded-md text-white hover:bg-red-600">Go Back</button>
+        </div>
         <form method="post" class="form w-2/3 bg-white p-10 shadow-custom_spread rounded-md" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.media }} 
