@@ -33,6 +33,7 @@ $(document).ready(function() {
         data: {
             labels: ['Workers', 'Employers'],
             datasets: [{
+                label: '',
                 data: [worker_count, employer_count],
                 backgroundColor: ['rgba(75, 192, 192, 0.7)', 'rgba(255, 159, 64, 0.7)'],
                 borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 159, 64, 1)'],
@@ -40,7 +41,12 @@ $(document).ready(function() {
             }]
         },
         options: {
-            responsive: true
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Worker vs Employers'
+                }
+            }
         }
     })
 })

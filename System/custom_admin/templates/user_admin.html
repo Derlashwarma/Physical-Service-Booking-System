@@ -29,12 +29,30 @@
             </div>
         </div>
         <div class="grid grid-cols-2 gap-6 p-5 border-b border-b-slate-300 w-full">
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center h-full">
                 <canvas id="registered-users"></canvas>
             </div>
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center content-center">
                 <canvas id="user-types"></canvas>
             </div>
+        </div>
+        <div class="py-2 px-5 flex flex-row">
+            <form id="sort-form" class="ml-auto"method="get" action="{% url 'custom_admin:users' %}">
+                <label for="sort_option" class="text-xs">Order by:</label>
+                <select name="sort_option" id="sort_option" class="text-xs px-1 py-0.5 rounded-sm" style="font-size: 0.75rem;">
+                    <option value="">Select</option>
+                    <option value="is_worker" {% if current_sort_option == "is_worker" %}selected{% endif %}>is worker</option>
+                    <option value="date_joined" {% if current_sort_option == "date_joined" %}selected{% endif %}>date joined</option>
+                    <option value="jobs_applied_count" {% if current_sort_option == "jobs_applied_count" %}selected{% endif %}>jobs applied</option>
+                    <option value="jobs_created_count" {% if current_sort_option == "jobs_created_count" %}selected{% endif %}>jobs created</option>
+                    <option value="accepted_jobs_count" {% if current_sort_option == "accepted_jobs_count" %}selected{% endif %}>accepted jobs</option>
+                </select>
+                <label for="sort_by" class="text-xs">Sort</label>
+                <select name="sort_by" id="sort_by" class="text-xs px-1 py-0.5 rounded-sm" style="font-size: 0.75rem;">
+                    <option value="-" {% if sort_by == "-" %}selected{% endif %}>Descending</option>
+                    <option value="" {% if sort_by == "" %}selected{% endif %}>Ascending</option>
+                </select>
+            </form>
         </div>
         <table class="table-auto w-full rounded-md border border-slate-300">
             <thead>
@@ -50,7 +68,7 @@
             <tbody>
                 {% for user in users %}
                     <tr class="border-b  text-center">
-                        <td class="py-3"><a href="{{user.username   }}">{{user.username}}</a></td>
+                        <td class="py-3"><a href="{% url 'custom_admin:edit_users' user_id=user.id %}">{{user.username}}</a></td>
                         <td>{{user.is_worker}}</td>
                         <td>{{user.date_joined}}</td>
                         <td>{{user.jobs_applied_count}}</td>

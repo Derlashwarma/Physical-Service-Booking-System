@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Min, Max, Sum
 from django.utils import timezone
@@ -6,6 +6,7 @@ from datetime import timedelta
 from register.models import CustomUser
 from job.models import Job
 from django.db.models import Q, Count
+from register.forms import AdminUserForm
 
 # Create your views here.
 class AdminViews:
@@ -118,6 +119,12 @@ class AdminViews:
         # dates = X, count = Y
         dates = [entry['date'] for entry in daily_user_registration]
         counts = [entry['aggregate_result'] for entry in daily_user_registration]
+        current_sort_option = request.GET.get("sort_option", "date_joined")
+        sort_by = request.GET.get("sort_by", "-")
+        
+        order_args = []
+        if current_sort_option:
+            order_args.append(f"{'-' if sort_by == '-' else ''}{current_sort_option}")
         
         users = (
             CustomUser.objects
@@ -126,7 +133,8 @@ class AdminViews:
                 jobs_created_count=Count('job'),
                 accepted_jobs_count=Count('jobapplication', filter=Q(jobapplication__status='accepted')),
             )
-            .values('username', 'is_worker', 'date_joined', 'jobs_applied_count', 'jobs_created_count', 'accepted_jobs_count')
+            .values('id', 'username', 'is_worker', 'date_joined', 'jobs_applied_count', 'jobs_created_count', 'accepted_jobs_count')
+            .order_by(*order_args)
         )
         context = {
             'total_users': total_registered_users,
@@ -136,6 +144,29 @@ class AdminViews:
             'dates': dates,
             'counts': counts,
             'users': users,
+            'current_sort_option': current_sort_option,
+            'sort_by': sort_by,
         }
         
         return render(request, 'user_admin.html', context)
+    
+    @login_required(login_url="login:login")
+    def edit_user_admin_view(request, user_id):
+        logged_user = request.user
+        if not logged_user.is_superuser:
+            return HttpResponse("You do not have access to this page")
+        
+        profile = CustomUser.objects.get(pk=user_id)
+        if request.method == 'POST':
+            form = AdminUserForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+                # return HttpResponse("HELLOOOO")
+                return redirect('custom_admin:users')
+        else:
+            form = AdminUserForm(instance=profile)
+        context = {
+            'form': form,
+            'user': profile
+        }
+        return render(request, 'edit_users_admin.html', context)
