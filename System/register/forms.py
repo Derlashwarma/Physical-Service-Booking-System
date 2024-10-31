@@ -45,3 +45,9 @@ class RegistrationForm(forms.ModelForm):
             user.save()
         
         return user
+
+class AdminUserForm(forms.ModelForm):
+    class Meta:
+        model= CustomUser
+        fields= '__all__'
+        exclude=['password', 'groups', 'user_permissions']

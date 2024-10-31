@@ -1,12 +1,25 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Min, Max, Sum
 from django.utils import timezone
+from datetime import timedelta
 from register.models import CustomUser
 from job.models import Job
+from django.db.models import Q, Count
+from register.forms import AdminUserForm
 
 # Create your views here.
 class AdminViews:
+    def get_daily_aggregates(model, date_field, filter_kwargs, aggregation_field='id',
+                              aggregate_type=Count, order_by='date'):
+        return (
+            model.objects.filter(**filter_kwargs)
+            .extra({'date': f'date({date_field})'})
+            .values('date')
+            .annotate(aggregate_result=aggregate_type(aggregation_field))
+            .order_by(order_by)
+        )
+    
     @login_required(login_url="login:login")
     def overview(request):
         user = request.user
@@ -22,42 +35,45 @@ class AdminViews:
         current_date = timezone.now()
 
         #List of registered users in a specific day
-        daily_user_registration = (
-            CustomUser.objects.filter(date_joined__range=(date_started, current_date))
-            .extra({'date': 'date(date_joined)'})
-            .values('date')
-            .annotate(count=Count('id'))
-            .order_by('date')
+        daily_user_registration = AdminViews.get_daily_aggregates(
+            model=CustomUser,
+            date_field='date_joined',
+            filter_kwargs={'date_joined__range': (date_started, current_date)},
+            aggregation_field='id',
+            aggregate_type=Count,
+            order_by='date'
         )
         # dates = X, count = Y
         dates = [entry['date'] for entry in daily_user_registration]
-        counts = [entry['count'] for entry in daily_user_registration]
+        counts = [entry['aggregate_result'] for entry in daily_user_registration]
 
         # List of jobs created within the date range
-        daily_jobs_created = (
-            Job.objects.filter(created_at__range=(date_started, current_date))
-            .extra({'date': 'date(created_at)'})
-            .values('date')
-            .annotate(count=Count('id'))
-            .order_by('date')
+        daily_jobs_created = AdminViews.get_daily_aggregates(
+            model=Job,
+            date_field='created_at',
+            filter_kwargs={'created_at__range': (date_started, current_date)},
+            aggregation_field='id',
+            aggregate_type=Count,
+            order_by='date'
         )
         
         # Dates and counts of jobs created
         job_dates = [entry['date'] for entry in daily_jobs_created]
-        job_counts = [entry['count'] for entry in daily_jobs_created]
+        job_counts = [entry['aggregate_result'] for entry in daily_jobs_created]
 
          # Calculate daily income generated
-        daily_income_generated = (
-            Job.objects.filter(is_done=True, finished_at__range=(date_started, current_date))
-            .extra({'date': 'date(finished_at)'}) 
-            .values('date')
-            .annotate(daily_income=Sum('budget')) 
-            .order_by('date')
+        daily_income_generated = AdminViews.get_daily_aggregates(
+            model=Job,
+            date_field='finished_at',
+            filter_kwargs={'finished_at__range':(date_started, current_date)},
+            aggregation_field='budget',
+            aggregate_type=Sum,
+            order_by='date'
         )
 
         # Dates and daily income generated
         income_dates = [entry['date'] for entry in daily_income_generated]
-        income_counts = [float(entry['daily_income']) for entry in daily_income_generated]
+        income_counts = [float(entry['aggregate_result']) for entry in daily_income_generated]
         print(income_counts)
 
         context = {
@@ -73,3 +89,84 @@ class AdminViews:
             'income_count': income_counts
         }
         return render(request,'overview.html',context)
+    
+    
+    @login_required(login_url="login:login")
+    def user_admin_view(request):
+        user = request.user
+        if not user.is_superuser:
+            return HttpResponse("You do not have access to this page")
+        
+        total_registered_users = CustomUser.objects.all().count()
+        
+        one_month_before = timezone.now() - timedelta(days=30)
+        active_users = CustomUser.objects.filter(last_login__gte = one_month_before).count()
+
+        worker_count = CustomUser.objects.filter(is_worker=True).count()
+        employer_count = total_registered_users - worker_count
+
+        date_started = timezone.datetime(2024, 10, 1)
+        current_date = timezone.now()
+
+        daily_user_registration = AdminViews.get_daily_aggregates(
+            model=CustomUser,
+            date_field='date_joined',
+            filter_kwargs={'date_joined__range': (date_started, current_date)},
+            aggregation_field='id',
+            aggregate_type=Count,
+            order_by='date'
+        )
+        # dates = X, count = Y
+        dates = [entry['date'] for entry in daily_user_registration]
+        counts = [entry['aggregate_result'] for entry in daily_user_registration]
+        current_sort_option = request.GET.get("sort_option", "date_joined")
+        sort_by = request.GET.get("sort_by", "-")
+        
+        order_args = []
+        if current_sort_option:
+            order_args.append(f"{'-' if sort_by == '-' else ''}{current_sort_option}")
+        
+        users = (
+            CustomUser.objects
+            .annotate(
+                jobs_applied_count=Count('jobapplication'),
+                jobs_created_count=Count('job'),
+                accepted_jobs_count=Count('jobapplication', filter=Q(jobapplication__status='accepted')),
+            )
+            .values('id', 'username', 'is_worker', 'date_joined', 'jobs_applied_count', 'jobs_created_count', 'accepted_jobs_count')
+            .order_by(*order_args)
+        )
+        context = {
+            'total_users': total_registered_users,
+            'active_users_count': active_users,
+            'worker_count': worker_count,
+            'employer_count': employer_count,
+            'dates': dates,
+            'counts': counts,
+            'users': users,
+            'current_sort_option': current_sort_option,
+            'sort_by': sort_by,
+        }
+        
+        return render(request, 'user_admin.html', context)
+    
+    @login_required(login_url="login:login")
+    def edit_user_admin_view(request, user_id):
+        logged_user = request.user
+        if not logged_user.is_superuser:
+            return HttpResponse("You do not have access to this page")
+        
+        profile = CustomUser.objects.get(pk=user_id)
+        if request.method == 'POST':
+            form = AdminUserForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+                # return HttpResponse("HELLOOOO")
+                return redirect('custom_admin:users')
+        else:
+            form = AdminUserForm(instance=profile)
+        context = {
+            'form': form,
+            'user': profile
+        }
+        return render(request, 'edit_users_admin.html', context)
