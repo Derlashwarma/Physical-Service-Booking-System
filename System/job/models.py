@@ -13,7 +13,7 @@ class Job(models.Model):
     is_done = models.BooleanField(default=False)
     budget = models.DecimalField(decimal_places=2, max_digits=100)
     location = models.CharField(max_length=100, blank=False)
-    finished_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.pk is not None: 
