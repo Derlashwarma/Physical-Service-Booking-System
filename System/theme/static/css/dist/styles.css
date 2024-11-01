@@ -823,12 +823,12 @@ select {
   top: 0px;
 }
 
-.top-2\/4 {
-  top: 50%;
-}
-
 .top-10 {
   top: 2.5rem;
+}
+
+.top-2\/4 {
+  top: 50%;
 }
 
 .z-50 {
@@ -896,11 +896,6 @@ select {
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.mx-1 {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
 }
 
 .mb-2 {
@@ -1143,6 +1138,10 @@ select {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-4\/5 {
+  width: 80%;
 }
 
 .min-w-60 {
@@ -1818,6 +1817,11 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-primary_color {
+  --tw-text-opacity: 1;
+  color: rgb(78 171 71 / var(--tw-text-opacity));
 }
 
 .antialiased {

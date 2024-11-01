@@ -12,7 +12,7 @@ class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_done = models.BooleanField(default=False)
     budget = models.DecimalField(decimal_places=2, max_digits=100)
-    location = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=False)
     finished_at = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
