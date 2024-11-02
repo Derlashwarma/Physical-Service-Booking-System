@@ -9,5 +9,6 @@ urlpatterns = [
     path('jobs/<int:job_id>', JobViews.show_applications,name='my_jobs'),
     path('edit/<int:job_id>', JobViews.edit_job,name='edit_job'),
     path('accept/<int:application_id>', JobViews.accept_application,name='accept'),
-    path('reject/<int:application_id>/', JobViews.reject_application, name='reject')
+    path('reject/<int:application_id>/', JobViews.reject_application, name='reject'),
+    path('delete/<int:job_id>/', JobViews.delete_job, name='delete_job'),
 ]
