@@ -24,7 +24,7 @@
         <ul class="flex flex-row ml-auto gap-4">
             <li><a href="{% url "custom_admin:overview" %}" class="transition {% if 'overview' in request.path %} text-teal-600 hover:text-secondary{% else %}text-gray-700 hover:text-black{% endif %}">Overview</a></li>
             <li><a href="{% url "custom_admin:users" %}" class="transition {% if 'users' in request.path %} text-teal-600 hover:text-secondary{% else %}text-gray-700 hover:shadow-sm{% endif %}">Users</a></li>
-            <li><a  href="#" class="transition {% if 'jobs' in request.path %} text-teal-600 hover:text-secondary{% else %}text-gray-700 hover:text-black{% endif %}">Jobs</a></li>
+            <li><a  href="{% url "custom_admin:job_admin" %}" class="transition {% if 'jobs' in request.path %} text-teal-600 hover:text-secondary{% else %}text-gray-700 hover:text-black{% endif %}">Jobs</a></li>
             <li><a  href="{% url "custom_admin:job_applications" %}" class="transition {% if 'jobapplications' in request.path %} text-teal-600 hover:text-secondary{% else %}text-gray-700 hover:text-black{% endif %}">Job Applications</a></li>
             <li><a href="{% url "login:logout" %}" class="text-red-600 transition hover:text-red-800">Logout</a></li>
         </ul>
