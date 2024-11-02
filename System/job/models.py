@@ -20,6 +20,11 @@ class Job(models.Model):
             old_instance = Job.objects.get(pk=self.pk)
             if old_instance.is_done != self.is_done and self.is_done:
                 self.finished_at = timezone.now()
+
+                applications = self.jobapplication_set.all()
+                applications.filter(status="pending").update(status="declined")
+                applications.fileter(status="accepted").update(status="completed")
+                
             elif old_instance.is_done and not self.is_done:
                 self.finished_at = None 
 
