@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% block custom_head_tag %}
+    <script src="{% static "js/job.js" %}"></script>
+    <link rel="stylesheet" href="{% static 'css/job.css' %}">
+{% endblock custom_head_tag %}
+
+{% block title %}Apply {{job}}{% endblock title %}
+{% block content %}
+<div id="custom-popup" class="transition-all">
+    <div class="bg-white p-6 rounded shadow-lg text-center">
+        <p id="popup-message" class="mb-4 text-xl"></p>
+        <div class="flex justify-center gap-4">
+            <button id="confirm-btn" class="bg-green-500 text-white px-4 py-2 rounded">Confirm</button>
+            <button id="cancel-btn" class="bg-red-600 text-white px-4 py-2 rounded">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28">
+    <div class="w-1/4 flex flex-col h-auto bg-white rounded-lg mr-2 shadow-md border border-gray-200 px-4">
+        <div>
+            {% if job.employer.image %}
+            <img class="w-1/2 aspect-h-1 rounded-lg mt-4" src="{{job.employer.profile.url}}" alt="Profile picture of {{job.employerusername}}"/>
+                {% else %}
+            <img class="w-1/2 aspect-h-1 rounded-lg mt-4 border border-gray-400" src="{% static "/images/default.webp" %}" alt="Default Profile"/>
+            {% endif %}
+        </div>
+        <div class="mt-4 max-h-80 overflow-hidden">
+            {{job.get_short_description | safe}}
+        </div>
+        <div class=" mb-4">
+            <form action="{% url 'job:apply_job' job.pk %}" method="post">
+                {% csrf_token %}
+                {% if user.is_worker %}
+                    <button id="apply" type="submit" class="bg-green-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-green-700">Apply Now</button>
+                    {% else %}
+                <button type="submit" class="bg-green-500 w-full p-3 text-white block text-center rounded-md mt-4 transition-all" disabled>Apply Now</button>
+                {% endif %}
+            </form>
+                <a href="#" class="white border border-green-600 w-full p-3 text-green-600 block text-center rounded-md mt-4 transition-all hover:bg-green-600 hover:text-white">Message Me</a>
+            {% if user.is_worker %}
+                <a href="{% url "employee:employee_feed" %}" class="white bg-red-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</a>
+            {% else %}
+                <a href="{% url "employer:employer_feed" %}" class="white bg-red-600 w-full p-3 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="w-3/4 h-full bg-white rounded-lg ml-3 shadow-md border border-gray-200 p-4">
+        {{job.description | safe}}
+    </div>
+</div>
+{% endblock content %}

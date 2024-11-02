@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Landing
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="content relative h-screen bg-gray-100 flex items-right mt-12 ">
+        <div class="max-w-8xl mx-12 px-8 md:px-12 mb-2 mt-8">
+            <h1 class="text-8xl font-extrabold text-black leading-tight text-left">AFFORDABLE</h1>
+            <h1 class="text-8xl font-extrabold text-black leading-tight mt-[-15px] text-left">SKILLED WORKERS</h1>
+            <h1 class="text-8xl font-extrabold text-black leading-tight mt-[-15px] text-left">NEAR YOU</h1>
+            <p class="text-lg text-neutral-600 mt-2 text-left">
+                With over 100,000+ trusted and certified professionals<br>
+                with just a click of a button.
+            </p>
+            <a href="{% url 'register:register' %}" class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg">
+                Get Started
+            </a>
+        </div>
+    </div>
+
+    <!-- Other sections (Explore, About, etc.) -->
+    <div id="explore" class="mt-12 text-center">
+        <a href="#explore" class="explore-link">
+            <img src="{% static 'images/Explore.png' %}" alt="Explore" class="explore-image mx-auto">
+        </a>
+    </div>
+
+    <div id="about" class="mt-12 text-center">
+        <a href="#about" class="about-link">
+            <img src="{% static 'images/About-Top.png' %}" alt="About" class="about-image mx-auto">
+        </a>
+        <a href="#about" class="about-link">
+            <img src="{% static 'images/About-Bottom.png' %}" alt="About" class="about-image mx-auto mt-4">
+        </a>
+    </div>
+{% endblock %}
