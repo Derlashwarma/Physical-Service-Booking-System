@@ -6,7 +6,7 @@
     <div class="bg flex flex-row gap-4 w-full px-8 py-5 bg-slate-100">
         <div class="w-2/6 flex flex-col gap-4">
             <div class="bg-white rounded-md shadow-custom_spread p-10 h-fit">
-                <img class="rounded-full" src="{% if user.image.url %}{{user.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
+                <img class="rounded-full" src="{% if user.image %}{{user.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
                 <p class="text-center mt-4 text-xl font-bold text-primary_color">{{user}}</p>
                 <p>
                     {% if user.social_contacts %}
