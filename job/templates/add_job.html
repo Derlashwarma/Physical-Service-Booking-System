@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block custom_head_tag %}
+    <script src="{% static "js/job.js" %}"></script>
+    <link rel="stylesheet" href="{% static 'css/job.css' %}">
+{% endblock custom_head_tag %}
+
+{% block title %}Add Job{% endblock title %}
+
+{% block content %}
+<div id="custom-popup" class="transition-all">
+    <div class="bg-white p-6 rounded shadow-lg text-center">
+        <p id="popup-message" class="mb-4 text-xl"></p>
+        <div class="flex justify-center gap-4">
+            <button id="confirm-btn" class="bg-green-500 text-white px-4 py-2 rounded">Confirm</button>
+            <button id="cancel-btn" class="bg-red-600 text-white px-4 py-2 rounded">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="flex flex-col items-center w-full">
+    <div class="flex flex-col w-11/12 lg:w-3/4 bg-white rounded-md shadow-lg p-10">
+        <p class="text-green-600 text-3xl font-bold text-left mb-2">Create Job</p> 
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            {{ form.media }}
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Left Column -->
+                <div class="space-y-6">
+                    <div>
+                        <label for="title" class="font-semibold">Title</label>
+                        {{ form.title }}
+                        <small class="text-red-700">{{ form.title.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label for="location" class="font-semibold">Location</label>
+                        {{ form.location }}
+                        <small class="text-red-700">{{ form.location.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Job Specifications</label>
+                        <div class="flex flex-wrap gap-4 mt-2">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                                
+                                <!-- Category Section -->
+                                <div class="bg-gray space-y-1.5 p-4 rounded">
+                                    <p class="font-semibold text-slate-600">Category</p>
+                                    {% for choice in form.category.field.choices %}
+                                        <label class="flex items-center">
+                                            <input type="radio" name="category" value="{{ choice.0 }}" class="mr-2" {% if form.category.value == choice.0 %}checked{% endif %}> {{ choice.1 }}
+                                        </label>
+                                    {% endfor %}
+                                    <small class="text-red-700">{{ form.category.errors }}</small>
+                                </div>
+
+                                <!-- Schedule Section -->
+                                <div class="bg-gray space-y-1.5 p-4 rounded">
+                                    <p class="font-semibold text-slate-600">Schedule</p>
+                                    {% for choice in form.schedule.field.choices %}
+                                        <label class="flex items-center">
+                                            <input type="radio" name="schedule" value="{{ choice.0 }}" class="mr-2" {% if form.schedule.value == choice.0 %}checked{% endif %}> {{ choice.1 }}
+                                        </label>
+                                    {% endfor %}
+                                    <small class="text-red-700">{{ form.schedule.errors }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <div>
+                        <label for="description" class="font-semibold">Job Description</label>
+                        {{ form.description }}
+                        <small class="text-red-700">{{ form.description.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label for="date" class="font-semibold">Date</label>
+                        {{ form.date }}
+                        <small class="text-red-700">{{ form.date.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label for="budget" class="font-semibold">Budget</label>
+                        {{ form.budget }}
+                        <small class="text-red-700">{{ form.budget.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Payment Method</label>
+                        <div class="flex gap-4 mt-2">
+                            {% for choice in form.payment_method.field.choices %}
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment_method" value="{{ choice.0 }}" class="mr-2" {% if form.payment_method.value == choice.0 %}checked{% endif %}> {{ choice.1 }}
+                                </label>
+                            {% endfor %}
+                            <small class="text-red-700">{{ form.payment_method.errors }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="post" type="submit" class="w-full py-3 bg-green-600 text-white text-lg font-semibold mt-8 rounded-md hover:bg-green-700">Create Job</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

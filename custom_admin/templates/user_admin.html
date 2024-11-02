@@ -1,0 +1,87 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% block custom_head_tag %}
+<script src="{% static "js/user_charts.js" %}"></script>
+{% endblock custom_head_tag %}
+{% block title %}Users{% endblock title %}
+
+{% block name %}{{request.user}}{% endblock name %}
+
+{% block content %}
+    <div class="w-full h-fit bg-white mt-5 rounded-md shadow-custom_spread p-4">
+        <h3 class="text-2xl font-medium">Users</h3>
+        <div class="grid grid-cols-4 gap-6 p-10 border-b border-b-slate-300">
+            <div>            
+                <p class="text-center">Number of Registered Users</p>
+                <p class="text-center text-4xl font-bold">{{total_users}}</p>
+            </div>
+            <div class="flex flex-col">
+                <p class="text-center">Number of Active Users</p>
+                <p class="text-center text-4xl font-bold">{{active_users_count}}</p>
+            </div>
+            <div>
+                <p class="text-center">Number of Workers</p>
+                <p class="text-center text-4xl font-bold">{{worker_count}}</p>
+            </div>
+            <div>
+                <p class="text-center">Number of Employers</p>
+                <p class="text-center text-4xl font-bold">{{employer_count}}</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-6 p-5 border-b border-b-slate-300 w-full">
+            <div class="flex items-center justify-center h-full">
+                <canvas id="registered-users"></canvas>
+            </div>
+            <div class="flex items-center justify-center content-center">
+                <canvas id="user-types"></canvas>
+            </div>
+        </div>
+        <div class="py-2 px-5 flex flex-row">
+            <form id="sort-form" class="ml-auto"method="get" action="{% url 'custom_admin:users' %}">
+                <label for="sort_option" class="text-xs">Order by:</label>
+                <select name="sort_option" id="sort_option" class="text-xs px-1 py-0.5 rounded-sm" style="font-size: 0.75rem;">
+                    <option value="">Select</option>
+                    <option value="is_worker" {% if current_sort_option == "is_worker" %}selected{% endif %}>is worker</option>
+                    <option value="date_joined" {% if current_sort_option == "date_joined" %}selected{% endif %}>date joined</option>
+                    <option value="jobs_applied_count" {% if current_sort_option == "jobs_applied_count" %}selected{% endif %}>jobs applied</option>
+                    <option value="jobs_created_count" {% if current_sort_option == "jobs_created_count" %}selected{% endif %}>jobs created</option>
+                    <option value="accepted_jobs_count" {% if current_sort_option == "accepted_jobs_count" %}selected{% endif %}>accepted jobs</option>
+                </select>
+                <label for="sort_by" class="text-xs">Sort</label>
+                <select name="sort_by" id="sort_by" class="text-xs px-1 py-0.5 rounded-sm" style="font-size: 0.75rem;">
+                    <option value="-" {% if sort_by == "-" %}selected{% endif %}>Descending</option>
+                    <option value="" {% if sort_by == "" %}selected{% endif %}>Ascending</option>
+                </select>
+            </form>
+        </div>
+        <table class="table-auto w-full rounded-md border border-slate-300">
+            <thead>
+                <tr class="border-b bg-slate-200">
+                    <th class="py-3 px-6 text-gray-600 font-semibold">Username</th>
+                    <th class="py-3 px-6 text-gray-600 font-semibold">Is Worker</th>
+                    <th class="py-3 px-6 text-gray-600 font-semibold">Date Joined</th>
+                    <th class="py-3 px-6 text-gray-600 font-semibold">Jobs Applied</th>
+                    <th class="py-3 px-6 text-gray-600 font-semibold">Jobs Created</th>
+                    <th class="py-3 px-6 text-gray-600 font-semibold">Accepted Jobs</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr class="border-b  text-center">
+                        <td class="py-3"><a href="{% url 'custom_admin:edit_users' user_id=user.id %}">{{user.username}}</a></td>
+                        <td>{{user.is_worker}}</td>
+                        <td>{{user.date_joined}}</td>
+                        <td>{{user.jobs_applied_count}}</td>
+                        <td>{{user.jobs_created_count}}</td>
+                        <td>{{user.accepted_jobs_count}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        <script type="application/json" id="user-date">{{ dates|safe }}</script>
+        <script type="application/json" id="user-count">{{ counts|safe }}</script>
+        <script type="application/json" id="workers">{{ worker_count|safe }}</script>
+        <script type="application/json" id="employers">{{ employer_count|safe }}</script>
+        
+    </div>
+{% endblock content %}
