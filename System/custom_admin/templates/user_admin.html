@@ -12,19 +12,19 @@
         <h3 class="text-2xl font-medium">Users</h3>
         <div class="grid grid-cols-4 gap-6 p-10 border-b border-b-slate-300">
             <div>            
-                <p class="text-center text-gray-500">Number of Registered Users</p>
+                <p class="text-center">Number of Registered Users</p>
                 <p class="text-center text-4xl font-bold">{{total_users}}</p>
             </div>
             <div class="flex flex-col">
-                <p class="text-center text-gray-500">Number of Active Users</p>
+                <p class="text-center">Number of Active Users</p>
                 <p class="text-center text-4xl font-bold">{{active_users_count}}</p>
             </div>
             <div>
-                <p class="text-center text-gray-500">Number of Workers</p>
+                <p class="text-center">Number of Workers</p>
                 <p class="text-center text-4xl font-bold">{{worker_count}}</p>
             </div>
             <div>
-                <p class="text-center text-gray-500">Number of Employers</p>
+                <p class="text-center">Number of Employers</p>
                 <p class="text-center text-4xl font-bold">{{employer_count}}</p>
             </div>
         </div>
@@ -68,7 +68,7 @@
             <tbody>
                 {% for user in users %}
                     <tr class="border-b  text-center">
-                        <td class="py-3"><a class="hover:text-secondary" href="{% url 'custom_admin:edit_users' user_id=user.id %}">{{user.username}}</a></td>
+                        <td class="py-3"><a href="{% url 'custom_admin:edit_users' user_id=user.id %}">{{user.username}}</a></td>
                         <td>{{user.is_worker}}</td>
                         <td>{{user.date_joined}}</td>
                         <td>{{user.jobs_applied_count}}</td>

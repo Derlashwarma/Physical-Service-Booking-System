@@ -52,12 +52,6 @@ $(document).ready(function() {
         showPopup("Are you sure you want to discard changes?", null);
     });
 
-    $('#delete-job').on('click', function(e) {
-        e.preventDefault(); 
-        const form = $(this).closest('form');
-        showPopup("Are you sure you want to delete this job post?", form);
-    });
-
     $("#post").on('click',function(e){
         e.preventDefault();
         const form = $(this).closest('form');

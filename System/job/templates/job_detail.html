@@ -26,14 +26,12 @@
         {% if job.location %}
             <div class="mt-5">
                 <p class="font-medium">Location</p>
-                {{job.location|safe}}
+                <p>{{job.location |safe}}</p>
             </div>
         {% endif %}
         <div class="mt-5">
             <p class="font-medium">Description</p>
-            <div class="rich-text-content">
-                {{job.description|safe}}
-            </div>
+            <p>{{job.description |safe}}</p>
         </div>
     </div>
     <div class=" bg-white rounded-md  h-fit p-4 shadow-sm" >
