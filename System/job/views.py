@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .forms import JobPostForm
 from .models import Job, JobApplication
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 class JobViews:
     @login_required(login_url="login:login")
@@ -83,6 +84,9 @@ class JobViews:
         
     def edit_job(request, job_id):
         job = Job.objects.get(pk=job_id)
+        if request.user != job.employer and not request.user.is_staff:
+            return HttpResponse("You Do Not Have Access")
+        
         if request.method == 'POST':
             form = JobPostForm(request.POST, instance=job)
             if form.is_valid():
@@ -95,3 +99,13 @@ class JobViews:
             'job': job
         }
         return render(request, 'edit_job.html', context)
+    
+    def delete_job(request, job_id):
+        job = Job.objects.get(pk=job_id)
+        if request.method == 'POST':
+            job.is_active = False
+            job.save()
+            return redirect('profile:profile',username=request.user.username)
+        
+        return render(request, 'delete_confirmation.html', {'job': job})
+

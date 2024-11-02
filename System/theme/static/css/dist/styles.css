@@ -831,6 +831,22 @@ select {
   top: 50%;
 }
 
+.left-10 {
+  left: 2.5rem;
+}
+
+.left-5 {
+  left: 1.25rem;
+}
+
+.top-5 {
+  top: 1.25rem;
+}
+
+.top-20 {
+  top: 5rem;
+}
+
 .z-50 {
   z-index: 50;
 }
