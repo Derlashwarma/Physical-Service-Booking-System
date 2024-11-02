@@ -17,7 +17,10 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <a id="discard-changes" href="{% url 'job:my_jobs' job_id=job.id %}" id="discard-btn" class="px-4 bg-red-700 p-2 text-white mt-2 rounded-md hover:bg-red-800 transition-colors sticky  left-5 top-20 ">Back</a>
+=======
+>>>>>>> main
 <div class="w-full h-fit p-4 px-48 grid gap-5 transition-all">
     <div class="bg-white rounded-md h-fit p-4 shadow-md w-auto  mx-auto border">
         <p class="w-full text-3xl text-center text-green-600">Edit Job</p>
@@ -30,9 +33,9 @@
                 <small class="text-red-700">{{form.title.errors}}</small>
             </div>
             <div class="mt-5">
-                <label for="location">Tags</label>
-                {{form.tag}}
-                <small class="text-red-700">{{form.tag.errors}}</small>
+                <label for="location">Job Type</label>
+                {{form.job_type}}
+                <small class="text-red-700">{{form.job_type.errors}}</small>
             </div> 
             <div class="mt-5">
                 <label for="location">Location</label>
@@ -50,7 +53,7 @@
                 <small class="text-red-700">{{form.description.errors}}</small>
             </div>
             <button id="save-changes" type="default_if_none:""" class="w-full bg-green-600 p-2 text-white mt-2 rounded-sm hover:bg-green-700 transition-colors">Save Changes</button>
-            <a href="{% url 'job:delete_job' job.id %}" class="w-full text-center bg-red-700 p-2 text-white inline-block mt-3 rounded-sm hover:bg-red-800">Delete job</a>
+            <a id="discard-changes" href="{% url 'job:my_jobs' job_id=job.id %}" id="discard-btn" class="w-full bg-red-700 p-2 text-white mt-2 rounded-sm hover:bg-red-800 transition-colors text-center inline-block">Discard Changes</a>
         </form>
     </div>
 </div>

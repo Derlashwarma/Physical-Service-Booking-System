@@ -54,7 +54,7 @@ def display_worker_profile(request, user, logged_in_user, owner):
 #This function will render the template for the Employer's profile
 @login_required(login_url="login:login")
 def display_employer_profile(request, user, logged_in_user, owner):
-    active_jobs = Job.objects.filter(employer= logged_in_user, is_done=False, is_active=True)
+    active_jobs = Job.objects.filter(employer= logged_in_user, is_done=False)
     finished_jobs = Job.objects.filter(employer= logged_in_user, is_done=True)
     averate_employer_rating = Rating.objects.filter(to_user=logged_in_user).aggregate(average_score=Avg('score'))['average_score']
     context = {

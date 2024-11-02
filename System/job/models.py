@@ -6,12 +6,11 @@ from django.utils import timezone
 # Create your models here.
 class Job(models.Model):
     employer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    tag = models.CharField(max_length=50)
+    job_type = models.CharField(max_length=50)
     title = models.CharField(max_length=100)
     description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_done = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
     budget = models.DecimalField(decimal_places=2, max_digits=100)
     location = models.CharField(max_length=100, blank=False)
     finished_at = models.DateField(null=True, blank=True)
@@ -21,12 +20,6 @@ class Job(models.Model):
             old_instance = Job.objects.get(pk=self.pk)
             if old_instance.is_done != self.is_done and self.is_done:
                 self.finished_at = timezone.now()
-                self.is_active = False
-
-                applications = self.jobapplication_set.all()
-                applications.filter(status="pending").update(status="declined")
-                applications.filter(status="accepted").update(status="completed")
-                
             elif old_instance.is_done and not self.is_done:
                 self.finished_at = None 
 

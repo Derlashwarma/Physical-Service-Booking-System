@@ -8,7 +8,6 @@ from job.models import Job, JobApplication
 from django.db.models import Q, Count
 from register.forms import AdminUserForm
 from .forms import ApplicationForm
-from collections import Counter
 
 # Create your views here.
 class AdminViews:
@@ -212,53 +211,3 @@ class AdminViews:
             'form': form
         }
         return render(request, 'edit_application.html',context)
-
-
-    @login_required(login_url="login:login")
-    def job_admin(request):
-        logged_user = request.user
-        if not logged_user.is_superuser:
-            return HttpResponse("You do not have access to this page")
-        job_summary = {
-            'job_posted': Job.objects.all().count(),
-            'active': Job.objects.filter(is_done=False).count(),
-            'completed': Job.objects.filter(is_done=True).count(),
-            'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
-        }
-        
-        date_started = timezone.datetime(2024, 10, 1)
-        current_date = timezone.now()
-        
-        daily_jobs_created = AdminViews.get_daily_aggregates(
-            model=Job,
-            date_field='created_at',
-            filter_kwargs={'created_at__range': (date_started, current_date)},
-            aggregation_field='id',
-            aggregate_type=Count,
-            order_by='date'
-        )
-        job_dates = [entry['date'] for entry in daily_jobs_created]
-        job_counts = [entry['aggregate_result'] for entry in daily_jobs_created]
-
-        job_types = Job.objects.values_list('tag', flat=True)
-        job_tags = Counter(job_types)
-        tag = {
-            'label': list(job_tags.keys()),
-            'count': list(job_tags.values())
-        }
-
-        current_sort_option = request.GET.get("sort_option", "title")
-        sort_by = request.GET.get("sort_by", "-")
-        order_args = [f"{'-' if sort_by == '-' else ''}{current_sort_option}"]
-        
-        jobs = Job.objects.order_by(*order_args)
-        context = {
-            'job_summary': job_summary,
-            'job_date': job_dates,
-            'job_count': job_counts,
-            'tag': tag,
-            'jobs': jobs,
-            'current_sort_option': current_sort_option
-        }
-        return render(request, 'job_admin.html', context)
-        
