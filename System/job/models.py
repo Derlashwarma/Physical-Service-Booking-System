@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class Job(models.Model):
     employer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    job_type = models.CharField(max_length=50)
+    tag = models.CharField(max_length=50)
     title = models.CharField(max_length=100)
     description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,7 +23,7 @@ class Job(models.Model):
 
                 applications = self.jobapplication_set.all()
                 applications.filter(status="pending").update(status="declined")
-                applications.fileter(status="accepted").update(status="completed")
+                applications.filter(status="accepted").update(status="completed")
                 
             elif old_instance.is_done and not self.is_done:
                 self.finished_at = None 

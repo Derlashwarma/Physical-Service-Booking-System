@@ -56,7 +56,7 @@ class JobViews:
             return redirect("employee:employee_feed")
         
         job = Job.objects.get(id=job_id) 
-        if job.employer != request.user:
+        if job.employer != request.user and not request.user.is_staff :
             return redirect("employer:employer_feed")
         applications = JobApplication.objects.filter(job=job)
         context = {
