@@ -5,28 +5,47 @@ from django.utils import timezone
 
 # Create your models here.
 class Job(models.Model):
+    CATEGORY_CHOICES = [
+        ('repair', 'Repair'),
+        ('cleaning_services', 'Cleaning Services'),
+        ('massage', 'Massage'),
+        ('childcare_services', 'Childcare Services'),
+        ('carpentry', 'Carpentry'),
+        ('other', 'Other'),  
+    ]
+
+    SCHEDULE_CHOICES = [
+        ('one_time', 'One-Time'),
+        ('fulltime', 'Full-Time'),
+        ('parttime', 'Part-Time'),
+        ('internship', 'Internship'),
+        ('project_work', 'Project Work'),
+        ('volunteering', 'Volunteering'),
+    ]
+
+    PAYMENT_METHOD_CHOICES = [
+        ('cash', 'Cash'),
+        ('gcash', 'GCash'),
+        ('credit_debit', 'Credit/Debit'),
+    ]
     employer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    tag = models.CharField(max_length=50)
     title = models.CharField(max_length=100)
     description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_done = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
     budget = models.DecimalField(decimal_places=2, max_digits=100)
     location = models.CharField(max_length=100, blank=False)
     finished_at = models.DateField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD_CHOICES)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    schedule = models.CharField(max_length=50, choices=SCHEDULE_CHOICES)
 
     def save(self, *args, **kwargs):
         if self.pk is not None: 
             old_instance = Job.objects.get(pk=self.pk)
             if old_instance.is_done != self.is_done and self.is_done:
                 self.finished_at = timezone.now()
-                self.is_active = False
-
-                applications = self.jobapplication_set.all()
-                applications.filter(status="pending").update(status="declined")
-                applications.filter(status="accepted").update(status="completed")
-                
             elif old_instance.is_done and not self.is_done:
                 self.finished_at = None 
 
