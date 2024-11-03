@@ -240,7 +240,7 @@ class AdminViews:
         job_dates = [entry['date'] for entry in daily_jobs_created]
         job_counts = [entry['aggregate_result'] for entry in daily_jobs_created]
 
-        job_types = Job.objects.values_list('tag', flat=True)
+        job_types = Job.objects.values_list('category', flat=True)
         job_tags = Counter(job_types)
         tag = {
             'label': list(job_tags.keys()),

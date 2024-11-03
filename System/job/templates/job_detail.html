@@ -40,7 +40,7 @@
         <div class="text-center w-full text-xl font-bold text-green-600 mb-5">
             Job Applications
         </div>
-        {% if applications %}
+        {% if applications and owner %}
             {% for application in applications %}
             <div class="border border-green-300 p-5 mt-5 w-full rounded grid  shadow">
                 <div class="text-sm">

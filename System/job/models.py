@@ -32,13 +32,14 @@ class Job(models.Model):
     title = models.CharField(max_length=100)
     description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
     is_done = models.BooleanField(default=False)
     budget = models.DecimalField(decimal_places=2, max_digits=100)
     location = models.CharField(max_length=100, blank=False)
     finished_at = models.DateField(null=True, blank=True)
     date = models.DateField(null=True, blank=True)
     payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD_CHOICES)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='none')
     schedule = models.CharField(max_length=50, choices=SCHEDULE_CHOICES)
 
     def save(self, *args, **kwargs):

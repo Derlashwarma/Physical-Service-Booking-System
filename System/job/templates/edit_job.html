@@ -32,8 +32,8 @@
             </div>
             <div class="mt-5">
                 <label for="location">Tags</label>
-                {{form.tag}}
-                <small class="text-red-700">{{form.tag.errors}}</small>
+                {{form.category}}
+                <small class="text-red-700">{{form.category.errors}}</small>
             </div> 
             <div class="mt-5">
                 <label for="location">Location</label>
@@ -45,6 +45,16 @@
                 {{form.budget}}
                 <small class="text-red-700">{{form.budget.errors}}</small>
             </div> 
+            <div class="mt-5">
+                <label for="budget">Payment Method</label>
+                {{form.payment_method}}
+                <small class="text-red-700">{{form.payment_method.errors}}</small>
+            </div> 
+            <div class="mt-5">
+                <label for="budget">Schedule</label>
+                {{form.schedule}}
+                <small class="text-red-700">{{form.schedule.errors}}</small>
+            </div> 
             <div class="mt-5 flex flex-col justify-center">
                 <label for="description">Description</label>
                 {{form.description}}
@@ -52,6 +62,7 @@
             </div>
             <button id="save-changes" type="default_if_none:""" class="w-full bg-green-600 p-2 text-white mt-2 rounded-sm hover:bg-green-700 transition-colors">Save Changes</button>
             <a href="{% url 'job:delete_job' job.id %}" class="w-full text-center bg-red-700 p-2 text-white inline-block mt-3 rounded-sm hover:bg-red-800">Delete job</a>
+            {{form.errors}}
         </form>
     </div>
 </div>

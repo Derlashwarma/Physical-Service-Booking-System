@@ -60,9 +60,12 @@ class JobViews:
         if job.employer != request.user and not request.user.is_staff :
             return redirect("employer:employer_feed")
         applications = JobApplication.objects.filter(job=job)
+
+        owner = request.user == job.employer
         context = {
             'job': job,
-            'applications': applications
+            'applications': applications,
+            'owner': owner
         }
         return render(request, 'job_detail.html',context)
     
