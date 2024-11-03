@@ -75,7 +75,7 @@ class JobViews:
             application.status = "accepted"
             application.save()
 
-            return redirect("job:job_detail", job_id=application.job.id)
+            return redirect("job:my_jobs", job_id=application.job.id)
         
     def reject_application(request, application_id):
         if request.method == 'POST':
@@ -83,7 +83,7 @@ class JobViews:
             application.status = "declined"
             application.save()
 
-            return redirect("job:job_detail", job_id=application.job.id)
+            return redirect("job:my_jobs", job_id=application.job.id)
         
     def edit_job(request, job_id):
         job = Job.objects.get(pk=job_id)
