@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block title %}
-    Employer Feed {{user.is_authenticated}}
+    Employee Feed {{user.is_authenticated}}
 {% endblock %}
 
 {% block content %}
@@ -34,175 +34,6 @@
                     <div class="text-2xl font-bold mt-6">Filters</div>
                     <div class="text-xs font-bold text-gray-400">Working Schedule</div>
                     <div class="space-y-1">
-                        <!-- Full Time Checkbox -->
-                        <div class="">
-                            <div class="inline-flex items-center">
-                                <label
-                                    class="relative flex cursor-pointer items-center rounded-full p-3"
-                                    for="full-time"
-                                    data-ripple-dark="true"
-                                >
-                                    <input
-                                        id="full-time"
-                                        type="checkbox"
-                                        class="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-black checked:bg-black checked:before:bg-black hover:before:opacity-10"
-                                    />
-                                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-3 w-3"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            stroke="currentColor"
-                                            stroke-width="1"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                </label>
-                                <label class="mt-px cursor-pointer select-none font-normal text-gray-700" for="full-time">Full time</label>
-                            </div>
-                        </div>
-                    
-                        <!-- Part Time Checkbox -->
-                        <div class="">
-                            <div class="inline-flex items-center">
-                                <label
-                                    class="relative flex cursor-pointer items-center rounded-full p-3"
-                                    for="part-time"
-                                    data-ripple-dark="true"
-                                >
-                                    <input
-                                        id="part-time"
-                                        type="checkbox"
-                                        class="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-black checked:bg-black checked:before:bg-black hover:before:opacity-10"
-                                    />
-                                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-3 w-3"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            stroke="currentColor"
-                                            stroke-width="1"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                </label>
-                                <label class="mt-px cursor-pointer select-none font-normal text-gray-700" for="part-time">Part time</label>
-                            </div>
-                        </div>
-                    
-                        <!-- Internship Checkbox -->
-                        <div class="">
-                            <div class="inline-flex items-center">
-                                <label
-                                    class="relative flex cursor-pointer items-center rounded-full p-3"
-                                    for="internship"
-                                    data-ripple-dark="true"
-                                >
-                                    <input
-                                        id="internship"
-                                        type="checkbox"
-                                        class="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-black checked:bg-black checked:before:bg-black hover:before:opacity-10"
-                                    />
-                                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-3 w-3"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            stroke="currentColor"
-                                            stroke-width="1"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                </label>
-                                <label class="mt-px cursor-pointer select-none font-normal text-gray-700" for="internship">Internship</label>
-                            </div>
-                        </div>
-                    
-                        <!-- Project Work Checkbox -->
-                        <div class="">
-                            <div class="inline-flex items-center">
-                                <label
-                                    class="relative flex cursor-pointer items-center rounded-full p-3"
-                                    for="project-work"
-                                    data-ripple-dark="true"
-                                >
-                                    <input
-                                        id="project-work"
-                                        type="checkbox"
-                                        class="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-black checked:bg-black checked:before:bg-black hover:before:opacity-10"
-                                    />
-                                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-3 w-3"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            stroke="currentColor"
-                                            stroke-width="1"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                </label>
-                                <label class="mt-px cursor-pointer select-none font-normal text-gray-700" for="project-work">Project work</label>
-                            </div>
-                        </div>
-                    
-                        <!-- Volunteering Checkbox -->
-                        <div class="">
-                            <div class="inline-flex items-center">
-                                <label
-                                    class="relative flex cursor-pointer items-center rounded-full p-3"
-                                    for="volunteering"
-                                    data-ripple-dark="true"
-                                >
-                                    <input
-                                        id="volunteering"
-                                        type="checkbox"
-                                        class="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-black checked:bg-black checked:before:bg-black hover:before:opacity-10"
-                                    />
-                                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-3 w-3"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            stroke="currentColor"
-                                            stroke-width="1"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                </label>
-                                <label class="mt-px cursor-pointer select-none font-normal text-gray-700" for="volunteering">Volunteering</label>
-                            </div>
-                        </div>
                     </div>                    
                 </div>
             </div>
@@ -210,148 +41,35 @@
             <div class="flex-1 h-full flex flex-col space-y-2 border-solid overflow-y-auto">
                 <div class="flex space-x-2">
                     <div class="text-xl font-bold">Recommended Jobs</div>
-                    <div class="border border-black bg-inherit rounded-2xl w-12 text-center">869</div> 
+                    <div class="border border-black bg-inherit rounded-2xl w-12 text-center">{{ jobs|length }}</div> 
                 </div>
                 <div class="flex-1 border border-gray-200 bg-slate-100 p-8 space-y-4">
                     <!-- Card Container -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Card 1 -->
+                        {% for job in jobs %}
                         <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
                             <div class="relative mx-4 mt-4 overflow-hidden bg-orange-200 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">11 Oct. 2024</div>
-                                <div class="text-xs mt-8">Employer Name</div>
-                                <p class="text-3xl font-bold text-black">Experienced</p>
-                                <p class="text-3xl font-bold text-black">Plumber</p>
+                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">{{ job.date|date:"d M. Y" }}</div>
+                                <div class="text-xs mt-8">{{ job.employer.username }}</div> 
+                                <p class="text-3xl font-bold text-black">{{ job.title }}</p>
                                 <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Plumbing</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Full Day</div>
+                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">{{ job.get_category_display }}</div>
+                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">{{ job.get_schedule_display }}</div>
                                 </div>
                             </div>
                             <div class="p-4">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">$95.00/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">Talisay, Cebu</p>
+                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">₱{{ job.budget }}/hr</p>
+                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">{{ job.location }}</p>
                                     </div>
-                                    <button class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105" type="button">Details</button>
+                                    <a href="{% url 'job:apply_job' job.id %}" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105">
+                                        Details
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Card 2 -->
-                        <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
-                            <div class="relative mx-4 mt-4 overflow-hidden bg-blue-100 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">11 Oct. 2024</div>
-                                <div class="text-xs mt-8">Employer Name</div>
-                                <p class="text-3xl font-bold text-black">Experienced</p>
-                                <p class="text-3xl font-bold text-black">Plumber</p>
-                                <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Plumbing</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Full Day</div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">$95.00/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">Talisay, Cebu</p>
-                                    </div>
-                                    <button class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105" type="button">Details</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 3 -->
-                        <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
-                            <div class="relative mx-4 mt-4 overflow-hidden bg-yellow-100 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">11 Oct. 2024</div>
-                                <div class="text-xs mt-8">Employer Name</div>
-                                <p class="text-3xl font-bold text-black">Experienced</p>
-                                <p class="text-3xl font-bold text-black">Plumber</p>
-                                <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Plumbing</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Full Day</div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">$95.00/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">Talisay, Cebu</p>
-                                    </div>
-                                    <button class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105" type="button">Details</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
-                            <div class="relative mx-4 mt-4 overflow-hidden bg-red-200 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">11 Oct. 2024</div>
-                                <div class="text-xs mt-8">Employer Name</div>
-                                <p class="text-3xl font-bold text-black">Experienced</p>
-                                <p class="text-3xl font-bold text-black">Plumber</p>
-                                <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Plumbing</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Full Day</div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">$95.00/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">Talisay, Cebu</p>
-                                    </div>
-                                    <button class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105" type="button">Details</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
-                            <div class="relative mx-4 mt-4 overflow-hidden bg-emerald-200 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">11 Oct. 2024</div>
-                                <div class="text-xs mt-8">Employer Name</div>
-                                <p class="text-3xl font-bold text-black">Experienced</p>
-                                <p class="text-3xl font-bold text-black">Plumber</p>
-                                <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Plumbing</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Full Day</div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">$95.00/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">Talisay, Cebu</p>
-                                    </div>
-                                    <button class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105" type="button">Details</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 6 -->
-                        <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
-                            <div class="relative mx-4 mt-4 overflow-hidden bg-purple-300 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">11 Oct. 2024</div>
-                                <div class="text-xs mt-8">Employer Name</div>
-                                <p class="text-3xl font-bold text-black">Experienced</p>
-                                <p class="text-3xl font-bold text-black">Plumber</p>
-                                <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Plumbing</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">Full Day</div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">$95.00/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">Talisay, Cebu</p>
-                                    </div>
-                                    <button class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105" type="button">Details</button>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>    
