@@ -66,6 +66,6 @@ $(document).ready(function() {
     $("#apply").on('click',function(e){
         e.preventDefault();
         const form = $(this).closest('form');
-        showPopup("Confirm Job Application?", form)
+        showPopup("Submit Job Application?", form)
     })
 });

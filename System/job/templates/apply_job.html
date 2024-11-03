@@ -18,15 +18,16 @@
     </div>
 </div>
 <div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28">
-    <div class="w-1/4 flex flex-col h-auto bg-white rounded-lg mr-2 shadow-md border border-gray-200 px-4">
+    <div class="w-1/4 flex flex-col bg-white rounded-lg mr-2 shadow-md border border-gray-200 px-4 h-fit">
         <div>
             {% if job.employer.image %}
-            <img class="w-1/2 aspect-h-1 rounded-lg mt-4" src="{{job.employer.profile.url}}" alt="Profile picture of {{job.employerusername}}"/>
+            <img class="w-1/2 aspect-h-1 rounded-lg mt-4" src="{{job.employer.image.url}}" alt="Profile picture of {{job.employerusername}}"/>
                 {% else %}
             <img class="w-1/2 aspect-h-1 rounded-lg mt-4 border border-gray-400" src="{% static "/images/default.webp" %}" alt="Default Profile"/>
             {% endif %}
+            <p class=" text-2xl font-bold">{{job.employer}}</p>
         </div>
-        <div class="mt-4 max-h-80 overflow-hidden">
+        <div class="mt-4 max-h-80 overflow-hidden text-sm ">
             {{job.get_short_description | safe}}
         </div>
         <div class=" mb-4">
@@ -46,8 +47,9 @@
             {% endif %}
         </div>
     </div>
-    <div class="w-3/4 h-full bg-white rounded-lg ml-3 shadow-md border border-gray-200 p-4">
-        {{job.description | safe}}
+    <div class="w-3/4 h-full bg-white rounded-lg ml-3 shadow-md border border-gray-200 p-4 rich-text-content">
+        <p class="text-xl text-green-700 py-4">Description<p>
+        <p class="px-5">{{job.description | safe}}</p>
     </div>
 </div>
 {% endblock content %}
