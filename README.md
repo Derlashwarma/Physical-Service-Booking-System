@@ -42,7 +42,7 @@ This project is an Online Job Portal and Physical Service Booking System designe
 This system is tailored to bridge the gap between those seeking physical services and those providing them, making it a valuable tool for connecting professionals and clients efficiently.
 
 ### Built With
-[![Django][django-image]
+[![Django][django-image]][django-url]
 
 ## Members
 - Benitez, Mars L.
@@ -63,11 +63,12 @@ This system is tailored to bridge the gap between those seeking physical service
 [forks-shield]: https://img.shields.io/github/forks/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 [stars-shield]: https://img.shields.io/github/stars/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 [issues-shield]: https://img.shields.io/github/issues/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
-[django-image]: https://img.shields.io/badge/logo-django-blue?logo=django
+[django-image]: https://img.shields.io/badge/Django-blue?style=for-the-badge&logo=django
 
 
 [contributors-url]: https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors
 [forks-url]: https://github.com/Derlashwarma/Physical-Service-Booking-System/network/members
 [stars-url]:https://github.com/Derlashwarma/Physical-Service-Booking-System/stargazers
 [issues-url]: https://github.com/Derlashwarma/Physical-Service-Booking-System/issues
+[django-url]: https://www.djangoproject.com/
 
