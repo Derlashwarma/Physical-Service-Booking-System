@@ -30,7 +30,7 @@
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 [forks-shield]: https://img.shields.io/github/forks/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
-[stars-shield]: https://img.shields.io/github/stars/Derlashwarma/Physical-Service-Booking-System
+[stars-shield]: https://img.shields.io/github/stars/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 [issues-shield]: https://img.shields.io/github/issues/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 
 
