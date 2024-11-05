@@ -11,11 +11,6 @@
 This project is an Online Job Portal and Physical Service Booking System designed to connect service providers and job seekers. It serves as a comprehensive platform where users can post job opportunities, apply for jobs, and manage job-related interactions. The platform is ideal for hiring physical service providers and for job seekers looking to showcase their skills.
 <br>
 
-
-## Members
-- Benitez, Mars L.
-- Lauron, Ardel Tioco Jeff L.
-
 ## Key Functionalities
 <ol>
   <li>
@@ -43,9 +38,16 @@ This project is an Online Job Portal and Physical Service Booking System designe
   </li>
 </ol>
 
-
 <br>
 This system is tailored to bridge the gap between those seeking physical services and those providing them, making it a valuable tool for connecting professionals and clients efficiently.
+
+### Built With
+[![Django][django-image]
+
+## Members
+- Benitez, Mars L.
+- Lauron, Ardel Tioco Jeff L.
+
 ***
 
 [Gantt Chart](https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk)
@@ -61,6 +63,7 @@ This system is tailored to bridge the gap between those seeking physical service
 [forks-shield]: https://img.shields.io/github/forks/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 [stars-shield]: https://img.shields.io/github/stars/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
 [issues-shield]: https://img.shields.io/github/issues/Derlashwarma/Physical-Service-Booking-System?style=for-the-badge
+[django-image]: https://img.shields.io/badge/logo-django-blue?logo=django
 
 
 [contributors-url]: https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors
