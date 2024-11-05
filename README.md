@@ -19,21 +19,21 @@ This project is an Online Job Portal and Physical Service Booking System designe
 ## Key Functionalities
 <ol>
   <li>
-    **User Management System**: User management system allowing seamless registration, login, and account management for both service providers and job seekers.      </li>
+    ** User Management System **: User management system allowing seamless registration, login, and account management for both service providers and job seekers.      </li>
   <li>
-    **Profile System**: Each user has a personalized profile where they can update their details, showcase skills, experience, and highlight completed jobs or services offered.
+    ** Profile System **: Each user has a personalized profile where they can update their details, showcase skills, experience, and highlight completed jobs or services offered.
   </li>
   <li>
-    **Posting and Commenting System**: Users can create and publish job posts. Other users can interact with these posts by commenting, asking questions, or expressing interest in applying, fostering engagement and clarity.
+    ** Posting and Commenting System **: Users can create and publish job posts. Other users can interact with these posts by commenting, asking questions, or expressing interest in applying, fostering engagement and clarity.
   </li>
   <li>
-   **Messaging System**: An in-built messaging system enables direct communication between service providers and job seekers, facilitating negotiation, scheduling, and further discussion regarding job details.
+   ** Messaging System **: An in-built messaging system enables direct communication between service providers and job seekers, facilitating negotiation, scheduling, and further discussion regarding job details.
   </li>
   <li>
-    **Job Order System**: This system handles job applications and orders, allowing service providers to accept or reject job requests and enabling job seekers to manage their applications.
+    ** Job Order System **: This system handles job applications and orders, allowing service providers to accept or reject job requests and enabling job seekers to manage their applications.
   </li>
   <li>
-    **Administrator System**: Admins oversee the platform’s operations, monitoring user activity, managing content, and ensuring the system operates smoothly and adheres to quality standards.
+    ** Administrator System **: Admins oversee the platform’s operations, monitoring user activity, managing content, and ensuring the system operates smoothly and adheres to quality standards.
   </li>
 </ol>
 
