@@ -21,6 +21,7 @@ This project is an Online Job Portal and Physical Service Booking System designe
   <li>
     <strong>User Management System</strong>: User management system allowing seamless registration, login, and account management for both service providers and job seekers.
   </li>
+  <br>
   <li>
     <strong>Profile System</strong>: Each user has a personalized profile where they can update their details, showcase skills, experience, and highlight completed jobs or services offered.
   </li>
