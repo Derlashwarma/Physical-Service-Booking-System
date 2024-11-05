@@ -19,10 +19,10 @@ This project is an Online Job Portal and Physical Service Booking System designe
 ## Key Functionalities
 <ol>
   <li>
-    **User Management System**: User management system allowing seamless registration, login, and account management for both service providers and job seekers.
+    <strong>User Management System</strong>: User management system allowing seamless registration, login, and account management for both service providers and job seekers.
   </li>
   <li>
-    **Profile System**: Each user has a personalized profile where they can update their details, showcase skills, experience, and highlight completed jobs or services offered.
+    <strong>Profile System</strong>: Each user has a personalized profile where they can update their details, showcase skills, experience, and highlight completed jobs or services offered.
   </li>
   <li>
     **Posting and Commenting System**: Users can create and publish job posts. Other users can interact with these posts by commenting, asking questions, or expressing interest in applying, fostering engagement and clarity.
