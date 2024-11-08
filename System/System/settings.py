@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'job',
     'livereload',
     'custom_admin',
+    'chat',
 ]
 
 MIDDLEWARE = [

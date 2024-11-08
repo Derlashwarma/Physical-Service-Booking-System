@@ -29,16 +29,16 @@
           <ul class="flex space-x-6">
             <li class="self-center">
             {% if user.is_worker %}
-              <a class="hover:text-green-600 {% if 'feed' in request.path %} text-cyan-800 {% endif %}" href="{% url 'employee:employee_feed' %}">Worker Feed</a>
+              <a class="hover:text-green-600 {% if 'feed' in request.path %} text-cyan-800 underline{% endif %}" href="{% url 'employee:employee_feed' %}">Worker Feed</a>
             {% else %}
-              <a class="hover:text-green-600 {% if 'feed' in request.path %} text-cyan-800 {% endif %} " href="{% url 'employer:employer_feed' %}">User Feed</a>
+              <a class="hover:text-green-600 {% if 'feed' in request.path %} text-cyan-800 underline{% endif %} " href="{% url 'employer:employer_feed' %}">User Feed</a>
             {% endif %}
             </li>
             <li class="self-center">
-              <a class="hover:text-green-600" href="#">Chat</a>
+              <a class="hover:text-green-600 {% if 'chat' in request.path %} text-cyan-800 underline{% endif %}" href="{% url "chat:chat_index_default" %}">Chat</a>
             </li>
             <li class="self-center">
-              <a class="hover:text-green-600 {% if 'profile' in request.path %} text-cyan-800 {% endif %}" href="{% url 'profile:profile' username=user.username %}">Profile</a>
+              <a class="hover:text-green-600 {% if 'profile' in request.path %} text-cyan-800 underline{% endif %}" href="{% url 'profile:profile' username=user.username %}">Profile</a>
             </li>
             <li class="self-center">
               <form method="POST" action="{% url 'login:logout' %}" class="">
@@ -59,7 +59,7 @@
     </div>
   </nav>
 
-  <main class="pt-0">
+  <main class="pt-0 h-5/6">
     {% block content %}
 
     {% endblock %}

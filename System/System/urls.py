@@ -29,4 +29,5 @@ urlpatterns = [
     path('employee/', include('employee.urls', namespace="employee")),   # Employee app URLs
     path('employer/', include('employer.urls', namespace="employer")),
     path('job/', include('job.urls', namespace='job')),
+    path('chat/', include('chat.urls', namespace="chat"))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
