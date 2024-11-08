@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block custom_head_tag %}
+    <script src="{% static "js/chat.js" %}"></script>
+{% endblock custom_head_tag %}
+{% block title %}
+    Chat
+{% endblock title %}
+{% block content %}
+<div class="px-40 mt-4 h-full flex flex-row">
+    <div class="flex flex-col bg-white w-full rounded-md shadow-custom_spread p-5">
+        <p class="text-center text-xl font-semibold text-green-800">Conversation with {{other_user}}</p>
+        <div class=" w-full h-full gap-2 p-4 flex flex-col">
+            <div class="h-full w-full border overflow-scroll middle p-2 flex flex-col">
+                {% for message in messages %}
+                    <div class="message p-2 px-4 rounded-sm {% if user.username == message.author.username %}ml-auto text-right bg-gray-200{% else %} w-fit bg-slate-100{% endif %}">
+                        <p><strong>{{ message.author.username }}</strong></p>
+                        <p>{{message.message}}</p>
+                    </div>
+                {% endfor %}
+            </div>            
+            <div class="h-1/5 w-full border">
+                <form id="send-message-form" method="post" class="flex flex-row gap-4 w-full h-full">
+                    {% csrf_token %}
+                    <textarea class="h-full w-full" id="message-input" name="message" placeholder="Type your message here..." required></textarea>
+                    <button type="submit" id="send-message-btn" class="bg-green-700 px-5 text-white rounded-md">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
