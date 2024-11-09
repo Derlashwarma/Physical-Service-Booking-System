@@ -51,7 +51,19 @@ INSTALLED_APPS = [
     'livereload',
     'custom_admin',
     'chat',
+    'channels',
 ]
+
+#DELETE THIS PART IF ITS NOT WORKING
+
+ASGI_APPLICATION = 'System.asgi.application'
+# Channels Redis configuration (you can modify the host and port as needed)
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+#END
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
