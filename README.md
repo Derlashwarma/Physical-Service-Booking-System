@@ -47,15 +47,15 @@ This system is tailored to bridge the gap between those seeking physical service
 * [![JQuery][JQuery.com]][JQuery-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
-## Members
-- Benitez, Mars L.
-- Lauron, Ardel Tioco Jeff L.
+### Members
+<ul>
+  <li>Benitez, Mars L.</li>
+  <li>Lauron, Ardel Tioco Jeff L.</li>
+</ul>
+
 <a href="https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System" alt="contrib.rocks image" />
 </a>
-[Contributor1](https://github.com/mars)
-[Contributor1](https://github.com/Derlashwarma)
-
 
 ***
 
