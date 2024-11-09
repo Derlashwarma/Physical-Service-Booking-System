@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'custom_admin',
     'chat',
     'channels',
+    'rate',
 ]
 
 #DELETE THIS PART IF ITS NOT WORKING
