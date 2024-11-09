@@ -68,8 +68,8 @@ This system is tailored to bridge the gap between those seeking physical service
 </a>
 
 ### UI UX Design
-<a href="https://www.figma.com/design/2cT7xOfB4RbNKPmW5BSNpM/CSIT327-UI-UX?node-id=1-2">
-  <img src="https://drive.google.com/file/d/1klkpUcZxK1jnccXBF7x1CmonjdI_q51h/view?usp=drive_link" />
+<a href="https://www.figma.com/design/2cT7xOfB4RbNKPmW5BSNpM/CSIT327-UI-UX?node-id=1-2" target="_blank">
+  <img src="https://drive.google.com/uc?export=view&id=1klkpUcZxK1jnccXBF7x1CmonjdI_q51h" alt="Google Drive Image" />
 </a>
 
 [Gantt Chart](https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk)
