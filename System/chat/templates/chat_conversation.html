@@ -1,17 +1,16 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block custom_head_tag %}
-    <script src="{% static "js/chat.js" %}"></script>
 {% endblock custom_head_tag %}
 {% block title %}
     Chat
 {% endblock title %}
 {% block content %}
 <div class="px-40 mt-4 h-full flex flex-row">
-    <div class="flex flex-col bg-white w-full rounded-md shadow-custom_spread p-5">
+    <div class="flex flex-col bg-white w-full rounded-md shadow-custom_spread p-5 border">
         <p class="text-center text-xl font-semibold text-green-800">Conversation with {{other_user}}</p>
         <div class=" w-full h-full gap-2 p-4 flex flex-col">
-            <div class="h-full w-full border overflow-scroll middle p-2 flex flex-col">
+            <div id="message-container" class="h-full w-full border overflow-scroll middle p-2 flex flex-col gap-2">
                 {% for message in messages %}
                     <div class="message p-2 px-4 rounded-sm {% if user.username == message.author.username %}ml-auto text-right bg-gray-200{% else %} w-fit bg-slate-100{% endif %}">
                         <p><strong>{{ message.author.username }}</strong></p>
@@ -19,7 +18,7 @@
                     </div>
                 {% endfor %}
             </div>            
-            <div class="h-1/5 w-full border">
+            <div class="h-1/5 w-full pb-4">
                 <form id="send-message-form" method="post" class="flex flex-row gap-4 w-full h-full">
                     {% csrf_token %}
                     <textarea class="h-full w-full" id="message-input" name="message" placeholder="Type your message here..." required></textarea>
@@ -29,4 +28,37 @@
         </div>
     </div>
 </div>
+<script>
+    const otherUsername = "{{ other_user.username }}";
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const chatSocket = new WebSocket(
+        `${protocol}://${window.location.host}/ws/chat/${otherUsername}/`
+    );
+
+    // Handle incoming messages
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageContainer = document.getElementById('message-container');
+        const messageElement = document.createElement('div');
+        if (data.author === "{{ user.username }}") {
+            messageElement.classList.add('message', 'p-2', 'px-4', 'rounded-sm', 'ml-auto', 'text-right', 'bg-gray-200');
+        } else {
+            messageElement.classList.add('message', 'p-2', 'px-4', 'rounded-sm', 'w-fit', 'bg-slate-100');
+        }
+        messageElement.innerHTML = `<p><strong>${data.author}</strong></p><p>${data.message}</p>`;
+        messageContainer.appendChild(messageElement);
+        messageContainer.scrollTop = messageContainer.scrollHeight; 
+    };
+
+    const sendMessageForm = document.getElementById('send-message-form');
+    sendMessageForm.onsubmit = function(e) {
+        e.preventDefault();
+        const messageInput = document.getElementById('message-input');
+        const message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = '';
+    };
+</script>
 {% endblock content %}

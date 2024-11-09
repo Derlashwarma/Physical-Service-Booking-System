@@ -823,10 +823,6 @@ select {
   top: 5rem;
 }
 
-.right-0 {
-  right: 0px;
-}
-
 .z-50 {
   z-index: 50;
 }
@@ -1494,11 +1490,6 @@ select {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-slate-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
 .bg-clip-border {
   background-clip: border-box;
 }
@@ -1636,6 +1627,10 @@ select {
 
 .pt-0 {
   padding-top: 0px;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .text-left {
