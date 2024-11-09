@@ -18,9 +18,6 @@ class Job(models.Model):
         ('one_time', 'One-Time'),
         ('fulltime', 'Full-Time'),
         ('parttime', 'Part-Time'),
-        ('internship', 'Internship'),
-        ('project_work', 'Project Work'),
-        ('volunteering', 'Volunteering'),
     ]
 
     PAYMENT_METHOD_CHOICES = [
@@ -47,10 +44,20 @@ class Job(models.Model):
             old_instance = Job.objects.get(pk=self.pk)
             if old_instance.is_done != self.is_done and self.is_done:
                 self.finished_at = timezone.now()
+                self.decline_pending_applications()
+                self.mark_application_complete()
             elif old_instance.is_done and not self.is_done:
                 self.finished_at = None 
 
         super().save(*args, **kwargs)
+
+    def mark_application_complete(self):
+        accepted_application = self.jobapplication_set.filter(status__iexact="accepted")
+        accepted_application.update(status="completed")
+    
+    def decline_pending_applications(self):
+        job_applications = self.jobapplication_set.filter(status__iexact='pending')
+        job_applications.update(status='declined')
 
     def __str__(self):
         return self.title
@@ -71,6 +78,7 @@ class JobApplication(models.Model):
     worker = models.ForeignKey(CustomUser, on_delete= models.CASCADE)
     status = models.CharField(max_length=10, choices= STATUS_CHOICES, default='pending')
     applied_at = models.DateTimeField(auto_now_add=True)
+    rated = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Application by {self.worker} for {self.job}'

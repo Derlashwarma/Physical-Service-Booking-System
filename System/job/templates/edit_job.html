@@ -19,50 +19,95 @@
 </div>
 
 <a id="discard-changes" href="{% url 'job:my_jobs' job_id=job.id %}" id="discard-btn" class="px-4 bg-red-700 p-2 text-white mt-2 rounded-md hover:bg-red-800 transition-colors sticky  left-5 top-20 ">Back</a>
-<div class="w-full h-fit p-4 px-48 grid gap-5 transition-all">
-    <div class="bg-white rounded-md h-fit p-4 shadow-md w-auto  mx-auto border">
-        <p class="w-full text-3xl text-center text-green-600">Edit Job</p>
-        <form method="post">
+<div class="flex flex-col items-center w-full p-4">
+    <div class="flex flex-col w-11/12 lg:w-3/4 bg-white rounded-md shadow-lg p-10">
+        <p class="text-green-600 text-3xl font-bold text-left mb-2">Edit Job</p> 
+        <form method="POST" class="space-y-4">
             {% csrf_token %}
             {{ form.media }}
-            <div class="mt-5">
-                <label for="title">Title</label>
-                {{form.title}}
-                <small class="text-red-700">{{form.title.errors}}</small>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="space-y-6">
+                    <div>
+                        <label for="title" class="font-semibold">Title</label>
+                        {{ form.title }}
+                        <small class="text-red-700">{{ form.title.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label for="location" class="font-semibold">Location</label>
+                        {{ form.location }}
+                        <small class="text-red-700">{{ form.location.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Job Specifications</label>
+                        <div class="flex flex-wrap gap-4 mt-2">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                            
+                                <div class="bg-gray space-y-1.5 p-4 rounded">
+                                    <p class="font-semibold text-slate-600">Category</p>
+                                    {% for choice in form.category.field.choices %}
+                                        <label class="flex items-center">
+                                            <input type="radio" name="category" value="{{ choice.0 }}" class="mr-2" {% if form.category.value == choice.0 %}checked{% endif %}> {{ choice.1 }}
+                                        </label>
+                                    {% endfor %}
+                                    <small class="text-red-700">{{ form.category.errors }}</small>
+                                </div>
+
+                                <div class="bg-gray space-y-1.5 p-4 rounded">
+                                    <p class="font-semibold text-slate-600">Schedule</p>
+                                    {% for choice in form.schedule.field.choices %}
+                                        <label class="flex items-center">
+                                            <input type="radio" name="schedule" value="{{ choice.0 }}" class="mr-2" {% if form.schedule.value == choice.0 %}checked{% endif %}> {{ choice.1 }}
+                                        </label>
+                                    {% endfor %}
+                                    <small class="text-red-700">{{ form.schedule.errors }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label for="date" class="font-semibold">Date</label>
+                        {{ form.date }}
+                        <small class="text-red-700">{{ form.date.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label for="budget" class="font-semibold">Budget</label>
+                        {{ form.budget }}
+                        <small class="text-red-700">{{ form.budget.errors }}</small>
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Payment Method</label>
+                        <div class="flex gap-4 mt-2">
+                            {% for choice in form.payment_method.field.choices %}
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment_method" value="{{ choice.0 }}" class="mr-2" {% if form.payment_method.value == choice.0 %}checked{% endif %}> {{ choice.1 }}
+                                </label>
+                            {% endfor %}
+                            <small class="text-red-700">{{ form.payment_method.errors }}</small>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="is_done">Mark Job as Done</label>
+                        {{form.is_done}}
+                    </div>
+                </div>
             </div>
-            <div class="mt-5">
-                <label for="location">Tags</label>
-                {{form.category}}
-                <small class="text-red-700">{{form.category.errors}}</small>
-            </div> 
-            <div class="mt-5">
-                <label for="location">Location</label>
-                {{form.location}}
-                <small class="text-red-700">{{form.location.errors}}</small>
-            </div> 
-            <div class="mt-5">
-                <label for="budget">Budget</label>
-                {{form.budget}}
-                <small class="text-red-700">{{form.budget.errors}}</small>
-            </div> 
-            <div class="mt-5">
-                <label for="budget">Payment Method</label>
-                {{form.payment_method}}
-                <small class="text-red-700">{{form.payment_method.errors}}</small>
-            </div> 
-            <div class="mt-5">
-                <label for="budget">Schedule</label>
-                {{form.schedule}}
-                <small class="text-red-700">{{form.schedule.errors}}</small>
-            </div> 
-            <div class="mt-5 flex flex-col justify-center">
-                <label for="description">Description</label>
-                {{form.description}}
-                <small class="text-red-700">{{form.description.errors}}</small>
+
+            <div class="w-full flex flex-col">
+                <label for="description" class="font-semibold">Job Description</label>
+                {{ form.description }}
+                <small class="text-red-700">{{ form.description.errors }}</small>
             </div>
-            <button id="save-changes" type="default_if_none:""" class="w-full bg-green-600 p-2 text-white mt-2 rounded-sm hover:bg-green-700 transition-colors">Save Changes</button>
+            <button id="post" type="submit" class="w-full py-2 bg-green-600 text-white mt-3 rounded-sm hover:bg-green-700">Save Changes</button>
             <a href="{% url 'job:delete_job' job.id %}" class="w-full text-center bg-red-700 p-2 text-white inline-block mt-3 rounded-sm hover:bg-red-800">Delete job</a>
-            {{form.errors}}
         </form>
     </div>
 </div>

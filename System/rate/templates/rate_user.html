@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}Rate {{user.username}}{% endblock %}
+
+{% block content %}
+    <div class="w-full py-5 flex h-full">
+        <div class="w-3/5 bg-white shadow-custom_spread rounded-md h-fit mx-auto p-4 border flex flex-col gap-5 my-auto">
+            <p class="text-center text-xl font-medium text-green-800">Rate {{user.username}} for {{work}}</p>
+            <form method="post" class="h-full w-full py-4">
+                {% csrf_token %}
+                <table class="w-full table-fixed">
+                    <tr class="p-2 my-4">
+                        <th class="w-1/4 ">Classification</th>
+                        <th class="w-1/8">Bad</th>
+                        <th class="w-1/8">Poor</th>
+                        <th class="w-1/8">Fair</th>
+                        <th class="w-1/8">Good</th>
+                        <th class="w-1/8">Very good</th>
+                        <th class="w-1/8">Excellent</th>
+                    </tr>
+                    <tr class="p-2">
+                        <td class="text-green-800 pl-2 p-4">Timeliness</td>
+                        {% for i in "012345"|make_list %}
+                            <td class="px-1">
+                                <input type="radio" name="timeliness_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if timeliness_rating == i %} checked {% endif %}>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="p-2">
+                        <td class="text-green-800 pl-2 p-4">Professionalism</td>
+                        {% for i in "012345"|make_list %}
+                            <td class="px-1">
+                                <input type="radio" name="professionalism_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if professionalism_rating == i %} checked {% endif %}>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="p-2">
+                        <td class="text-green-800 pl-2 p-4">Communication</td>
+                        {% for i in "012345"|make_list %}
+                            <td class="px-1">
+                                <input type="radio" name="communication_rating" value="{{ i }}" class=" form-checkbox w-full py-5" {% if communication_rating == i %} checked {% endif %}>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>       
+                <div class="mt-5">
+                    <label for="review">Review</label>
+                    <textarea rows="6" name="review" id="review" class="flex w-full border-slate-300"></textarea>
+                    {% if error %}
+                        <small class="text-red-700">All fields are required</small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 mt-4 p-4 text-white rounded-md">Submit Review</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
