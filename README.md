@@ -57,7 +57,20 @@ This system is tailored to bridge the gap between those seeking physical service
   <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System" alt="contrib.rocks image" />
 </a>
 
-***
+### Gantt Chart
+<a href="https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk">
+  <img src="https://drive.google.com/file/d/1uWAPnuxN3otx3238zIpI3tpg6-wqpS08/view?usp=drive_link" />
+</a>
+
+### Entity Relationship Diagram
+<a href="https://lucid.app/lucidchart/3f0c17de-1b55-4729-8945-2140ddeedbbb/edit?viewport_loc=685%2C-1785%2C2742%2C1419%2C0_0&invitationId=inv_0aa3e9ee-676e-4fe5-950b-ba7ebe7414ce">
+  <img src="https://drive.google.com/file/d/147KWErSPbTjMmlFI-ACmm4FWM4fDEXPH/view?usp=drive_link" />
+</a>
+
+### UI UX Design
+<a href="https://www.figma.com/design/2cT7xOfB4RbNKPmW5BSNpM/CSIT327-UI-UX?node-id=1-2">
+  <img src="https://drive.google.com/file/d/1klkpUcZxK1jnccXBF7x1CmonjdI_q51h/view?usp=drive_link" />
+</a>
 
 [Gantt Chart](https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk)
 ---
