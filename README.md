@@ -24,12 +24,14 @@
 
 <!-- about -->
 ## About The Project
-This project is an Online Job Portal and Physical Service Booking System designed to connect service providers and job seekers. It serves as a comprehensive platform where users can post job opportunities, apply for jobs, and manage job-related interactions. The platform is ideal for hiring physical service providers and for job seekers looking to showcase their skills.
+<section id="about">
+  This project is an Online Job Portal and Physical Service Booking System designed to connect service providers and job seekers. It serves as a comprehensive platform where users can post job opportunities, apply for jobs, and manage job-related interactions. The platform is ideal for hiring physical service providers and for job seekers looking to showcase their skills.
+</section>
 <br>
-
 <!-- functional requirements -->
 ## Functional Requirements
-<ol>
+<section id="functional-requirements">
+  <ol>
   <li>
     <strong>User Management System</strong>: User management system allowing seamless registration, login, and account management for both service providers and job seekers.
   </li>
@@ -57,45 +59,56 @@ This project is an Online Job Portal and Physical Service Booking System designe
 
 <br>
 This system is tailored to bridge the gap between those seeking physical services and those providing them, making it a valuable tool for connecting professionals and clients efficiently.
+</section>
 
 <!-- technologies -->
 ### Built With
+<section id="technologies">
 * [![Django][django-image]][django-url]
 * [![Tailwind][tailwind-image]][tailwind-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+</section>
 
 <!-- members -->
 ### Members
-<ul>
-  <li>Benitez, Mars L.</li>
-  <li>Lauron, Ardel Tioco Jeff L.</li>
-</ul>
+<section id="members">
+  <ul>
+    <li>Benitez, Mars L.</li>
+    <li>Lauron, Ardel Tioco Jeff L.</li>
+  </ul>
 
-<a href="https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System" alt="contrib.rocks image" />
-</a>
+  <a href="https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System" alt="contrib.rocks image" />
+  </a>
+</section>
 
 
 <!-- gantt -->
 ## Gantt Chart
-<a href="https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk" target="_blank">
-  <img src="https://drive.google.com/uc?export=view&id=1uWAPnuxN3otx3238zIpI3tpg6-wqpS08" alt="Gantt Chart Image" />
-</a>
+<section id="gantt">
+  <a href="https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk" target="_blank">
+    <img src="https://drive.google.com/uc?export=view&id=1uWAPnuxN3otx3238zIpI3tpg6-wqpS08" alt="Gantt Chart Image" />
+  </a>
+</section>
 
 
 <!-- erd -->
 ## Entity Relationship Diagram
-<a href="https://lucid.app/lucidchart/3f0c17de-1b55-4729-8945-2140ddeedbbb/edit?viewport_loc=685%2C-1785%2C2742%2C1419%2C0_0&invitationId=inv_0aa3e9ee-676e-4fe5-950b-ba7ebe7414ce" target="_blank">
-  <img src="https://drive.google.com/uc?export=view&id=147KWErSPbTjMmlFI-ACmm4FWM4fDEXPH" alt="Entity Relationship Diagram Image" />
-</a>
+<section id="erd">
+  <a href="https://lucid.app/lucidchart/3f0c17de-1b55-4729-8945-2140ddeedbbb/edit?viewport_loc=685%2C-1785%2C2742%2C1419%2C0_0&invitationId=inv_0aa3e9ee-676e-4fe5-950b-ba7ebe7414ce" target="_blank">
+    <img src="https://drive.google.com/uc?export=view&id=147KWErSPbTjMmlFI-ACmm4FWM4fDEXPH" alt="Entity Relationship Diagram Image" />
+  </a>
+</section>
 
 
 <!-- uiux -->
 ## UI UX Design
-<a href="https://www.figma.com/design/2cT7xOfB4RbNKPmW5BSNpM/CSIT327-UI-UX?node-id=1-2" target="_blank">
-  <img src="https://drive.google.com/uc?export=view&id=1klkpUcZxK1jnccXBF7x1CmonjdI_q51h" alt="Google Drive Image" />
-</a>
+<section id="uiux">
+  <a href="https://www.figma.com/design/2cT7xOfB4RbNKPmW5BSNpM/CSIT327-UI-UX?node-id=1-2" target="_blank">
+    <img src="https://drive.google.com/uc?export=view&id=1klkpUcZxK1jnccXBF7x1CmonjdI_q51h" alt="Google Drive Image" />
+  </a>
+</section>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
