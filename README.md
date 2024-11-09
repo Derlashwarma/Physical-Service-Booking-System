@@ -64,28 +64,18 @@ This system is tailored to bridge the gap between those seeking physical service
 <!-- technologies -->
 ### Built With
 <section id="technologies">
-  <ul>
-    <li>
-      <a href="https://www.djangoproject.com/" target="_blank">
-        <img src="https://img.shields.io/badge/Django-blue?style=for-the-badge&logo=django" alt="Django" />
-      </a>
-    </li>
-    <li>
-      <a href="https://tailwindcss.com/" target="_blank">
-        <img src="https://img.shields.io/badge/TailwindCSS-orange?style=for-the-badge&logo=tailwindcss" alt="TailwindCSS" />
-      </a>
-    </li>
-    <li>
-      <a href="https://jquery.com/" target="_blank">
-        <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white" alt="jQuery" />
-      </a>
-    </li>
-    <li>
-      <a href="https://getbootstrap.com" target="_blank">
-        <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
-      </a>
-    </li>
-  </ul>
+  <a href="https://www.djangoproject.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Django-blue?style=for-the-badge&logo=django" alt="Django" />
+  </a>
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img src="https://img.shields.io/badge/TailwindCSS-orange?style=for-the-badge&logo=tailwindcss" alt="TailwindCSS" />
+  </a>
+  <a href="https://jquery.com/" target="_blank">
+    <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white" alt="jQuery" />
+  </a>
+  <a href="https://getbootstrap.com" target="_blank">
+    <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
+  </a>
 </section>
 
 <!-- members -->
