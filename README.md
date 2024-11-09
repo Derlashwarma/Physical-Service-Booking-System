@@ -65,12 +65,10 @@ This system is tailored to bridge the gap between those seeking physical service
 ### Built With
 <section id="technologies">
 </section>
-<ul>
-  <li>[![Django][django-image]][django-url]</li>
-  <li>[![Tailwind][tailwind-image]][tailwind-url]</li>
-  <li>[![JQuery][JQuery.com]][JQuery-url]</li>
-  <li>[![Bootstrap][Bootstrap.com]][Bootstrap-url]</li>
-</ul>
+[![Django][django-image]][django-url]
+[![Tailwind][tailwind-image]][tailwind-url]
+[![JQuery][JQuery.com]][JQuery-url]
+[![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <!-- members -->
 ### Members
