@@ -58,13 +58,13 @@ This system is tailored to bridge the gap between those seeking physical service
 </a>
 
 ## Gantt Chart
-<a href="https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk">
-  <img src="https://drive.google.com/file/d/1uWAPnuxN3otx3238zIpI3tpg6-wqpS08" />
+<a href="https://docs.google.com/spreadsheets/d/14DVrDrjn8v1IZDZtvxU79hBd050yFpag3cCTIM3lJx0/edit?usp=drivesdk" target="_blank">
+  <img src="https://drive.google.com/uc?export=view&id=1uWAPnuxN3otx3238zIpI3tpg6-wqpS08" alt="Gantt Chart Image" />
 </a>
 
 ## Entity Relationship Diagram
-<a href="https://lucid.app/lucidchart/3f0c17de-1b55-4729-8945-2140ddeedbbb/edit?viewport_loc=685%2C-1785%2C2742%2C1419%2C0_0&invitationId=inv_0aa3e9ee-676e-4fe5-950b-ba7ebe7414ce">
-  <img src="https://drive.google.com/file/d/147KWErSPbTjMmlFI-ACmm4FWM4fDEXPH" />
+<a href="https://lucid.app/lucidchart/3f0c17de-1b55-4729-8945-2140ddeedbbb/edit?viewport_loc=685%2C-1785%2C2742%2C1419%2C0_0&invitationId=inv_0aa3e9ee-676e-4fe5-950b-ba7ebe7414ce" target="_blank">
+  <img src="https://drive.google.com/uc?export=view&id=147KWErSPbTjMmlFI-ACmm4FWM4fDEXPH" alt="Entity Relationship Diagram Image" />
 </a>
 
 ## UI UX Design
