@@ -2,15 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Avg
 from ckeditor.fields import RichTextField
-
-class Rating(models.Model):
-    name = models.CharField(max_length=30)
-    from_user = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='ratings_given')  
-    to_user = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='ratings_received')
-    score = models.IntegerField()
-
-    def __str__(self):
-        return self.name
+from rate.models import Rating
 
 class CustomUser(AbstractUser):
     is_worker = models.BooleanField(default=False)

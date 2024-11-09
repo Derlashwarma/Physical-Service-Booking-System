@@ -32,7 +32,7 @@ class JobPostForm(forms.ModelForm):
 
     class Meta:
         model = Job
-        fields = ['title', 'location', 'description', 'date', 'budget', 'payment_method', 'category', 'schedule']
+        fields = ['title', 'location', 'description', 'date', 'budget', 'payment_method', 'category', 'schedule', 'is_done']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),

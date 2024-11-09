@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from register.models import CustomUser, Rating
+from register.models import CustomUser
+from rate.models import Rating
 from .forms import UserProfileForm
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.contrib.auth.decorators import login_required
