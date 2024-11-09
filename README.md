@@ -54,8 +54,12 @@ This system is tailored to bridge the gap between those seeking physical service
 ### Top contributors:
 
 <a href="https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System-Template" alt="contrib.rocks image" />
+  <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System" alt="contrib.rocks image" />
 </a>
+<a href="https://github.com/Derlashwarma/Physical-Service-Booking-System/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Derlashwarma/Physical-Service-Booking-System" alt="contrib.rocks image" />
+</a>
+
 
 ***
 
