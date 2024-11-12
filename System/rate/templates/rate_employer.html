@@ -3,7 +3,7 @@
 {% block custom_head_tag %}
     <script src="{% static "js/rate.js" %}"></script>
 {% endblock custom_head_tag %}
-{% block title %}Rate {{user.username}}{% endblock %}
+{% block title %}Rate {{employer}}{% endblock %}
 
 {% block content %}
     <div id="custom-popup" class="fixed z-50 h-full w-screen hidden justify-center items-center bg-gray-300 bg-opacity-60">
@@ -17,7 +17,7 @@
     </div>
     <div class="w-full py-5 flex h-full">
         <div class="w-3/5 bg-white shadow-custom_spread rounded-md h-fit mx-auto p-4 border flex flex-col gap-5 my-auto">
-            <p class="text-center text-xl font-medium text-green-800">Rate {{user.username}} for {{work}}</p>
+            <p class="text-center text-xl font-medium text-green-800">Rate Employer {{employer}}</p>
             <form method="post" class="h-full w-full pt-4 pb-3">
                 {% csrf_token %}
                 <table class="w-full table-fixed">
@@ -31,26 +31,26 @@
                         <th class="w-1/8">Excellent</th>
                     </tr>
                     <tr class="p-2">
-                        <td class="text-green-800 pl-2 p-4">Timeliness</td>
-                        {% for i in "012345"|make_list %}
-                            <td class="px-1">
-                                <input type="radio" name="timeliness_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if timeliness_rating == i %} checked {% endif %}>
-                            </td>
-                        {% endfor %}
-                    </tr>
-                    <tr class="p-2">
-                        <td class="text-green-800 pl-2 p-4">Professionalism</td>
-                        {% for i in "012345"|make_list %}
-                            <td class="px-1">
-                                <input type="radio" name="professionalism_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if professionalism_rating == i %} checked {% endif %}>
-                            </td>
-                        {% endfor %}
-                    </tr>
-                    <tr class="p-2">
                         <td class="text-green-800 pl-2 p-4">Communication</td>
                         {% for i in "012345"|make_list %}
                             <td class="px-1">
-                                <input type="radio" name="communication_rating" value="{{ i }}" class=" form-checkbox w-full py-5" {% if communication_rating == i %} checked {% endif %}>
+                                <input type="radio" name="communication_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if communication_rating == i %} checked {% endif %}>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="p-2">
+                        <td class="text-green-800 pl-2 p-4">Fairness and Respect</td>
+                        {% for i in "012345"|make_list %}
+                            <td class="px-1">
+                                <input type="radio" name="fairness_respect_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if fairness_respect_rating == i %} checked {% endif %}>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="p-2">
+                        <td class="text-green-800 pl-2 p-4">Timeliness of Payment</td>
+                        {% for i in "012345"|make_list %}
+                            <td class="px-1">
+                                <input type="radio" name="timeliness_payment_rating" value="{{ i }}" class=" form-checkbox w-full py-5" {% if timeliness_payment_rating == i %} checked {% endif %}>
                             </td>
                         {% endfor %}
                     </tr>

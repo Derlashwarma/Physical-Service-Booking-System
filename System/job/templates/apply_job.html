@@ -32,7 +32,7 @@
         </div>
         <div class=" mb-4">
             {% if job.is_done %}
-                <a href="#" class="bg-green-600 w-full p-3 hover:bg-green-700 text-white block text-center rounded-md mt-4 transition-all" >Rate Employer</a>
+                <a href="{% url "rate:rate_user" username=job.employer.username job_id=job.id %}" class="bg-green-600 w-full p-3 hover:bg-green-700 text-white block text-center rounded-md mt-4 transition-all" >Rate Employer</a>
             {% else %}
                 <form action="{% url 'job:apply_job' job.pk %}" method="post">
                     {% csrf_token %}
@@ -53,6 +53,7 @@
     </div>
     <div class="w-3/4 h-fit border border-slate-100 pb-4">
         <div class="w-full shadow-md bg-white rounded-lg border-gray-200 rich-text-content px-4 pb-4">
+            <p class="pt-4 px-4 text-center text-2xl font-medium text-green-700">{{job}}</p>
             <p class="text-xl text-green-700 py-4">Description<p>
             <p class="px-5">{{job.description | safe}}</p>
         </div>

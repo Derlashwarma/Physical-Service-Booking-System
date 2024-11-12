@@ -3,7 +3,7 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {% block content %}
-    <div class="bg flex flex-row gap-4 w-full px-8 py-5 bg-slate-100">
+    <div class="bg flex flex-row gap-4 w-full px-8 py-5 ">
         <div class="w-2/6 flex flex-col gap-4">
             <div class="bg-white rounded-md shadow-custom_spread p-10 h-fit">
                 <img class="rounded-full" src="{% if user.image %}{{user.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
@@ -42,9 +42,19 @@
         <div class="w-2/6 flex flex-col gap-4">
             <div class="bg-white rounded-md shadow-custom_spread p-4">
                 <p class="text-xl font-medium text-green-700">Ratings</p>
-                {% if average_score %}
-                    <p class="text-green-700 mt-5">Employer Rating</p>
-                    <p class="text-3xl text-green-700 font-extrabold">{{average_score}}</p>
+                {% if ratings %}
+                    <div>
+                        <p class="text-green-700 mt-5">Communication</p>
+                        <p class="text-3xl text-green-700 font-extrabold">{{ratings.Communication}}</p>
+                    </div>
+                    <div>
+                        <p class="text-green-700 mt-5">Fairness and Respect</p>
+                        <p class="text-3xl text-green-700 font-extrabold">{{ratings.Fairness_Respect}}</p>
+                    </div>
+                    <div>
+                        <p class="text-green-700 mt-5">Timeliness of Payment</p>
+                        <p class="text-3xl text-green-700 font-extrabold">{{ratings.Timeliness_Payment}}</p>
+                    </div>
                 {% else %}
                     <p>No Ratings Available</p>
                 {% endif %}
