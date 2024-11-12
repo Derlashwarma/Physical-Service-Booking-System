@@ -27,27 +27,25 @@ class JobViews:
     
     @login_required(login_url="login:login")
     def apply_job(request, job_id):
-        job = Job.objects.get(id=job_id)
-        try:
-            jobApplication = JobApplication.objects.filter(job=job, worker=request.user).first()
-        except JobApplication.DoesNotExist:
-            jobApplication = None
-
+        job = get_object_or_404(Job, id=job_id)
         user = request.user
+
+        job_application_exists = JobApplication.objects.filter(job=job, worker=user).exists()
+
         if request.method == 'POST':
             if job.employer == user:
-                return HttpResponse("Cannot Apply")
-            elif jobApplication:
-                return HttpResponse('Already Applied')
-            application = JobApplication.objects.create(
-                job = job,
-                worker = user
-            )
-            application.save()
-            return redirect("job:apply_job", job_id=job_id) 
+                return HttpResponse("You cannot apply to your own job.")
+            if job.is_done:
+                return HttpResponse("Cannot apply to a completed job.")
+            if job_application_exists:
+                return HttpResponse("You have already applied for this job.")
+
+            JobApplication.objects.create(job=job, worker=user)
+            return redirect("job:apply_job", job_id=job_id)
+
         context = {
             'job': job,
-            'user': user
+            'user': user,
         }
         return render(request, 'apply_job.html', context)
     

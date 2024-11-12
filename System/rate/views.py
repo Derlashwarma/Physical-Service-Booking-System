@@ -2,18 +2,36 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from register.models import CustomUser
-from job.models import JobApplication
+from job.models import JobApplication, Job
 from .models import Rating, Review
+from django.http import Http404
 
 @login_required(login_url='login:login')
 def rate_user(request, username, job_id):
-    user = get_object_or_404(CustomUser, username=username)
+    try:
+        user = get_object_or_404(CustomUser, username=username)
+    except Http404:
+        return HttpResponse("Do not have access")
 
     if user.is_worker:
-        application = get_object_or_404(JobApplication, job__id=job_id,worker=user)
+        try:
+            application = get_object_or_404(JobApplication, job__id=job_id,worker=user)
+        except Http404:
+            return HttpResponse("Do not have access")
+        if application.rated or application.status not in ['completed', 'completed']:
+            return HttpResponse("do not have access")
         return __rate_worker(request, application)
-
-    return HttpResponse("User is not a worker.")
+    
+    else:
+        try:
+            job = get_object_or_404(Job, id=job_id)
+            user = CustomUser.objects.get(pk=request.user.id)
+            application = get_object_or_404(JobApplication, job=job, worker=user, status='completed')
+            return __rate_employer(request, job)
+        except CustomUser.DoesNotExist:
+            return HttpResponse("USer not found")
+        except Http404:
+            return HttpResponse("Do not have access")
 
 def __rate_worker(request, application):
     timeliness_rating = request.POST.get('timeliness_rating', None)
@@ -51,6 +69,30 @@ def __rate_worker(request, application):
     }
     return render(request, 'rate_user.html', context)
 
-def __rate_employer(request, username):
-    # Placeholder for employer rating (can be implemented similarly)
-    pass
+def __rate_employer(request, job):
+    communication_rating = request.POST.get('communication_rating', None)
+    fairness_respect_rating = request.POST.get('fairness_respect_rating', None)
+    timeliness_payment_rating = request.POST.get('timeliness_payment_rating', None)
+    review = request.POST.get('review', "")
+    
+    if request.method == 'POST':
+        if not fairness_respect_rating or not timeliness_payment_rating or not communication_rating or not review:
+            context = {
+                'employer': job.employer,
+                'work': job,
+            }
+            return render(request, 'rate_user.html', context)
+        else:
+            Rating.objects.create(name="communication",from_user=request.user,to_user=job.employer,score=communication_rating)
+            Rating.objects.create(name="fairness_respect",from_user=request.user,to_user=job.employer,score=fairness_respect_rating)
+            Rating.objects.create(name="timeliness_payment",from_user=request.user,to_user=job.employer,score=timeliness_payment_rating)
+            Review.objects.create(from_user=request.user,to_user=job.employer,review=review)
+            job.rated = True
+            job.save()
+            return redirect('profile:profile', request.user.username)
+
+    context = {
+        'employer': job.employer,
+        'work': job,
+    }
+    return render(request,'rate_employer.html',context)

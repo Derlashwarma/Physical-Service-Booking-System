@@ -38,6 +38,7 @@ class Job(models.Model):
     payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD_CHOICES)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='none')
     schedule = models.CharField(max_length=50, choices=SCHEDULE_CHOICES)
+    rated = models.BooleanField(default=False);
 
     def save(self, *args, **kwargs):
         if self.pk is not None: 

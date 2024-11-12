@@ -8,7 +8,6 @@ from job.models import JobApplication
 from job.models import Job
 from django.db.models import Avg
 
-#This function will accept username as a parameter and render the profile of the username
 @login_required(login_url="login:login")
 def profile(request, username):
     user = CustomUser.objects.get(username=username)
@@ -17,14 +16,12 @@ def profile(request, username):
     owner = user == request.user
     if user_id is None:
         return redirect('login:login')
-
-    #If worker render the template profile.html and pass necessary values
+ 
     if user.is_worker:
         return display_worker_profile(request, user, request.user, owner)
     else:
         return display_employer_profile(request, user, request.user, owner)
-    
-#This function will render the template and pass the requirements
+     
 @login_required(login_url="login:login")
 def display_worker_profile(request, user, logged_in_user, owner):
     professional_experience = user.professional_experience
@@ -34,9 +31,9 @@ def display_worker_profile(request, user, logged_in_user, owner):
     profile_picture = user.image
     jobs_applied = JobApplication.objects.filter(worker=user)
     ratings = {
-        'Timeliness': user.get_average_rating('timeliness'),
-        'Communication': user.get_average_rating('communication'),
-        'Professionalism': user.get_average_rating('professionalism')
+        'Timeliness': round(user.get_average_rating('timeliness'),2),
+        'Communication': round(user.get_average_rating('communication'),2),
+        'Professionalism': round(user.get_average_rating('professionalism'),2)
     }
     context = {
         'owner': owner,
@@ -58,10 +55,16 @@ def display_employer_profile(request, user, logged_in_user, owner):
     active_jobs = Job.objects.filter(employer= logged_in_user, is_done=False, is_active=True)
     finished_jobs = Job.objects.filter(employer= logged_in_user, is_done=True)
     averate_employer_rating = Rating.objects.filter(to_user=logged_in_user).aggregate(average_score=Avg('score'))['average_score']
+    
+    ratings = {
+        'Fairness_Respect': round(user.get_average_rating('fairness_respect'),2),
+        'Communication': round(user.get_average_rating('communication'),2),
+        'Timeliness_Payment': round(user.get_average_rating('timeliness_payment'),2)
+    }
     context = {
         'user': logged_in_user,
         'active_jobs': active_jobs,
-        'average_score': averate_employer_rating,
+        'ratings': ratings,
         'finished_jobs': finished_jobs,
         'owner': owner
     }
