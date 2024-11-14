@@ -3,11 +3,11 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {% block content %}
-    <div class="bg flex flex-row gap-4 w-full px-8 py-5 ">
+    <div class="bg flex flex-row gap-4 w-full px-28 py-5 ">
         <div class="w-2/6 flex flex-col gap-4">
-            <div class="bg-white rounded-md shadow-custom_spread p-10 h-fit">
-                <img class="rounded-full" src="{% if user.image %}{{user.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
-                <p class="text-center mt-4 text-xl font-bold text-primary_color">{{user}}</p>
+            <div class="bg-white rounded-md border p-10 h-fit">
+                <img class="rounded-full" src="{% if profile_owner.image %}{{profile_owner.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
+                <p class="text-center mt-4 text-2xl font-bold text-primary_color">{{profile_owner}}</p>
                 <p>
                     {% if user.social_contacts %}
                         {{ user.social_contacts|safe }}    
@@ -18,13 +18,15 @@
                 <a href="{% url 'profile:edit_profile' username=user %}" class="text-center w-full p-2 bg-green-700 text-white rounded-sm hover:bg-green-800">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="w-4/6 bg-white rounded-md shadow-custom_spread p-4">
+        <div class="w-4/6 bg-white rounded-md border p-4">
             <p class="text-xl text-primary_color font-medium">Active Job Post</p>
-            <div class="job-contianer my-6 gap-4 flex flex-col px-2">
+            <div class="job-contianer p-4 gap-4 flex flex-col px-2">
                 {% if active_jobs %}
                   {% for job in active_jobs %}
                     <div class="flex flex-col gap-5 p-2 border border-slate-300 rounded-md px-4">
-                        <p class="font-medium"><a class="hover:text-green-900" href="{% url 'job:my_jobs' job_id=job.id %}">{{job}}</a></p>
+                        {% if owner %}
+                            <p class="font-medium"><a class="hover:text-green-900" href="{% url 'job:my_jobs' job_id=job.id %}">{{job}}</a></p>
+                        {% endif %}
                         <div class="flex flex-col">
                             <small><span class="font-medium">Date Posted:</span> {{job.created_at}} </small>
                             <div class="flex">
@@ -38,9 +40,23 @@
                     <p>No active jobs available</p>
                 {% endif %}
             </div>
+            <hr>
+            <div class="flex flex-col gap-4 mt-5">
+                <p class="text-xl text-primary_color">Reviews</p>
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <div class="border w-full p-4 felx flex-col gap-0">
+                        <p class="text-sm font-medium">{{review.from_user}}</p>
+                        <p class="italic">{{review.review}}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No Reviews Submitted for this user</p>
+                {% endif %}
+            </div>
         </div>
         <div class="w-2/6 flex flex-col gap-4">
-            <div class="bg-white rounded-md shadow-custom_spread p-4">
+            <div class="bg-white rounded-md border p-4">
                 <p class="text-xl font-medium text-green-700">Ratings</p>
                 {% if ratings %}
                     <div>
@@ -59,13 +75,17 @@
                     <p>No Ratings Available</p>
                 {% endif %}
             </div>
-            <div class="bg-white rounded-md shadow-custom_spread p-4">
+            <div class="bg-white rounded-md border p-4">
                 <p class="text-xl font-medium text-green-700">Employer History</p>
                 <div class="job-contianer my-6 gap-4 flex flex-col">
                     {% if finished_jobs %}
                       {% for job in finished_jobs %}
                         <div class="flex flex-col gap-5 p-2 border border-slate-300 rounded-md px-4">
-                            <a class="hover:text-secondary hover:underline" href="{% url "job:my_jobs" job.id %}"><p class="font-medium">{{job}}</p></a>
+                            {% if owner %}    
+                                <a class="hover:text-secondary hover:underline" href="{% url "job:my_jobs" job.id %}"><p class="font-medium">{{job}}</p></a>
+                            {% else %}
+                                <p class="font-medium"><a class="hover:text-green-900" href="{% url 'job:apply_job' job.id %}">{{job}}</a></p>
+                            {% endif %}
                             <div class="flex flex-col">
                                 <small><span class="font-medium">Date Posted:</span> {{job.created_at}} </small>
                                 <div class="flex">

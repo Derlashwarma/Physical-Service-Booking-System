@@ -1,12 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
 from register.models import CustomUser
-from rate.models import Rating
+from rate.models import Rating, Review
 from .forms import UserProfileForm
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from job.models import JobApplication
 from job.models import Job
-from django.db.models import Avg
+from django.db.models import Q
 
 @login_required(login_url="login:login")
 def profile(request, username):
@@ -14,6 +14,7 @@ def profile(request, username):
     user_id = request.user.id
 
     owner = user == request.user
+
     if user_id is None:
         return redirect('login:login')
  
@@ -52,9 +53,9 @@ def display_worker_profile(request, user, logged_in_user, owner):
 #This function will render the template for the Employer's profile
 @login_required(login_url="login:login")
 def display_employer_profile(request, user, logged_in_user, owner):
-    active_jobs = Job.objects.filter(employer= logged_in_user, is_done=False, is_active=True)
-    finished_jobs = Job.objects.filter(employer= logged_in_user, is_done=True)
-    averate_employer_rating = Rating.objects.filter(to_user=logged_in_user).aggregate(average_score=Avg('score'))['average_score']
+    active_jobs = Job.objects.filter(employer= user, is_done=False, is_active=True)
+    finished_jobs = Job.objects.filter(employer= user, is_done=True)
+    reviews = Review.objects.filter(to_user=user)
     
     ratings = {
         'Fairness_Respect': round(user.get_average_rating('fairness_respect'),2),
@@ -62,11 +63,13 @@ def display_employer_profile(request, user, logged_in_user, owner):
         'Timeliness_Payment': round(user.get_average_rating('timeliness_payment'),2)
     }
     context = {
+        'profile_owner': user,
         'user': logged_in_user,
         'active_jobs': active_jobs,
         'ratings': ratings,
         'finished_jobs': finished_jobs,
-        'owner': owner
+        'owner': owner,
+        'reviews': reviews
     }
     return render(request, 'employer_profile.html', context)
 

@@ -18,17 +18,14 @@
     </div>
 </div>
 <div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28 gap-3">
-    <div class="w-1/4 flex flex-col bg-white rounded-lg mr-2 shadow-md border border-gray-200 px-4 h-fit">
-        <div>
+    <div class="w-1/4 flex flex-col bg-white rounded-lg mr-2 border border-gray-200 px-4 h-fit">
+        <div class="flex flex-row place-items-end gap-5 text-green-700">
             {% if job.employer.image %}
             <img class="w-1/2 aspect-h-1 rounded-lg mt-4" src="{{job.employer.image.url}}" alt="Profile picture of {{job.employerusername}}"/>
                 {% else %}
             <img class="w-1/2 aspect-h-1 rounded-lg mt-4 border border-gray-400" src="{% static "/images/default.webp" %}" alt="Default Profile"/>
             {% endif %}
-            <p class=" text-2xl font-bold">{{job.employer}}</p>
-        </div>
-        <div class="mt-4 max-h-80 overflow-hidden text-sm ">
-            {{job.get_short_description | safe}}
+            <a href="{% url 'profile:profile' job.employer.username %}" class="text-2xl font-bold hover:text-green-900">{{job.employer}}</a>
         </div>
         <div class=" mb-4">
             {% if job.is_done %}
@@ -52,7 +49,7 @@
         </div>
     </div>
     <div class="w-3/4 h-fit border border-slate-100 pb-4">
-        <div class="w-full shadow-md bg-white rounded-lg border-gray-200 rich-text-content px-4 pb-4">
+        <div class="w-full border bg-white rounded-lg border-gray-200 rich-text-content px-4 pb-4">
             <p class="pt-4 px-4 text-center text-2xl font-medium text-green-700">{{job}}</p>
             <p class="text-xl text-green-700 py-4">Description<p>
             <p class="px-5">{{job.description | safe}}</p>
