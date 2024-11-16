@@ -146,10 +146,15 @@ class AdminViews:
             .annotate(
                 jobs_applied_count=Count('jobapplication'),
                 jobs_created_count=Count('job'),
-                accepted_jobs_count=Count('jobapplication', filter=Q(jobapplication__status='accepted')),
+                accepted_jobs_count=Count('jobapplication', 
+                                          filter=Q(jobapplication__status__in=['accepted','completed'])),
             )
             .values('id', 'username', 'is_worker', 'date_joined', 'jobs_applied_count', 'jobs_created_count', 'accepted_jobs_count')
             .order_by(*order_args)
+        )
+        accepted_jobs_count = Count(
+            'jobapplication',
+            filter=Q(jobapplication__status__in=['accepted', 'completed'])
         )
         
         context = {
