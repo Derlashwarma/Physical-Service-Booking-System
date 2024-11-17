@@ -9,9 +9,12 @@ from django.db.models import Q, Count
 from register.forms import AdminUserForm
 from .forms import ApplicationForm
 from collections import Counter
+from django.core.cache import cache
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 class AdminViews:
+    @staticmethod
     def get_daily_aggregates(model, date_field, filter_kwargs, aggregation_field='id',
                               aggregate_type=Count, order_by='date'):
         return (
@@ -29,46 +32,62 @@ class AdminViews:
             return HttpResponse("You do not have access to this page")
         
         # Consolidate number of users and jobs into a single database hit
-        aggregate_data = {
-            'number_of_users': CustomUser.objects.count(),
-            'number_of_jobs': Job.objects.count(),
-            'total_income': Job.objects.filter(is_done=True).aggregate(total_income=Sum('budget'))['total_income'] or 0,
-        }
+        aggregate_data = cache.get('overview_aggregate_data')
+        if aggregate_data is None:
+            aggregate_data = {
+                'number_of_users': CustomUser.objects.count(),
+                'number_of_jobs': Job.objects.count(),
+                'total_income': Job.objects.filter(is_done=True).aggregate(total_income=Sum('budget'))['total_income'] or 0,
+            }
+
+            #change if ideploy but its highly unllikely
+            cache.set('overview_aggregate_date',aggregate_data, 500)
 
         date_started = timezone.datetime(2024, 10, 1)
         current_date = timezone.now()
 
-        # Cache or consolidate repeated calls if data doesn't need real-time updates
-        daily_user_registration = AdminViews.get_daily_aggregates(
-            model=CustomUser,
-            date_field='date_joined',
-            filter_kwargs={'date_joined__range': (date_started, current_date)},
-            aggregation_field='id',
-            aggregate_type=Count,
-            order_by='date'
-        )
+
+        daily_user_registration = cache.get("daily_user_registration")
+        if daily_user_registration is None:
+            daily_user_registration = AdminViews.get_daily_aggregates(
+                model=CustomUser,
+                date_field='date_joined',
+                filter_kwargs={'date_joined__range': (date_started, current_date)},
+                aggregation_field='id',
+                aggregate_type=Count,
+                order_by='date'
+            )
+            cache.set('daily_user_registration', daily_user_registration)
+
         dates = [entry['date'] for entry in daily_user_registration]
         counts = [entry['aggregate_result'] for entry in daily_user_registration]
 
-        daily_jobs_created = AdminViews.get_daily_aggregates(
-            model=Job,
-            date_field='created_at',
-            filter_kwargs={'created_at__range': (date_started, current_date)},
-            aggregation_field='id',
-            aggregate_type=Count,
-            order_by='date'
-        )
+        daily_jobs_created = cache.get('daily_jobs_created')
+        if daily_jobs_created is None:
+            daily_jobs_created = AdminViews.get_daily_aggregates(
+                model=Job,
+                date_field='created_at',
+                filter_kwargs={'created_at__range': (date_started, current_date)},
+                aggregation_field='id',
+                aggregate_type=Count,
+                order_by='date'
+            )
+            cache.set('daily_jobs_created', daily_jobs_created)
         job_dates = [entry['date'] for entry in daily_jobs_created]
         job_counts = [entry['aggregate_result'] for entry in daily_jobs_created]
 
-        daily_income_generated = AdminViews.get_daily_aggregates(
-            model=Job,
-            date_field='finished_at',
-            filter_kwargs={'finished_at__range':(date_started, current_date)},
-            aggregation_field='budget',
-            aggregate_type=Sum,
-            order_by='date'
-        )
+        daily_income_generated = cache.get('daily_income_generated')
+        if daily_income_generated is None:
+            daily_income_generated = AdminViews.get_daily_aggregates(
+                model=Job,
+                date_field='finished_at',
+                filter_kwargs={'finished_at__range':(date_started, current_date)},
+                aggregation_field='budget',
+                aggregate_type=Sum,
+                order_by='date'
+            )
+            cache.set('daily_income_generated', daily_income_generated)
+
         income_dates = [entry['date'] for entry in daily_income_generated]
         income_counts = [float(entry['aggregate_result']) for entry in daily_income_generated]
 
@@ -94,25 +113,24 @@ class AdminViews:
         if not user.is_superuser:
             return HttpResponse("You do not have access to this page")
         
-        user_counts = CustomUser.objects.aggregate(
-            total_users=Count('id'),
-            worker_count=Count('id', filter=Q(is_worker=True)),
-            active_users=Count('id', filter=Q(last_login__gte=timezone.now() - timedelta(days=30))),
-        )
+        user_counts = cache.get('user_count')
+        if user_counts is None:
+            user_counts = CustomUser.objects.aggregate(
+                total_users=Count('id'),
+                worker_count=Count('id', filter=Q(is_worker=True)),
+                active_users=Count('id', filter=Q(last_login__gte=timezone.now() - timedelta(days=30))),
+            )
+            cache.set('user_count',user_counts)
         
         employer_count = user_counts['total_users'] - user_counts['worker_count']
 
         # Precompute daily user registration stats (consider caching)
         date_started = timezone.datetime(2024, 10, 1)
         current_date = timezone.now()
-        daily_user_registration = AdminViews.get_daily_aggregates(
-            model=CustomUser,
-            date_field='date_joined',
-            filter_kwargs={'date_joined__range': (date_started, current_date)},
-            aggregation_field='id',
-            aggregate_type=Count,
-            order_by='date'
-        )
+        
+        daily_user_registration = cache.get('daily_user_registration')
+        if daily_user_registration is None:
+            return redirect('custom_admin:overview')
         
         dates = [entry['date'] for entry in daily_user_registration]
         counts = [entry['aggregate_result'] for entry in daily_user_registration]
@@ -128,10 +146,15 @@ class AdminViews:
             .annotate(
                 jobs_applied_count=Count('jobapplication'),
                 jobs_created_count=Count('job'),
-                accepted_jobs_count=Count('jobapplication', filter=Q(jobapplication__status='accepted')),
+                accepted_jobs_count=Count('jobapplication', 
+                                          filter=Q(jobapplication__status__in=['accepted','completed'])),
             )
             .values('id', 'username', 'is_worker', 'date_joined', 'jobs_applied_count', 'jobs_created_count', 'accepted_jobs_count')
             .order_by(*order_args)
+        )
+        accepted_jobs_count = Count(
+            'jobapplication',
+            filter=Q(jobapplication__status__in=['accepted', 'completed'])
         )
         
         context = {
@@ -159,7 +182,6 @@ class AdminViews:
             form = AdminUserForm(request.POST, request.FILES, instance=profile)
             if form.is_valid():
                 form.save()
-                # return HttpResponse("HELLOOOO")
                 return redirect('custom_admin:users')
         else:
             form = AdminUserForm(instance=profile)
@@ -175,14 +197,17 @@ class AdminViews:
         if not logged_user.is_superuser:
             return HttpResponse("You do not have access to this page")
         
-        applications_overview = (
-            JobApplication.objects.aggregate(
-                total_applications=Count('id'),
-                total_pending_applications=Count('id', filter=Q(status='pending')),
-                total_accepted_applications=Count('id', filter=Q(status='accepted')),
-                total_completed=Count('id', filter=Q(status='completed')),
+        applications_overview = cache.get('application_overview')
+        if applications_overview is None:
+            applications_overview = (
+                JobApplication.objects.aggregate(
+                    total_applications=Count('id'),
+                    total_pending_applications=Count('id', filter=Q(status='pending')),
+                    total_accepted_applications=Count('id', filter=Q(status='accepted')),
+                    total_completed=Count('id', filter=Q(status='completed')),
+                )
             )
-        )
+            cache.set('application_overview',applications_overview)
 
         applications = JobApplication.objects.all()
 
@@ -219,24 +244,23 @@ class AdminViews:
         logged_user = request.user
         if not logged_user.is_superuser:
             return HttpResponse("You do not have access to this page")
-        job_summary = {
-            'job_posted': Job.objects.all().count(),
-            'active': Job.objects.filter(is_done=False).count(),
-            'completed': Job.objects.filter(is_done=True).count(),
-            'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
-        }
+        job_summary = cache.get('job_summary')
+        if job_summary is None:
+            job_summary = {
+                'job_posted': Job.objects.all().count(),
+                'active': Job.objects.filter(is_done=False).count(),
+                'completed': Job.objects.filter(is_done=True).count(),
+                'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
+            }
+            cache.set('job_summary', job_summary)
         
         date_started = timezone.datetime(2024, 10, 1)
         current_date = timezone.now()
         
-        daily_jobs_created = AdminViews.get_daily_aggregates(
-            model=Job,
-            date_field='created_at',
-            filter_kwargs={'created_at__range': (date_started, current_date)},
-            aggregation_field='id',
-            aggregate_type=Count,
-            order_by='date'
-        )
+
+        daily_jobs_created = cache.get('daily_jobs_created')
+        if daily_jobs_created is None:
+            return redirect("custom_admin:overview")
         job_dates = [entry['date'] for entry in daily_jobs_created]
         job_counts = [entry['aggregate_result'] for entry in daily_jobs_created]
 

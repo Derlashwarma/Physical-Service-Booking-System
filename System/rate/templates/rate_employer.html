@@ -34,7 +34,7 @@
                         <td class="text-green-800 pl-2 p-4">Communication</td>
                         {% for i in "012345"|make_list %}
                             <td class="px-1">
-                                <input type="radio" name="communication_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if communication_rating == i %} checked {% endif %}>
+                                <input type="radio" name="communication_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if communication == i %} checked {% endif %}>
                             </td>
                         {% endfor %}
                     </tr>
@@ -42,7 +42,7 @@
                         <td class="text-green-800 pl-2 p-4">Fairness and Respect</td>
                         {% for i in "012345"|make_list %}
                             <td class="px-1">
-                                <input type="radio" name="fairness_respect_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if fairness_respect_rating == i %} checked {% endif %}>
+                                <input type="radio" name="fairness_respect_rating" value="{{ i }}" class="form-checkbox w-full py-5" {% if fairness == i %} checked {% endif %}>
                             </td>
                         {% endfor %}
                     </tr>
@@ -50,7 +50,7 @@
                         <td class="text-green-800 pl-2 p-4">Timeliness of Payment</td>
                         {% for i in "012345"|make_list %}
                             <td class="px-1">
-                                <input type="radio" name="timeliness_payment_rating" value="{{ i }}" class=" form-checkbox w-full py-5" {% if timeliness_payment_rating == i %} checked {% endif %}>
+                                <input type="radio" name="timeliness_payment_rating" value="{{ i }}" class=" form-checkbox w-full py-5" {% if timeliness == i %} checked {% endif %}>
                             </td>
                         {% endfor %}
                     </tr>
