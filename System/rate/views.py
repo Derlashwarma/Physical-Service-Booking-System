@@ -11,7 +11,7 @@ def rate_user(request, username, job_id):
     try:
         user = get_object_or_404(CustomUser , username=username)
     except Http404:
-        return HttpResponse("User is not found")
+        return HttpResponse("User is not found", status=404)
 
     if user.is_worker:
         return handle_worker_rating(request, user, job_id)
@@ -22,13 +22,13 @@ def handle_worker_rating(request, worker, job_id):
     try:
         application = get_object_or_404(JobApplication, job__id=job_id, worker=worker)
     except Http404:
-        return HttpResponse("Application not found")
+        return HttpResponse("Application not found", status=404)
     
     if application.rated:
-        return HttpResponse("You already rated this user")
+        return HttpResponse("You already rated this user", status=404)
     
     if application.status not in ['completed']:
-        return HttpResponse("Do not have access")
+        return HttpResponse("Do not have access", status=404)
 
     return __rate_worker(request, application)
 
@@ -37,19 +37,6 @@ def __rate_worker(request, application):
         return process_worker_rating(request, application)
 
     return render_rating_form(request, application.worker, application.job)
-
-
-def handle_employer_rating(request, user, job_id):
-    try:
-        job = get_object_or_404(Job, id=job_id)
-        # application = get_object_or_404(JobApplication, job=job, worker=user, status='completed')
-    except Http404:
-        return HttpResponse("Not found")
-
-    if job.rated:
-        return HttpResponse("You already rated this user")
-
-    return __rate_employer(request, job)
 
 def process_worker_rating(request, application):
     timeliness_rating = request.POST.get('timeliness_rating')
@@ -72,6 +59,7 @@ def save_worker_rating(from_user, to_user, timeliness, professionalism, communic
     Rating.objects.create(name="communication", from_user=from_user, to_user=to_user, score=communication)
     Review.objects.create(from_user=from_user, to_user=to_user, review=review)
 
+    
 def render_rating_form(request, user, job, error=False):
     context = {
         'user': user,
@@ -80,6 +68,19 @@ def render_rating_form(request, user, job, error=False):
         'error': error
     }
     return render(request, 'rate_user.html', context)
+
+
+def handle_employer_rating(request, user, job_id):
+    try:
+        job = get_object_or_404(Job, id=job_id)
+        # application = get_object_or_404(JobApplication, job=job, worker=user, status='completed')
+    except Http404:
+        return HttpResponse("Not found", status=404)
+
+    if job.rated:
+        return HttpResponse("You already rated this employer", status=404)
+
+    return __rate_employer(request, job)
 
 def __rate_employer(request, job):
     if request.method == 'POST':
@@ -100,7 +101,7 @@ def process_employer_rating(request, job):
     job.rated = True
     job.save()
 
-    return redirect('profile:profile', request.user.username)
+    return redirect('job:apply_job', job.id)
 
 def save_employer_rating(from_user, to_user, communication, fairness, timeliness, review):
     Rating.objects.create(name="communication", from_user=from_user, to_user=to_user, score=communication)
