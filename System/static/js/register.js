@@ -1,8 +1,13 @@
-$(document).ready(()=>{    
-    $("#id_is_worker_0").click(()=>{
-        $(".to_find").text("Sign up to find talents")
+$(document).ready(()=>{
+    $("#client").click(()=>{
+        $("#id_is_worker_0").prop("checked", true);
+        $("#client").addClass('border-green-700')
+        $("#worker").removeClass('border-green-700')
     })
-    $("#id_is_worker_1").click(()=>{
-        $(".to_find").text("Sign up to find opportunities")
+    $("#worker").click(()=>{
+        $("#id_is_worker_1").prop("checked", true);
+        $("#worker").addClass('border-green-700')
+        $("#client").removeClass('border-green-700')
     })
+    
 })

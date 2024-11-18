@@ -11,15 +11,14 @@
     {% tailwind_css %}
     <title>Registration Success</title>
 </head>
-<body style="height: 90vh;">
-    <div class="navbar"></div>
-    <div class="container flex items-center h-100 ">
+<body class="h-screen flex flex-col items-center justify-center content-center bg-slate-50">
+    <div class="w-3/4 border bg-white rounded-md py-10">
         <div class="mx-auto p-5 ">
-            <h1 class="h1  font-bold text-center text-6xl text-success">Registration Successful</h1>
+            <h1 class="h1  font-bold text-center text-6xl text-green-600">Registration Successful</h1>
             {% if string %}
                 <p class="text-center mt-3">{{ string }}</p>
             {% endif %}
-            <a href="{% url "login:login" %}" class="mx-auto text-white btn btn-success form-control mt-5 mx-5">Login</a>
+            <a href="{% url "login:login" %}" class="mx-auto btn bg-green-600 form-control mt-5 hover:bg-green-700 text-white">Login</a>
         </div>
     </div>
 </body>

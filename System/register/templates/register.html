@@ -12,16 +12,13 @@
     {% tailwind_css %}
     <title>Registration</title>
 </head>
-<body style="height: 100vh;" class="bg-gray-100">
-    <div class="border-b-green-600 border-b-4 h-10 w-full bg-white">
-
-    </div>
-    <div class="main-container">
-        <div class="left-right w-100 container  d-flex flex-column align-items-center">
+<body class="bg-gray-100 h-screen flex flex-col">
+    <div class="main-container my-auto">
+        <div class="left-right w-1/2  container  d-flex flex-column align-items-center">
             <form method="POST" class="w-70 justify-self-center ">
                 {% csrf_token %}
                 <div class="main-container bottom_part w-100 ">
-                    <div style="width: 50vw;" class=" m-5 bg-white drop-shadow-md p-5 rounded-xl">
+                    <div style="width: 50vw;" class=" m-5 bg-white border p-5 rounded-xl">
                         <h1 class="to_find mb-5 text-3xl">Sign up </h1>
                         <div class="form-group w-100">
                             <label for="username">Username</label>
@@ -46,14 +43,14 @@
                             </small>    
                             {% endif %}
                         </div>
-                        <div class="grid grid-cols-2 gap-5 ">
-                            <div class=" w-full border rounded-3 px-2 mt-4 ">
-                                <div class="client">
+                        <div class="grid grid-cols-2 gap-5">
+                            <div id="client" class=" w-full border-2 rounded-3 px-2 mt-4">
+                                <div class="client ">
                                     <div class="w-100 d-flex justify-content-end">{{ form.is_worker.0 }}</div>
                                     <p class="p-3">join as a client seeking someone who can provide the services I seek</p>
                                 </div>
                             </div>
-                            <div class="w-full border rounded-3 px-2 mt-4 ">
+                            <div id="worker" class="w-full border-2 rounded-3 px-2 mt-4 ">
                                 <div class="professional">
                                     <div class="w-100 d-flex justify-content-end">{{ form.is_worker.1 }}</div>
                                     <p class="p-3">Join as a professional capable of delivering the physical services</p>
