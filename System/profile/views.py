@@ -41,6 +41,7 @@ def display_worker_profile(request, user, logged_in_user, owner):
     social_contacts = user.social_contacts
     profile_picture = user.image
     jobs_applied = JobApplication.objects.filter(worker=user)
+    reviews = Review.objects.filter(to_user=user)
     ratings = {
         'Timeliness': round(user.get_average_rating('timeliness'),2),
         'Communication': round(user.get_average_rating('communication'),2),
@@ -56,7 +57,8 @@ def display_worker_profile(request, user, logged_in_user, owner):
         'social': social_contacts,
         'profile': profile_picture,
         'ratings': ratings,
-        'jobs': jobs_applied
+        'jobs': jobs_applied,
+        'reviews':reviews
     }
     return render(request, 'profile.html', context)
 

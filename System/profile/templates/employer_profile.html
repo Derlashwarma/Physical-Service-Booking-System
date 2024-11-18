@@ -18,7 +18,7 @@
                 <a href="{% url 'profile:edit_profile' username=user %}" class="text-center w-full p-2 bg-green-700 text-white rounded-sm hover:bg-green-800">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="w-4/6 bg-white rounded-md border p-4">
+        <div class="w-4/6 bg-white rounded-md border p-4 h-fit">
             <p class="text-xl text-primary_color font-medium">Active Job Post</p>
             <div class="job-contianer p-4 gap-4 flex flex-col px-2">
                 {% if active_jobs %}
