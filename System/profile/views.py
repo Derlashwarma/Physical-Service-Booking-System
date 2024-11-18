@@ -11,18 +11,28 @@ from django.db.models import Q
 @login_required(login_url="login:login")
 def profile(request, username):
     user = CustomUser.objects.get(username=username)
+    logged_in_user = request.user
     user_id = request.user.id
 
     owner = user == request.user
 
     if user_id is None:
         return redirect('login:login')
- 
-    if user.is_worker:
+    
+    if request.user.is_worker:
+        mutual_connection_exists = JobApplication.objects.filter(Q(worker=logged_in_user, job__employer=user)).exists() | owner
+    elif not request.user.is_worker:
+         mutual_connection_exists = JobApplication.objects.filter(Q(worker=user, job__employer=logged_in_user)).exists() | owner
+        
+    if user.is_worker and mutual_connection_exists:
         return display_worker_profile(request, user, request.user, owner)
-    else:
+    elif not user.is_worker and mutual_connection_exists:
         return display_employer_profile(request, user, request.user, owner)
-     
+    else:
+        return HttpResponse("You cannot access this profile because you don't have mutual connections.", status=403)
+        
+    
+
 @login_required(login_url="login:login")
 def display_worker_profile(request, user, logged_in_user, owner):
     professional_experience = user.professional_experience
@@ -31,6 +41,7 @@ def display_worker_profile(request, user, logged_in_user, owner):
     social_contacts = user.social_contacts
     profile_picture = user.image
     jobs_applied = JobApplication.objects.filter(worker=user)
+    reviews = Review.objects.filter(to_user=user)
     ratings = {
         'Timeliness': round(user.get_average_rating('timeliness'),2),
         'Communication': round(user.get_average_rating('communication'),2),
@@ -46,7 +57,8 @@ def display_worker_profile(request, user, logged_in_user, owner):
         'social': social_contacts,
         'profile': profile_picture,
         'ratings': ratings,
-        'jobs': jobs_applied
+        'jobs': jobs_applied,
+        'reviews':reviews
     }
     return render(request, 'profile.html', context)
 
