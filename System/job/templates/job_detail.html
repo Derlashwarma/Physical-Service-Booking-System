@@ -52,7 +52,7 @@
                 <p class="text-sm">{{application.applied_at}}</p>
                     {% if application.status == 'completed' %}
                         {% if application.rated %}    
-                            <a class=" bg-green-600 p-2 w-full my-1 rounded-sm text-white text-center bg-opacity-85"> Finished Rating </a>
+                            <a class=" bg-gray-400 border-2 border-gray-500 p-2 w-full my-1 rounded-sm text-gray-600 text-center bg-opacity-85"> Finished Rating </a>
                             {% else %}
                                 <a href="{% url "rate:rate_user" username=application.worker.username job_id=application.job.id %}" class="hover:bg-green-700 bg-green-600 p-2 w-full my-1 rounded-sm text-white text-center"> Rate User </a>
                         {% endif %}

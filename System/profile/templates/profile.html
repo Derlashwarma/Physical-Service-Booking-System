@@ -77,7 +77,7 @@
                 <div class="mt-4 p-5 bg-white rounded-md border">
                     <p class="text-green-600 text-xl font-medium">History</p>
                     {% for job  in jobs %}
-                        <div class=" border-gray-300 p-3 rounded-md my-3">
+                        <div class="border-2 border-gray-300 p-3 rounded-md my-3">
                             <a href="{% url "job:apply_job" job.job.id %}" class="hover:text-secondary hover:underline "><h3 class="font-bold text-xl">{{ job.job }}</h3></a>
                             <p class="text-xs">Status:
                                 {% if job.status == "pending" or job.status == "accepted" %}

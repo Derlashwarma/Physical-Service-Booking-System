@@ -82,15 +82,15 @@
                       {% for job in finished_jobs %}
                         <div class="flex flex-col gap-5 p-2 border border-slate-300 rounded-md px-4">
                             {% if owner %}    
-                                <a class="hover:text-secondary hover:underline" href="{% url "job:my_jobs" job.id %}"><p class="font-medium">{{job}}</p></a>
+                                <a class="hover:text-green-900 hover:underline" href="{% url "job:my_jobs" job.id %}"><p class="font-medium">{{job}}</p></a>
                             {% else %}
                                 <p class="font-medium"><a class="hover:text-green-900" href="{% url 'job:apply_job' job.id %}">{{job}}</a></p>
                             {% endif %}
                             <div class="flex flex-col">
                                 <small><span class="font-medium">Date Posted:</span> {{job.created_at}} </small>
-                                <div class="flex">
+                                <div class="flex flex-col mt-2">
                                     <small><span class="font-medium">Salary:</span> {{job.budget}} </small>
-                                    <small class="ml-auto"><span class="font-medium">Status:</span> <span class="text-primary_color">Completed</span></small>    
+                                    <small><span class="font-medium">Status:</span> <span class="text-primary_color">Completed</span></small>    
                                 </div>
                             </div>
                         </div>
