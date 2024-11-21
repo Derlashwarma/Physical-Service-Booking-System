@@ -28,6 +28,7 @@
   This project is an Online Job Portal and Physical Service Booking System designed to connect service providers and job seekers. It serves as a comprehensive platform where users can post job opportunities, apply for jobs, and manage job-related interactions. The platform is ideal for hiring physical service providers and for job seekers looking to showcase their skills.
 </section>
 <br>
+
 <!-- functional requirements -->
 ## Functional Requirements
 <section id="functional-requirements">
