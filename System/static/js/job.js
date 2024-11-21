@@ -68,4 +68,8 @@ $(document).ready(function() {
         const form = $(this).closest('form');
         showPopup("Submit Job Application?", form)
     })
+
+    $("#go-back").click(() => {
+        history.back();
+      });
 });

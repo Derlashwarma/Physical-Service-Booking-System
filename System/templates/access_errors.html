@@ -1,0 +1,25 @@
+{% load static %}
+{% load static tailwind_tags %}
+{% load livereload_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    {% tailwind_css %}
+    {% livereload_script %}
+    <title>{{status}}</title>
+</head>
+<body class="flex flex-row h-screen">
+    <div class=" mx-auto my-auto text-6xl flex flex-row justify-center gap-5">
+        <span class="h-fit my-auto font-bold">{{status}}</span>
+        <div class="h-full text-9xl text-green-800">|</div>
+        <span class="text-2xl h-fit my-auto">
+            {% if status == 403 %}
+                You do not have access to this page
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
