@@ -29,7 +29,7 @@ class AdminViews:
     def overview(request):
         user = request.user
         if not user.is_superuser:
-            return HttpResponse("You do not have access to this page")
+            return render(request, "access_errors.html", {'status':403})
         
         # Consolidate number of users and jobs into a single database hit
         aggregate_data = cache.get('overview_aggregate_data')
@@ -111,7 +111,7 @@ class AdminViews:
     def user_admin_view(request):
         user = request.user
         if not user.is_superuser:
-            return HttpResponse("You do not have access to this page")
+            return render(request, "access_errors.html", {'status':403})
         
         user_counts = cache.get('user_count')
         if user_counts is None:
@@ -152,10 +152,6 @@ class AdminViews:
             .values('id', 'username', 'is_worker', 'date_joined', 'jobs_applied_count', 'jobs_created_count', 'accepted_jobs_count')
             .order_by(*order_args)
         )
-        accepted_jobs_count = Count(
-            'jobapplication',
-            filter=Q(jobapplication__status__in=['accepted', 'completed'])
-        )
         
         context = {
             'total_users': user_counts['total_users'],
@@ -175,7 +171,7 @@ class AdminViews:
     def edit_user_admin_view(request, user_id):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return HttpResponse("You do not have access to this page")
+            return render(request, "access_errors.html", {'status':403})
         
         profile = CustomUser.objects.get(pk=user_id)
         if request.method == 'POST':
@@ -195,7 +191,7 @@ class AdminViews:
     def job_application_admin(request):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return HttpResponse("You do not have access to this page")
+            return render(request, "access_errors.html", {'status':403})
         
         applications_overview = cache.get('application_overview')
         if applications_overview is None:
@@ -222,7 +218,7 @@ class AdminViews:
     def edit_application(request, application_id):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return HttpResponse("You do not have access to this page")
+            return render(request, "access_errors.html", {'status':403})
         
         application = JobApplication.objects.get(pk=application_id)
         if request.method == 'POST':
@@ -243,7 +239,8 @@ class AdminViews:
     def job_admin(request):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return HttpResponse("You do not have access to this page")
+            return render(request, "access_errors.html", {'status':403})
+        
         job_summary = cache.get('job_summary')
         if job_summary is None:
             job_summary = {
@@ -253,10 +250,6 @@ class AdminViews:
                 'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
             }
             cache.set('job_summary', job_summary)
-        
-        date_started = timezone.datetime(2024, 10, 1)
-        current_date = timezone.now()
-        
 
         daily_jobs_created = cache.get('daily_jobs_created')
         if daily_jobs_created is None:

@@ -19,9 +19,13 @@
             </div>
             <div>
                 <p class="font-medium text-center text-gray-500">Active</p>
-                {% if job_summary.active %}
-                    <h1 class="text-4xl font-bold text-center">{{job_summary.active}}</h1>
-                {% endif %}
+                    <h1 class="text-4xl font-bold text-center">
+                        {% if job_summary.active %}
+                            {{job_summary.active}}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </h1>
             </div>
             <div>
                 <p class="font-medium text-center text-gray-500">Completed</p>

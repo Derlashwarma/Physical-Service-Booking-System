@@ -12,13 +12,13 @@
     <title>Registration Success</title>
 </head>
 <body class="h-screen flex flex-col items-center justify-center content-center bg-slate-50">
-    <div class="w-3/4 border bg-white rounded-md py-10">
-        <div class="mx-auto p-5 ">
-            <h1 class="h1  font-bold text-center text-6xl text-green-600">Registration Successful</h1>
+    <div class="w-3/4 border bg-white rounded-md py-5">
+        <div class="mx-auto px-14">
+            <h1 class="h1  font-bold text-center text-6xl text-green-800">Registration Successful</h1>
             {% if string %}
-                <p class="text-center mt-3">{{ string }}</p>
+                <p class="text-center mt-3 text-xl">{{ string }}</p>
             {% endif %}
-            <a href="{% url "login:login" %}" class="mx-auto btn bg-green-600 form-control mt-5 hover:bg-green-700 text-white">Login</a>
+            <a href="{% url "login:login" %}" class="mx-auto btn bg-green-800 form-control mt-5 hover:bg-green-900 text-white">Login</a>
         </div>
     </div>
 </body>

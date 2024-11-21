@@ -1,5 +1,6 @@
 {% load static %}
 {% load static tailwind_tags %}
+{% load livereload_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +8,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static "css/font.css" %}" rel="stylesheet" />
     <link href="{% static 'ckeditor/ckeditor/contents.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="{% static "js/profile.js" %}"></script>
     {% tailwind_css %}
-    <title>Edit {{username}}</title>
+    <title>Edit {{request.user.username}}</title>
 </head>
-<body class="h-auto bg-slate-100 flex flex-col w-full">
-    <div class="bg flex flex-col w-3/5 h-fit px-28 self-center py-4">
-        <div class="middle bg-white w-11/12 rounded-md shadow-md p-8 justify-center self-center">
+<body class="h-auto bg-slate-50 flex flex-col w-full">
+    <div id="pop-up" class="hidden z-50 w-full h-screen absolute bg-gray-800 bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 fle flex-col content-center">
+        <div class="flex flex-col bg-white w-4/12 my-auto mx-auto p-4 rounded-sm border gap-5">
+            <div class="top">
+                <p id="message" class="text-xl text-center"></p>
+            </div>
+            <div class="buttons flex flex-row gap-4">
+                <button id="cancel" class="w-1/2 bg-red-600 p-2 text-white">Cancel</button>
+                <button id="confirm" class="w-1/2 bg-green-600 p-2 text-white">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg flex flex-col w-4/5 h-fit px-28 self-center py-4">
+        <div class="middle bg-white w-11/12 rounded-md border p-8 justify-center self-center">
             <p class="text-green-600 text-3xl font-bold text-center">Edit Profile</p>
-            <form method="post" class="w-full mt-4" enctype="multipart/form-data">
+            <form id="form" method="post" class="w-full mt-4" enctype="multipart/form-data">
                 {% csrf_token %} 
                 {{ form.media }} 
                 
@@ -22,52 +37,71 @@
                     <div class="mb-4">
                         <p>Last name</p>
                         {{form.last_name}}
+                        {% if form.last_name.errors %}
+                            <p class="text-sm text-red-600">{{form.last_name.errors}}</p>
+                        {% endif %}
                     </div>
                     <div class="mb-4">
                         <p>First name</p>
                         {{form.first_name}}
+                        {% if form.first_name.errors %}
+                            <p class="text-sm text-red-600">{{form.first_name.errors}}</p>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="mb-4">
                     <p>Email</p>
                     {{form.email}}
+                    {% if form.email.errors %}
+                        <p class="text-sm text-red-600">{{form.email.errors}}</p>
+                    {% endif %}
                 </div>
                 <div class="mb-4">
                     <div class="mb-4">
                         <p>Profile</p>
                         {{form.image}}
+                        {% if form.image.errors %}
+                            <p class="text-sm text-red-600">{{form.image.errors}}</p>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="mb-4">
                     <div class="mb-4">
                         <p>Professional summary</p>
-                        {{form.professional_summary}}
+                        <div class="flex flex-row justify-center border">
+                            {{form.professional_summary}}
+                            {% if form.professional_summary.errors %}
+                                {{form.professional_summary.errors}}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 <div class="mb-4">
                     <p>Professional experience</p>
                     {{form.professional_experience}}
+                    {% if form.professional_experience.errors %}
+                        {{form.professional_experience.errors}}
+                    {% endif %}
                 </div>
                 <div class="mb-4">
                     <p>Key skills</p>
                     {{form.key_skills}}
+                    {% if form.key_skills.errors %}
+                        <p class="text-sm text-red-600">{{form.key_skillss.errors}}</p>
+                    {% endif %}
                 </div>
                 <div class="mb-4">
                     <div class="mb-4">
                         <p>Social contacts</p>
                         {{form.social_contacts}}
+                        {% if form.social_contacts.errors %}
+                            <p class="text-sm text-red-600">{{form.social_contacts.errors}}</p>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="mb-4">
-                    <p>Field of work</p>
-                    {{form.field_of_work}}
-                </div>
-                <div class="mb-4">
-                    <p>Previous employment</p>
-                    {{form.previous_employment}}
-                </div>
-                <button type="submit" class="w-full py-2 bg-green-600 text-white text-md mt-2 rounded-md">Save<button>
             </form>
+            <button id="save-button" class="w-full py-2 bg-green-600 text-white text-md mt-2 rounded-md">Save<button>
+            <button id="cancel-changes" class="w-full py-2 bg-red-600 text-white text-md mt-2 rounded-md">Cancel Changes<button>
         </div>
     </div>
 </body>

@@ -5,8 +5,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['first_name','last_name','email','professional_summary', 'professional_experience',
-                  'key_skills','social_contacts','image','field_of_work',
-                  'previous_employment']
+                  'key_skills','social_contacts','image']
         
         widgets={
             'first_name': forms.TextInput(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
@@ -15,7 +14,5 @@ class UserProfileForm(forms.ModelForm):
             'professional_summary': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
             'professional_experience': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
             'key_skills': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
-            'social_contacts': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
-            'field_of_work': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
-            'previous_employment': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
+            'social_contacts': forms.Textarea(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'})
         }
