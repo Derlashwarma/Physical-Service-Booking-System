@@ -12,7 +12,7 @@
             <div class="border w-full h-full flex flex-wrap gap-2 p-4">
                 {% for user in users %}
                 <a href="{% url 'chat:conversation' username=user.username %}" id="conversation">
-                    <div class=" rounded-full overflow-hidden border">
+                    <div class=" rounded-full overflow-hidden borde">
                         {% if user.image %}
                             <img src="{{ user.image.url }}" alt="profile of {{ user }}" class="w-28 h-28 object-cover">
                         {% else %}

@@ -28,8 +28,8 @@
         </div>
         <div class=" mb-4">
             {% if job.is_done and job.rated %}
-                <a class="border-2 border-gray-400 bg-gray-300 w-full p-2  text-slate-600 block text-center rounded-md mt-4 transition-all">Already Rated</a>
-            {% elif job.is_done %}
+                <a class=" border-2 border-gray-300 bg-gray-300 w-full p-2  text-gray-500 block text-center rounded-md mt-4 transition-all">Already Rated</a>
+                {% elif job.is_done %}
                 <a href="{% url "rate:rate_user" username=job.employer.username job_id=job.id %}" class="bg-green-600 w-full p-2 hover:bg-green-700 text-white block text-center rounded-md mt-4 transition-all" >Rate Employer</a>
             {% else %}
                 <form action="{% url 'job:apply_job' job.pk %}" method="post">
