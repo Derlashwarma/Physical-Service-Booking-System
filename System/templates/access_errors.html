@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
     {% tailwind_css %}
     {% livereload_script %}
-    <title>{{status}}</title>
+    <title>request {{status}}</title>
 </head>
 <body class="flex flex-row h-screen">
     <div class=" mx-auto my-auto text-6xl flex flex-row justify-center gap-5">
@@ -18,6 +18,10 @@
         <span class="text-2xl h-fit my-auto">
             {% if status == 403 %}
                 You do not have access to this page
+            {% elif status == 404 %}
+                {% if message %}
+                    {{message}}
+                {% endif %}
             {% endif %}
         </span>
     </div>

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from job.models import *
 from register.models import *
+from django.db.models import Q
 
 
 @login_required(login_url="login:login")
@@ -13,8 +14,6 @@ def chat_index(request):
     if user.is_worker:
         applications = JobApplication.objects.filter(worker=user)    
         jobs = Job.objects.filter(id__in=applications.values('job'))
-    
-        # Get the employers of those jobs
         users = CustomUser.objects.filter(id__in=jobs.values('employer'))
     else:
         jobs = Job.objects.filter(employer=user)
@@ -28,6 +27,8 @@ def chat_conversation(request, username):
     conversation_name = '_'.join(sorted([username, request.user.username]))
     try:
         user = CustomUser.objects.get(username=username)
+        if not __get_mutual_connection(request.user, user):
+            return render(request, 'access_errors.html', {'status':404, 'message':"You do not have any connection with this user"})
         conversation = Conversation.objects.get(conversation_name=conversation_name)
     except Conversation.DoesNotExist:
         conversation = Conversation.objects.create(conversation_name=conversation_name)
@@ -37,7 +38,6 @@ def chat_conversation(request, username):
     if request.method == 'POST':
         message_text = request.POST.get('message')
         if message_text:
-            # Create the message
             Message.objects.create(
                 conversation=conversation,
                 author=request.user,
@@ -52,3 +52,10 @@ def chat_conversation(request, username):
         'other_user': user,
     }
     return render(request, 'chat_conversation.html',context)
+
+def __get_mutual_connection(from_user, to_user):
+    if from_user.is_worker:
+        return JobApplication.objects.filter(Q(worker=from_user, job__employer=to_user)).exists()
+    elif not from_user.is_worker:
+        return JobApplication.objects.filter(Q(worker=to_user, job__employer=from_user)).exists()
+    return False
