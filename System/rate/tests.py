@@ -115,7 +115,7 @@ class RateUserTestCase(TestCase):
         
         #submit it again
         response = self.client.post(url, data=rating_data)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 405)
 
     def test_rate_worker_already_rated(self):
         self.client.login(username="employer", password="password")
@@ -132,7 +132,7 @@ class RateUserTestCase(TestCase):
         self.assertRedirects(response, reverse('job:my_jobs', args=[self.job.id]))
 
         response = self.client.post(url, data=rating_data)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 405)
 
     def test_no_job_found(self):
         self.client.login(username="employer", password="password")
