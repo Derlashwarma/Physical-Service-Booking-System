@@ -123,11 +123,11 @@ class JobViews:
                                     'status': 404,
                                     'message': 'Job Application Not Found'
                                 })
-            except Exception as e:
-                return render(request, 'access_errors.html', {
-                    'status': 500,
-                    'message': 'An unexpected error occurred: {}'.format(str(e)),
-                })
+        else:
+            return render(request, 'access_errors.html', {
+                'status': 405,
+                'message': 'Method Access Forbidden'
+            }, status=405)
 
 
     def reject_application(request, application_id):
@@ -149,11 +149,10 @@ class JobViews:
                     'status': 404,
                     'message': 'Job Application Not Found',
                 })
-            except Exception as e:
-                return render(request, 'access_errors.html', {
-                    'status': 500,
-                    'message': 'An unexpected error occurred: {}'.format(str(e)),
-                })
+        return render(request, 'access_errors.html', {
+            'status': 405,
+            'message': 'Method Access Forbidden',
+        }, status=405)
         
 
     def edit_job(request, job_id):
