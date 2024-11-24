@@ -10,26 +10,40 @@ from django.db.models import Q
 
 @login_required(login_url="login:login")
 def profile(request, username):
-    user = CustomUser.objects.get(username=username)
-    logged_in_user = request.user
-    user_id = request.user.id
+    try:
+        user = CustomUser.objects.get(username=username)
+        logged_in_user = request.user
+        user_id = request.user.id
 
-    owner = user == request.user
+        owner = user == request.user
 
-    if user_id is None:
-        return redirect('login:login')
-    
-    if request.user.is_worker:
-        mutual_connection_exists = JobApplication.objects.filter(Q(worker=logged_in_user, job__employer=user)).exists() | owner
-    elif not request.user.is_worker:
-         mutual_connection_exists = JobApplication.objects.filter(Q(worker=user, job__employer=logged_in_user)).exists() | owner
+        if user_id is None:
+            return redirect('login:login')
         
-    if user.is_worker and mutual_connection_exists:
-        return display_worker_profile(request, user, request.user, owner)
-    elif not user.is_worker and mutual_connection_exists:
-        return display_employer_profile(request, user, request.user, owner)
-    else:
-        return HttpResponse("You cannot access this profile because you don't have mutual connections.", status=403)
+        if request.user.is_worker:
+            mutual_connection_exists = JobApplication.objects.filter(Q(worker=logged_in_user, job__employer=user)).exists() | owner
+        elif not request.user.is_worker:
+            mutual_connection_exists = JobApplication.objects.filter(Q(worker=user, job__employer=logged_in_user)).exists() | owner
+            
+        if user.is_worker and mutual_connection_exists:
+            return display_worker_profile(request, user, request.user, owner)
+        elif not user.is_worker and mutual_connection_exists:
+            return display_employer_profile(request, user, request.user, owner)
+        else:
+            return render(request, 'access_errors.html', {
+                'status': 403,
+                'message': 'Access Forbidden, You Do Not Have Connections'
+            },status=403)
+    except CustomUser.DoesNotExist:
+        return render(request, 'access_errors.html', {
+                'status': 404,
+                'message': 'User Not Found'
+            },status=404)
+    except Exception as e:
+        return render(request, 'access_errors.html', {
+                'status': 403,
+                'message': f'An Exception Occured: {e}'
+        })
         
     
 
@@ -87,16 +101,33 @@ def display_employer_profile(request, user, logged_in_user, owner):
 
 @login_required(login_url="login:login")
 def edit_profile(request,username):
-    user = request.user
-    if request.method == "POST":
-        form = UserProfileForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('profile:profile', username=username)
-    else:
-        form = UserProfileForm(instance=user)
-    context = {
-        'user': user,
-        'form': form
-    }
-    return render(request, 'edit_profile.html', context)
+    try:
+        user = CustomUser.objects.get(username=username)
+        if user != request.user:
+            return render(request, 'access_errors.html', {
+                'status': 403,
+                'message': 'Access Forbidden'
+            }, status=403)
+
+        if request.method == "POST":
+            form = UserProfileForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+                return redirect('profile:profile', username=username)
+        else:
+            form = UserProfileForm(instance=user)
+        context = {
+            'user': user,
+            'form': form
+        }
+        return render(request, 'edit_profile.html', context)
+    except CustomUser.DoesNotExist:
+        return render(request, 'access_errors.html', {
+            'status': 404,
+            'message': 'User Not Found'
+        }, status=404)
+    except Exception as e:
+        return render(request, 'access_errors.html', {
+            'status': 405,
+            'message': f'Something wrong happend: {e}'
+        }, status=405)

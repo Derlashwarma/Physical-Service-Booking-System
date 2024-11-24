@@ -28,12 +28,14 @@ def chat_conversation(request, username):
     try:
         user = CustomUser.objects.get(username=username)
         if not __get_mutual_connection(request.user, user):
-            return render(request, 'access_errors.html', {'status':404, 'message':"You do not have any connection with this user"})
+            return render(request, 'access_errors.html', 
+                          {'status':403, 'message':"You do not have any connection with this user"})
         conversation = Conversation.objects.get(conversation_name=conversation_name)
     except Conversation.DoesNotExist:
         conversation = Conversation.objects.create(conversation_name=conversation_name)
     except CustomUser.DoesNotExist:
-        return HttpResponse("DOES NOT EXIST")
+            return render(request, 'access_errors.html', 
+                          {'status':404, 'message':"User does not Exist"})
     
     if request.method == 'POST':
         message_text = request.POST.get('message')

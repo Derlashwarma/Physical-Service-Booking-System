@@ -7,7 +7,7 @@
 
 {% block title %}Apply {{job}}{% endblock title %}
 {% block content %}
-<div id="custom-popup" class="transition-all">
+<div id="custom-popup" class="transition-all backdrop-blur-sm">
     <div class="bg-white p-6 rounded shadow-lg text-center">
         <p id="popup-message" class="mb-4 text-xl"></p>
         <div class="flex justify-center gap-4">
@@ -16,6 +16,7 @@
         </div>
     </div>
 </div>
+
 <div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28 gap-2">
     <div class="w-1/4 flex flex-col bg-white rounded-lg mr-2 border border-gray-200 px-4 h-fit">
         <div class="flex flex-row place-items-end gap-5 text-green-700">

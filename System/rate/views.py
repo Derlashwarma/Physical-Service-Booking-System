@@ -11,7 +11,10 @@ def rate_user(request, username, job_id):
     try:
         user = get_object_or_404(CustomUser , username=username)
     except Http404:
-        return HttpResponse("User is not found", status=404)
+        return render(request, 'access_errors.html', {
+            'status': 404,
+            'message': 'User Not Found'
+        }, status=404)
 
     if user.is_worker:
         return handle_worker_rating(request, user, job_id)
@@ -22,13 +25,22 @@ def handle_worker_rating(request, worker, job_id):
     try:
         application = get_object_or_404(JobApplication, job__id=job_id, worker=worker)
     except Http404:
-        return HttpResponse("Application not found", status=404)
+        return render(request, 'access_errors.html', {
+            'status': 404,
+            'message': 'Job Application Not Found'
+        }, status=404)
     
     if application.rated:
-        return HttpResponse("You already rated this user", status=404)
+        return render(request, 'access_errors.html', {
+            'status': 405,
+            'message': 'Method Access Forbidden'
+        }, status=405)
     
     if application.status not in ['completed']:
-        return HttpResponse("Do not have access", status=404)
+        return render(request, 'access_errors.html', {
+            'status': 405,
+            'message': 'Method Access Forbidden'
+        }, status=405)
 
     return __rate_worker(request, application)
 
@@ -73,12 +85,17 @@ def render_rating_form(request, user, job, error=False):
 def handle_employer_rating(request, user, job_id):
     try:
         job = get_object_or_404(Job, id=job_id)
-        # application = get_object_or_404(JobApplication, job=job, worker=user, status='completed')
     except Http404:
-        return HttpResponse("Not found", status=404)
+        return render(request, 'access_errors.html', {
+            'status': 404,
+            'message': 'Job Not Found'
+        }, status=404)
 
     if job.rated:
-        return HttpResponse("You already rated this employer", status=404)
+        return render(request, 'access_errors.html', {
+            'status': 405,
+            'message': 'Method Access Forbidden'
+        },status=405)
 
     return __rate_employer(request, job)
 

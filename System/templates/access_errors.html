@@ -12,16 +12,11 @@
     <title>request {{status}}</title>
 </head>
 <body class="flex flex-row h-screen">
-    <div class=" mx-auto my-auto text-6xl flex flex-row justify-center gap-5">
-        <span class="h-fit my-auto font-bold">{{status}}</span>
-        <div class="h-full text-9xl text-green-800">|</div>
-        <span class="text-2xl h-fit my-auto">
-            {% if status == 403 %}
-                You do not have access to this page
-            {% elif status == 404 %}
-                {% if message %}
-                    {{message}}
-                {% endif %}
+    <div class=" mx-auto my-auto flex flex-col gap-5">
+        <span class="h-fit my-auto font-bold text-center text-7xl text-green-800">{{status}}</span>
+        <span class="text-xl h-fit my-auto border-t-green-800">
+            {% if message %}
+                {{message}}
             {% endif %}
         </span>
     </div>
