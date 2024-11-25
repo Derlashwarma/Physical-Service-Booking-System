@@ -67,6 +67,7 @@ CHANNEL_LAYERS = {
 #END
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -164,3 +165,6 @@ NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
