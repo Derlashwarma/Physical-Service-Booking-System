@@ -4,11 +4,11 @@ $(document).ready(function(){
     function showPopup(message, form) {
         $('#popup-message').text(message);
         formToSubmit = form;
-        $('#custom-popup').addClass('flex').removeClass('hidden');
+        $('#popup').addClass('flex').removeClass('hidden');
     }
 
     function closePopup() {
-        $('#custom-popup').removeClass('flex').addClass('hidden');
+        $('#popup').removeClass('flex').addClass('hidden');
         formToSubmit = null;
     }
 
@@ -30,10 +30,12 @@ $(document).ready(function(){
         const form = $("#submit").closest('form');  
         form.submit()
         showPopup('Are you sure you want to submit these ratings?', form);  
+        // alert("clicked save review")
     });
 
     $("#cancel").click(function(e){
         e.preventDefault();
         showPopup('Are you certain you want to discard these ratings?', null); 
+        // alert("clicked cancel save")
     });
 });
