@@ -40,7 +40,7 @@ class AdminViews:
                 'total_income': Job.objects.filter(is_done=True).aggregate(total_income=Sum('budget'))['total_income'] or 0,
             }
 
-            #change if ideploy but its highly unllikely
+
             cache.set('overview_aggregate_date',aggregate_data, 500)
 
         date_started = timezone.datetime(2024, 10, 1)
@@ -57,7 +57,7 @@ class AdminViews:
                 aggregate_type=Count,
                 order_by='date'
             )
-            cache.set('daily_user_registration', daily_user_registration)
+            cache.set('daily_user_registration', daily_user_registration,500)
 
         dates = [entry['date'] for entry in daily_user_registration]
         counts = [entry['aggregate_result'] for entry in daily_user_registration]
@@ -72,7 +72,7 @@ class AdminViews:
                 aggregate_type=Count,
                 order_by='date'
             )
-            cache.set('daily_jobs_created', daily_jobs_created)
+            cache.set('daily_jobs_created', daily_jobs_created,500)
         job_dates = [entry['date'] for entry in daily_jobs_created]
         job_counts = [entry['aggregate_result'] for entry in daily_jobs_created]
 
@@ -86,7 +86,7 @@ class AdminViews:
                 aggregate_type=Sum,
                 order_by='date'
             )
-            cache.set('daily_income_generated', daily_income_generated)
+            cache.set('daily_income_generated', daily_income_generated,500)
 
         income_dates = [entry['date'] for entry in daily_income_generated]
         income_counts = [float(entry['aggregate_result']) for entry in daily_income_generated]
@@ -120,7 +120,7 @@ class AdminViews:
                 worker_count=Count('id', filter=Q(is_worker=True)),
                 active_users=Count('id', filter=Q(last_login__gte=timezone.now() - timedelta(days=30))),
             )
-            cache.set('user_count',user_counts)
+            cache.set('user_count',user_counts,500)
         
         employer_count = user_counts['total_users'] - user_counts['worker_count']
 
@@ -220,7 +220,7 @@ class AdminViews:
                     total_completed=Count('id', filter=Q(status='completed')),
                 )
             )
-            cache.set('application_overview',applications_overview)
+            cache.set('application_overview',applications_overview,500)
 
         applications = JobApplication.objects.all()
 
@@ -266,7 +266,7 @@ class AdminViews:
                 'completed': Job.objects.filter(is_done=True).count(),
                 'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
             }
-            cache.set('job_summary', job_summary)
+            cache.set('job_summary', job_summary,500)
 
         daily_jobs_created = cache.get('daily_jobs_created')
         if daily_jobs_created is None:

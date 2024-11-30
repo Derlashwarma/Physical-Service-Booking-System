@@ -8,56 +8,70 @@
 {% block name %}{{request.user}}{% endblock name %}
 
 {% block content %}
-    <div class="w-full h-fit bg-white mt-5 rounded-md shadow-custom_spread p-4">
+    <div class="w-full h-fit mt-5 rounded-md p-4">
         <h3 class="text-2xl font-medium">Job Application</h3>
-        <div class="w-full grid grid-cols-4 gap-5 borber border-b border-b-slate-300 p-10">
-            <div>
-                <p class="font-medium text-center text-gray-500">Applications Submitted</p>
-                <h1 class="text-4xl font-bold text-center">{{application_overview.total_applications}}</h1>
+        <div class="flex flex-row gap-4 w-full">
+            <div  class="flex flex-row justify-center bg-white border-2 p-4 w-1/4 gap-4">
+                <img class="self-center h-16" src="{% static "images/submitted.svg" %}" alt="">
+                <div>
+                    <p class="font-medium text-gray-500 text-xs">Applications Submitted</p>
+                    <h1 class="text-4xl font-bold ">{{application_overview.total_applications}}</h1>
+                </div>
             </div>
-            <div>
-                <p class="font-medium text-center text-gray-500">Pending Applications</p>
-                <h1 class="text-4xl font-bold text-center">{{application_overview.total_pending_applications}}</h1>
+            <div  class="flex flex-row justify-center bg-white border-2 p-4 w-1/4 gap-4">
+                <img class="self-center h-16" src="{% static "images/pending.svg" %}" alt="">
+                <div>
+                    <p class="font-medium text-gray-500 text-xs">Pending Applications</p>
+                    <h1 class="text-4xl font-bold ">{{application_overview.total_pending_applications}}</h1>
+                </div>    
             </div>
-            <div>
-                <p class="font-medium text-center text-gray-500">Accepted Applications</p>
-                <h1 class="text-4xl font-bold text-center">{{application_overview.total_accepted_applications}}</h1>
+            <div  class="flex flex-row justify-center bg-white border-2 p-4 w-1/4 gap-4">
+                <img class="self-center h-16" src="{% static "images/accepted.svg" %}" alt="">
+                <div>
+                    <p class="font-medium text-gray-500 text-xs">Accepted Applications</p>
+                    <h1 class="text-4xl font-bold ">{{application_overview.total_accepted_applications}}</h1>
+                </div>
             </div>
-            <div>
-                <p class="font-medium text-center text-gray-500">Finished Applications</p>
-                <h1 class="text-4xl font-bold text-center">{{application_overview.total_completed}}</h1>
+            <div class="flex flex-row justify-center bg-white border-2 p-4 w-1/4 gap-4">
+                <img class="self-center h-16" src="{% static "images/finished.svg" %}" alt="">
+                <div>
+                    <p class="font-medium text-gray-500 text-xs">Finished Applications</p>
+                    <h1 class="text-4xl font-bold ">{{application_overview.total_completed}}</h1>
+                </div>
             </div>
         </div>
-        <table class="table-auto w-full rounded-md border border-slate-300">
-            <thead>
-                <tr class="border-b bg-slate-200 text-center">
-                    <th class="py-2 text-gray-600 font-semibold text-sm">Job Application</th>
-                    <th class="py-2 text-gray-600 font-semibold text-sm">Job</th>
-                    <th class="py-2 text-gray-600 font-semibold text-sm">Worker Name</th>
-                    <th class="py-2 text-gray-600 font-semibold text-sm">Application Status</th>
-                    <th class="py-2 text-gray-600 font-semibold text-sm">Date Applied</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for application in  applications %}
-                    <tr>
-                        <td class="py-2 px-6 border"><a href="{% url 'custom_admin:edit_application' application_id=application.id %}" class="hover:text-secondary">{{application}}</a></td>
-                        <td class="py-2 px-6 border">{{application.job}}</td>
-                        <td class="py-2 px-6 border">{{application.worker}}</td>
-                        <td class="py-2 px-6 border 
-                        {% if application.status|lower == 'declined' %}
-                            text-red-600
-                        {% elif application.status|lower == 'accepted' %}
-                            text-green-600
-                        {% elif application.status|lower == 'completed' %}
-                            text-blue-600
-                        {% else %}
-                            text-orange-500
-                        {% endif %}">{{application.status}}</td>
-                        <td class="py-2 px-6 border">{{application.applied_at}}</td>
+        <div class="py-4">
+            <table class="table-auto w-full rounded-md border bg-gray-200">
+                <thead>
+                    <tr class="border-b bg-slate-100 text-center">
+                        <th class="py-2 text-gray-600 font-semibold text-sm border">Job Application</th>
+                        <th class="py-2 text-gray-600 font-semibold text-sm border">Job</th>
+                        <th class="py-2 text-gray-600 font-semibold text-sm border">Worker Name</th>
+                        <th class="py-2 text-gray-600 font-semibold text-sm border">Application Status</th>
+                        <th class="py-2 text-gray-600 font-semibold text-sm border">Date Applied</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="text-sm">
+                    {% for application in  applications %}
+                        <tr class="bg-white">
+                            <td class="py-2 px-6 border"><a href="{% url 'custom_admin:edit_application' application_id=application.id %}" class="hover:text-secondary">{{application}}</a></td>
+                            <td class="py-2 px-6 border">{{application.job}}</td>
+                            <td class="py-2 px-6 border">{{application.worker}}</td>
+                            <td class="py-2 px-6 border 
+                            {% if application.status|lower == 'declined' %}
+                                text-red-600
+                            {% elif application.status|lower == 'accepted' %}
+                                text-green-600
+                            {% elif application.status|lower == 'completed' %}
+                                text-blue-600
+                            {% else %}
+                                text-orange-500
+                            {% endif %}">{{application.status}}</td>
+                            <td class="py-2 px-6 border">{{application.applied_at}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock content %}
