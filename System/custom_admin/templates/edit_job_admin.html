@@ -37,25 +37,30 @@
             <div>
                 <label for="title">Title</label>
                 {{form.title}}
+                <span class="text-xs text-red-700">{{form.errors.title}}</span>
             </div>
             <div>
                 <label for="title">Location</label>
                 {{form.location}}
+                <span class="text-xs text-red-700">{{form.errors.location}}</span>
             </div>
             
             <div>
                 <label for="title">Description</label>
                 {{form.description | safe}}
+                <span class="text-xs text-red-700">{{form.errors.description}}</span>
             </div>
             
             <div>
                 <label for="title">Date</label>
                 {{form.date | safe}}
+                <span class="text-xs text-red-700">{{form.errors.date}}</span>  
             </div>
 
             <div>
                 <label for="title">Budget</label>
                 {{form.budget}}
+                <span class="text-xs text-red-700">{{form.errors.budget}}</span>    
             </div>
             <div class="flex flex-row h-fit">
                 <div>
@@ -65,6 +70,7 @@
                             {{field}}
                         {% endfor %}
                     </div>
+                    <span class="text-xs text-red-700">{{form.errors.category}}</span>
                 </div>
                 <div>
                     <label for="title">Schedule</label>
@@ -73,6 +79,7 @@
                             {{field}}
                         {% endfor %}
                     </div>
+                    <span class="text-xs text-red-700">{{form.errors.schedule}}</span>
                 </div>
                 <div>
                     <label for="title">Payment Method</label>
@@ -81,6 +88,7 @@
                             {{field}}
                         {% endfor %}
                     </div>
+                    <span class="text-xs text-red-700">{{form.errors.payment_method}}</span>
                 </div>
                 
                 <div>
