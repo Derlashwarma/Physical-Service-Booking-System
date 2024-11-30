@@ -8,38 +8,33 @@
 {% block name %}{{request.user}}{% endblock name %}
 
 {% block content %}
-    <div class="w-full h-fit bg-white mt-5 rounded-md shadow-custom_spread p-4">
-        <h3 class="text-2xl font-medium">Users</h3>
-        <div class="grid grid-cols-4 gap-6 p-10 border-b border-b-slate-300">
+    <div class="w-full rounded-md mt-5">
+        <h3 class="text-2xl font-bold">Users</h3>
+        <div class="flex flex-row justify-around gap-6 p-4 bg-white border-2">
             <div>            
-                <p class="text-center text-gray-500">Number of Registered Users</p>
+                <p class="text-center text-gray-500 text-xs">Number of Registered Users</p>
                 <p class="text-center text-4xl font-bold">{{total_users}}</p>
             </div>
             <div class="flex flex-col">
-                <p class="text-center text-gray-500">Number of Active Users</p>
+                <p class="text-center text-gray-500 text-xs">Number of Active Users</p>
                 <p class="text-center text-4xl font-bold">{{active_users_count}}</p>
             </div>
             <div>
-                <p class="text-center text-gray-500">Number of Workers</p>
+                <p class="text-center text-gray-500 text-xs">Number of Workers</p>
                 <p class="text-center text-4xl font-bold">{{worker_count}}</p>
             </div>
             <div>
-                <p class="text-center text-gray-500">Number of Employers</p>
+                <p class="text-center text-gray-500 text-xs">Number of Employers</p>
                 <p class="text-center text-4xl font-bold">{{employer_count}}</p>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-6 p-5 border-b border-b-slate-300 w-full">
-            <div class="flex items-center justify-center h-full">
-                <canvas id="registered-users"></canvas>
+        <div class="py-2 px-5 flex flex-row bg-white mt-4 border-2 p-4">
+            <div class="my-auto text-xs">
+                <a href="{% url 'custom_admin:add_user' %}" class="hover:text-secondary">+ Add User</a>
             </div>
-            <div class="flex items-center justify-center content-center">
-                <canvas id="user-types"></canvas>
-            </div>
-        </div>
-        <div class="py-2 px-5 flex flex-row">
             <form id="sort-form" class="ml-auto"method="get" action="{% url 'custom_admin:users' %}">
                 <label for="sort_option" class="text-xs">Order by:</label>
-                <select name="sort_option" id="sort_option" class="text-xs px-1 py-0.5 rounded-sm" style="font-size: 0.75rem;">
+                <select name="sort_option" id="sort_option" class="text-xs px-1 w-fit">
                     <option value="">Select</option>
                     <option value="is_worker" {% if current_sort_option == "is_worker" %}selected{% endif %}>is worker</option>
                     <option value="date_joined" {% if current_sort_option == "date_joined" %}selected{% endif %}>date joined</option>
@@ -48,15 +43,15 @@
                     <option value="accepted_jobs_count" {% if current_sort_option == "accepted_jobs_count" %}selected{% endif %}>accepted jobs</option>
                 </select>
                 <label for="sort_by" class="text-xs">Sort</label>
-                <select name="sort_by" id="sort_by" class="text-xs px-1 py-0.5 rounded-sm" style="font-size: 0.75rem;">
+                <select name="sort_by" id="sort_by" class="text-xs px-1 rounded-sm">
                     <option value="-" {% if sort_by == "-" %}selected{% endif %}>Descending</option>
                     <option value="" {% if sort_by == "" %}selected{% endif %}>Ascending</option>
                 </select>
             </form>
         </div>
-        <table class="table-auto w-full rounded-md border border-slate-300">
+        <table class="table-auto w-full rounded-md">
             <thead>
-                <tr class="border-b bg-slate-200">
+                <tr class="border-b bg-gray-200">
                     <th class="py-3 px-6 text-gray-600 font-semibold">Username</th>
                     <th class="py-3 px-6 text-gray-600 font-semibold">Is Worker</th>
                     <th class="py-3 px-6 text-gray-600 font-semibold">Date Joined</th>
@@ -65,9 +60,9 @@
                     <th class="py-3 px-6 text-gray-600 font-semibold">Accepted Jobs</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-sm">
                 {% for user in users %}
-                    <tr class="border-b  text-center">
+                    <tr class="border-b  text-center bg-white">
                         <td class="py-3"><a class="hover:text-secondary" href="{% url 'custom_admin:edit_users' user_id=user.id %}">{{user.username}}</a></td>
                         <td>{{user.is_worker}}</td>
                         <td>{{user.date_joined}}</td>

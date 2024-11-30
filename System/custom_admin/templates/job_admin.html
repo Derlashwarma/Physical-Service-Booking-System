@@ -8,7 +8,7 @@
 {% block name %}{{request.user}}{% endblock name %}
 
 {% block content %}
-    <div class="w-full h-fit bg-white mt-5 rounded-md shadow-custom_spread p-4">
+    <div class="w-full h-fit bg-white mt-5 rounded-md border-2 p-4">
         <h3 class="text-2xl font-medium">Job</h3>
         <div class="w-full grid grid-cols-4 gap-5 borber border-b border-b-slate-300 p-10">
             <div>
@@ -80,9 +80,9 @@
             <tbody>
                 {% for job in  jobs %}
                     <tr>
-                        <td class="py-2 px-6 border"><a href="{% url 'job:my_jobs' job_id=job.id %}" class="hover:text-secondary">{{job}}</a></td>
+                        <td class="py-2 px-6 border"><a href="{% url 'custom_admin:edit_job' job_id=job.id %}" class="hover:text-secondary">{{job}}</a></td>
                         <td class="py-2 px-6 border"><a href="{% url 'profile:profile' username=job.employer %} " class="hover:text-secondary">{{job.employer}}</a></td>
-                        <td class="py-2 px-6 border">{{job.tag}}</td>
+                        <td class="py-2 px-6 border">{{job.category}}</td>
                         <td class="py-2 px-6 border">{{job.created_at}}</td>
                         <td class="py-2 px-6 border">{{job.budget}}</td>
                         <td class="py-2 px-6 border">{{job.location}}</td>

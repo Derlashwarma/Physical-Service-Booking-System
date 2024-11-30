@@ -3,10 +3,12 @@ from .views import AdminViews
 
 app_name = "custom_admin"
 urlpatterns = [
-    path('',AdminViews.overview, name="overview"),
+    path('overview/',AdminViews.overview, name="overview"),
     path('users/',AdminViews.user_admin_view, name="users"),
     path('users/edit/<int:user_id>',AdminViews.edit_user_admin_view, name="edit_users"),
     path('jobapplications/',AdminViews.job_application_admin, name="job_applications"),
     path('jobapplications/edit/<int:application_id>',AdminViews.edit_application, name="edit_application"),
-    path('jobs/',AdminViews.job_admin, name="job_admin")
+    path('jobs/',AdminViews.job_admin, name="job_admin"),
+    path('edit_job/<int:job_id>', AdminViews.job_edit, name='edit_job'),
+    path('add_user/', AdminViews.add_user, name='add_user'),
 ]
