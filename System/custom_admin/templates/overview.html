@@ -12,21 +12,21 @@
         <h3 class="text-2xl font-bold">Overview</h3>
         <div class="w-full flex flex-row justify-center gap-14 border-2 bg-white h-fit p-10">
             <div class=" flex flex-row justify-around h-fit gap-4">
-                <img class="h-20 self-center" src="{% static "images/worker.svg" %}" />
+                <img class="h-16 self-center" src="{% static "images/worker.svg" %}" />
                 <div class="flex flex-col justify-center">
                     <p class="font-medium text-gray-500 text-xs">Total Registered Users</p>
                     <h1 class="text-4xl font-bold">{{user_count}}</h1>
                 </div>
             </div>
             <div class="flex flex-row justify-center gap-4">
-                <img class="h-20 self-center" src="{% static "images/work.svg" %}" />
+                <img class="h-16 self-center" src="{% static "images/work.svg" %}" />
                 <div class="flex flex-col justify-center">
                     <p class="font-medium text-gray-500 text-xs">Total Jobs Created</p>
                     <h1 class="text-4xl font-bold">{{job_count_sum}}</h1>
                 </div>
             </div>
             <div class=" flex flex-row justify-center gap-4">
-                <img class="h-20 self-center" src="{% static "images/money.svg" %}" />
+                <img class="h-16 self-center" src="{% static "images/money.svg" %}" />
                 <div class="flex flex-col justify-center">
                     <p class="font-medium text-gray-500 text-xs">Total Revenue Generated</p>
                     <h1 class="text-4xl font-bold">₱ {{income_generated}}</h1>
@@ -46,6 +46,7 @@
             </div>
         </div>
     </div>
+    {{registration_chart|safe}}
     
     <script type="application/json" id="user-date">{{ dates|safe }}</script>
     <script type="application/json" id="user-count">{{ count|safe }}</script>
