@@ -6,11 +6,11 @@ from datetime import timedelta
 from register.models import CustomUser
 from job.models import Job, JobApplication
 from django.db.models import Q, Count
-from register.forms import AdminUserForm
+from register.forms import AdminUserForm, RegistrationForm
 from .forms import ApplicationForm
 from collections import Counter
 from django.core.cache import cache
-from django.utils.decorators import method_decorator
+from job.forms import JobPostForm
 
 # Create your views here.
 class AdminViews:
@@ -124,7 +124,6 @@ class AdminViews:
         
         employer_count = user_counts['total_users'] - user_counts['worker_count']
 
-        # Precompute daily user registration stats (consider caching)
         date_started = timezone.datetime(2024, 10, 1)
         current_date = timezone.now()
         
@@ -167,6 +166,24 @@ class AdminViews:
         
         return render(request, 'user_admin.html', context)
     
+    @login_required(login_url="login:login")
+    def add_user(request):
+        if not request.user.is_superuser:
+            return render(request, "access_errors.html", {'status':403})
+        
+        if request.method == 'POST':
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('custom_admin:users')
+        else:
+            form = RegistrationForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'add_user.html', context)
+
+
     @login_required(login_url="login:login")
     def edit_user_admin_view(request, user_id):
         logged_user = request.user
@@ -278,4 +295,25 @@ class AdminViews:
             'current_sort_option': current_sort_option
         }
         return render(request, 'job_admin.html', context)
+    
+    @login_required(login_url="login:login")
+    def job_edit(request, job_id):
+        if not request.user.is_superuser:
+            return render(request, "access_errors.html", {'status':403})
+        
+        job = Job.objects.get(pk=job_id)
+
+        if request.method == 'POST':
+            form = JobPostForm(request.POST, instance=job)
+            if form.is_valid():
+                form.save()
+                return redirect('custom_admin:job_admin')
+        else:
+            form = JobPostForm(instance=job)
+        context = {
+            'form': form 
+        }
+        return render(request, 'edit_job_admin.html', context)
+        
+
         

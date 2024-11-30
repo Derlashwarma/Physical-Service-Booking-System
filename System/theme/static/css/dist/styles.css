@@ -929,6 +929,10 @@ select {
   margin: 1.25rem;
 }
 
+.m-0 {
+  margin: 0px;
+}
+
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
@@ -1104,10 +1108,6 @@ select {
   height: 7rem;
 }
 
-.h-32 {
-  height: 8rem;
-}
-
 .h-5 {
   height: 1.25rem;
 }
@@ -1116,8 +1116,8 @@ select {
   height: 83.333333%;
 }
 
-.h-52 {
-  height: 13rem;
+.h-56 {
+  height: 14rem;
 }
 
 .h-6 {
@@ -1246,6 +1246,10 @@ select {
   width: 100vw;
 }
 
+.w-1\/5 {
+  width: 20%;
+}
+
 .min-w-60 {
   min-width: 15rem;
 }
@@ -1282,10 +1286,6 @@ select {
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-cols-4 {
@@ -1328,8 +1328,16 @@ select {
   align-content: center;
 }
 
+.content-start {
+  align-content: flex-start;
+}
+
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-center {
@@ -1340,16 +1348,20 @@ select {
   justify-content: space-between;
 }
 
+.justify-around {
+  justify-content: space-around;
+}
+
 .gap-0 {
   gap: 0px;
 }
 
-.gap-2 {
-  gap: 0.5rem;
+.gap-14 {
+  gap: 3.5rem;
 }
 
-.gap-20 {
-  gap: 5rem;
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-4 {
@@ -1507,6 +1519,11 @@ select {
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
+.border-gray-800 {
+  --tw-border-opacity: 1;
+  border-color: rgb(31 41 55 / var(--tw-border-opacity));
+}
+
 .border-green-300 {
   --tw-border-opacity: 1;
   border-color: rgb(134 239 172 / var(--tw-border-opacity));
@@ -1659,10 +1676,6 @@ select {
   --tw-bg-opacity: 0.1;
 }
 
-.bg-opacity-60 {
-  --tw-bg-opacity: 0.6;
-}
-
 .bg-opacity-85 {
   --tw-bg-opacity: 0.85;
 }
@@ -1706,6 +1719,10 @@ select {
 
 .p-8 {
   padding: 2rem;
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .px-1 {
@@ -1841,6 +1858,10 @@ select {
 
 .text-justify {
   text-align: justify;
+}
+
+.align-top {
+  vertical-align: top;
 }
 
 .align-middle {
@@ -2064,6 +2085,11 @@ select {
   color: rgb(202 138 4 / var(--tw-text-opacity));
 }
 
+.text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -2259,8 +2285,8 @@ select {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .md\:p-10 {
-    padding: 2.5rem;
+  .md\:p-6 {
+    padding: 1.5rem;
   }
 
   .md\:px-12 {

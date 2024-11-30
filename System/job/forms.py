@@ -35,9 +35,9 @@ class JobPostForm(forms.ModelForm):
         fields = ['title', 'location', 'description', 'date', 'budget', 'payment_method', 'category', 'schedule', 'is_done']
 
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
-            'location': forms.TextInput(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
-            'budget': forms.NumberInput(attrs={'class': 'w-full border border-gray-300 rounded-md p-2'}),
-            'description': forms.Textarea(attrs={'class': 'w-full h-20 border border-gray-300 rounded-md p-2'}),
-            'date': forms.DateInput(attrs={'class': 'w-full border border-gray-300 rounded-md p-2', 'type': 'date'}),
+            'title': forms.TextInput(attrs={'class': 'w-full border border-gray-200 rounded-md p-2'}),
+            'location': forms.TextInput(attrs={'class': 'w-full border border-gray-200 rounded-md p-2'}),
+            'budget': forms.NumberInput(attrs={'class': 'w-full border border-gray-200 rounded-md p-2'}),
+            'description': forms.Textarea(attrs={'class': 'w-full h-20 border border-gray-200 rounded-md p-2'}),
+            'date': forms.DateInput(attrs={'class': 'w-full border border-gray-200 rounded-md p-2', 'type': 'date'}),
         }
