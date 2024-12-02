@@ -47,8 +47,11 @@ class Job(models.Model):
                 self.finished_at = timezone.now()
                 self.decline_pending_applications()
                 self.mark_application_complete()
+                self.is_active = False
             elif old_instance.is_done and not self.is_done:
                 self.finished_at = None 
+                self.is_active = True
+                self.mark_declined_pending()
 
         super().save(*args, **kwargs)
 
@@ -59,6 +62,10 @@ class Job(models.Model):
     def decline_pending_applications(self):
         job_applications = self.jobapplication_set.filter(status__iexact='pending')
         job_applications.update(status='declined')
+
+    def mark_declined_pending(self):
+        job_applications = self.jobapplication_set.filter(status__iexact='declined')
+        job_applications.update(status='pending')        
 
     def __str__(self):
         return self.title

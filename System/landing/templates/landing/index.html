@@ -3,37 +3,136 @@
 {% block title %}
     Landing
 {% endblock %}
+{% block custom_head_tag %}
+    <link rel="stylesheet" href="{% static "css/landing.css" %}">
+{% endblock custom_head_tag %}
 
 {% block content %}
-    <!-- Hero Section -->
-    <div class="content relative h-screen bg-gray-100 flex items-right mt-12 ">
-        <div class="max-w-8xl mx-12 px-8 md:px-12 mb-2 mt-8">
-            <h1 class="text-8xl font-extrabold text-black leading-tight text-left">AFFORDABLE</h1>
-            <h1 class="text-8xl font-extrabold text-black leading-tight mt-[-15px] text-left">SKILLED WORKERS</h1>
-            <h1 class="text-8xl font-extrabold text-black leading-tight mt-[-15px] text-left">NEAR YOU</h1>
-            <p class="text-lg text-neutral-600 mt-2 text-left">
-                With over 100,000+ trusted and certified professionals<br>
-                with just a click of a button.
-            </p>
-            <a href="{% url 'register:register' %}" class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg">
-                Get Started
-            </a>
+    <div class="landing-div flex flex-col">
+        <div class="h-screen flex flex-row items-right w-full">
+            <div class="px-20 md:px-32 lg:px-48 2xl:px-52 w-full my-auto flex flex-row">
+                <div  class="w-3/5 -z-0 text-white">
+                    <div class="font-extrabold text-6xl flex flex-col">    
+                    {% if request.user and request.user.is_worker %}
+                        <h1  class="leading-tight text-left">HONEST</h1>
+                        <h1  class="leading-tight text-left">RELIABLE EMPLOYERS</h1>
+                        <h1  class="leading-tight text-left">NEAR YOU</h1>
+                    {% else %}
+                        <h1  class="leading-tight text-left">AFFORDABLE</h1>
+                        <h1  class="leading-tight text-left">SKILLED WORKERS</h1>
+                        <h1  class="leading-tight text-left">NEAR YOU</h1>
+                    {% endif %}
+                    </div>
+                    {% if user.is_authenticated %}
+                        {% if request.user and request.user.is_worker %}
+                            <a href="{% url 'employee:employee_feed' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-8 rounded-sm">Start Applying</a>
+                        {% elif request.user and not request.user.is_worker %}
+                            <a href="{% url 'employer:employer_feed' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-8 rounded-sm">Start Hiring</a>    
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'register:register' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-8 rounded-sm">Get Started</a>
+                    {% endif %}
+                </div>
+                <div  class="w-2/5 -z-20 overflow-hidden">  
+                    <img class="object-scale-down absolute left-0 bottom-0" src="{% static "images/landing_bg.png" %}" alt="">
+                    <img class="absolute right-0 z-10 bottom-0 w-2/5 xl:w-6/12" src="{% static "images/worker.png" %}" alt="">
+                </div>
+            </div>
         </div>
-    </div>
+    
+        <div id="explore" class="flex px-20 md:px-32 lg:px-48 2xl:px-52">
+            <div class="flex flex-col gap-4">
+                <p class="text-4xl font-extrabold text-green-800">Our Services</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center gap-4 w-full">
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" src="{% static "images/laundry.png" %}" alt="">
+                        <div class="p-2 bg-gray-100">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Laundry</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" src="{% static "images/gardening.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Gardening</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" src="{% static "images/reapair.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Repair</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" src="{% static "images/driver.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Transportation</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" src="{% static "images/cleaning.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Yardwork</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" src="{% static "images/housecleaning.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">House Cleaning</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover" class="object-contain h-full" src="{% static "images/canine.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Pet Care</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                    <div  class="border-2 flex flex-col rounded-md hover:scale-110 transition bg-white">
+                        <img class="h-full object-cover " src="{% static "images/SECURITY.png" %}" alt="">
+                        <div class="p-2 bg-gray-100 flex flex-col">
+                            <p class="text-xl font-bold text-green-700 rounded-b-md mt-auto">Security</p>
+                            <small class="text-gray-400">See more</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="about" class=" flex flex-col gap-10 px-20 md:px-32 lg:px-48 2xl:px-52 py-20">
+            <p class="text-4xl font-extrabold text-green-800">A thriving hub to find and offer local jobs with ease</p>
+            <div class="flex flex-row w-full gap-4">
+                <div class="w-1/3 border-2 flex flex-col rounded-md bg-white">
+                    <img class="hover:scale-110 transition h-full object-cover " src="{% static "images/localexperts.png" %}" alt="">
+                    <div class="flex flex-col gap-0  p-2">
+                        <p class="text-green-700 font-medium">Find Local Experts</p>
+                        <p class="text-justify text-sm">Explore various categories to connect with skilled workers in your community, for any task, at any budget.</p>
+                    </div>
+                </div>
+                <div class="w-1/3 border-2 flex flex-col rounded-md bg-white">
+                    <img class="hover:scale-110 transition h-full object-cover " src="{% static "images/fast.png" %}" alt="">
+                    <div class="flex flex-col gap-0  p-2">
+                        <p class="text-green-700 font-medium">Fast, Reliable </p>
+                        <p class="text-justify text-sm">Quickly search and hire the right person, ensuring top-notch work delivered on time.</p>
+                    </div>
+                </div>
+                <div class="w-1/3 border-2 flex flex-col rounded-md bg-white">
+                    <img class="hover:scale-110 transition h-full object-cover " src="{% static "images/support.png" %}" alt="">
+                    <div class="flex flex-col gap-0  p-2">
+                        <p class="text-green-700 font-medium">Timely Support</p>
+                        <p class="text-justify text-sm">Get help anytime with our responsive support team, ready to assist with any questions or issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Other sections (Explore, About, etc.) -->
-    <div id="explore" class="mt-12 text-center">
-        <a href="#explore" class="explore-link">
-            <img src="{% static 'images/Explore.png' %}" alt="Explore" class="explore-image mx-auto">
-        </a>
-    </div>
+        <div id="about" class="h-screen flex flex-col gap-10 px-20 md:px-32 lg:px-48 2xl:px-52 py-20">
 
-    <div id="about" class="mt-12 text-center">
-        <a href="#about" class="about-link">
-            <img src="{% static 'images/About-Top.png' %}" alt="About" class="about-image mx-auto">
-        </a>
-        <a href="#about" class="about-link">
-            <img src="{% static 'images/About-Bottom.png' %}" alt="About" class="about-image mx-auto mt-4">
-        </a>
+        </div>
     </div>
 {% endblock %}

@@ -1,0 +1,17 @@
+*{
+    scroll-behavior: smooth;
+}
+#section{
+    animation: autoShowAnimation;
+    animation-timeline: view(90% 30%);
+}
+
+@keyframes autoShowAnimation {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

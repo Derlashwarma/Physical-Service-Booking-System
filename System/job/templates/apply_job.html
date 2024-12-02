@@ -8,48 +8,51 @@
 {% block title %}Apply {{job}}{% endblock title %}
 {% block content %}
 <div id="custom-popup" class="transition-all backdrop-blur-sm">
-    <div class="bg-white p-6 rounded shadow-lg text-center">
-        <p id="popup-message" class="mb-4 text-xl"></p>
-        <div class="flex justify-center gap-4">
-            <button id="confirm-btn" class="bg-green-500 text-white px-4 py-2 rounded">Confirm</button>
-            <button id="cancel-btn" class="bg-red-600 text-white px-4 py-2 rounded">Cancel</button>
+    <div class="bg-white p-6 rounded text-center">
+        <p id="popup-message" class="pb-4 text-sm"></p>
+        <div class="flex justify-center gap-2">
+            <button id="confirm-btn" class="bg-green-500 text-white px-4 py-2 rounded text-sm">Confirm</button>
+            <button id="cancel-btn" class="bg-red-600 text-white px-4 py-2 rounded text-sm">Cancel</button>
         </div>
     </div>
 </div>
 
 <div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28 gap-2">
-    <div class="w-1/4 flex flex-col bg-white rounded-lg mr-2 border border-gray-200 px-4 h-fit">
-        <div class="flex flex-row place-items-end gap-5 text-green-700">
+    <div class="w-1/4 flex flex-col gap-8 bg-white rounded-sm border-2  px-4 h-fit p-4">
+        <div class="flex flex-row place-items-end gap-2 text-green-700 w-1/2 ">
             {% if job.employer.image %}
-            <img class="w-1/2 aspect-h-1 rounded-lg mt-4" src="{{job.employer.image.url}}" alt="Profile picture of {{job.employerusername}}"/>
+            <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto" src="{{job.employer.image.url}}" alt="Profile picture of {{job.employerusername}}"/>
                 {% else %}
-            <img class="w-1/2 aspect-h-1 rounded-lg mt-4 border border-gray-400" src="{% static "/images/default.webp" %}" alt="Default Profile"/>
+            <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto " src="{% static "/images/default.webp" %}" alt="Default Profile"/>
             {% endif %}
-            <a href="{% url 'profile:profile' job.employer.username %}" class="text-2xl font-bold hover:text-green-900">{{job.employer}}</a>
+            <a href="{% url 'profile:profile' job.employer.username %}" class=" self-center text-lg font-bold hover:text-green-900">{{job.employer}}</a>
         </div>
-        <div class=" mb-4">
+        <div class=" text-xs flex flex-col gap-2">
             {% if job.is_done and job.rated %}
-                <a class=" border-2 border-gray-300 bg-gray-300 w-full p-2  text-gray-500 block text-center rounded-md mt-4 transition-all">Already Rated</a>
+                <a class=" border-2 border-gray-300 bg-gray-300 w-full p-2  text-gray-500 block text-center rounded-md transition-all">Already Rated</a>
                 {% elif job.is_done %}
-                <a href="{% url "rate:rate_user" username=job.employer.username job_id=job.id %}" class="bg-green-600 w-full p-2 hover:bg-green-700 text-white block text-center rounded-md mt-4 transition-all" >Rate Employer</a>
+                <a href="{% url "rate:rate_user" username=job.employer.username job_id=job.id %}" class="bg-green-600 w-full p-2 hover:bg-green-700 text-white block text-center rounded-md transition-all" >Rate Employer</a>
             {% else %}
                 <form action="{% url 'job:apply_job' job.pk %}" method="post">
                     {% csrf_token %}
                     {% if user.is_worker %}
-                        <button id="apply" type="submit" class="bg-green-600 w-full p-2 text-white block text-center rounded-md mt-4 transition-all hover:bg-green-700">Apply Now</button>
+                        <button id="apply" type="submit" class="bg-green-600 w-full p-2 text-white block text-center rounded-md transition-all hover:bg-green-700">Apply Now</button>
                         {% else %}
-                    <button type="submit" class="bg-green-500 w-full p-2 text-white block text-center rounded-md mt-4 transition-all" disabled>Apply Now</button>
+                    <button type="submit" class="bg-green-500 w-full p-2 text-white block text-center rounded-md transition-all" disabled>Apply Now</button>
                     {% endif %}
                 </form>
-                <a href="{% url "chat:conversation" job.employer.username%}" class="white border border-green-600 w-full p-2 text-green-600 block text-center rounded-md mt-4 transition-all hover:bg-green-600 hover:text-white">Message Me</a>
+                <a href="{% url "chat:conversation" job.employer.username%}" class="white border border-green-600 w-full p-2 text-green-600 block text-center rounded-md transition-all hover:bg-green-600 hover:text-white">Message Me</a>
             {% endif %}
-                <button id="go-back" class="white bg-red-600 w-full p-2 text-white block text-center rounded-md mt-4 transition-all hover:bg-red-700 ">Back</button>
+                <button id="go-back" class="white bg-red-600 w-full p-2 text-white block text-center rounded-md  transition-all hover:bg-red-700 ">Back</button>
         </div>
     </div>
-    <div class="w-3/4 h-fit border border-slate-100 pb-4">
-        <div class="w-full border bg-white rounded-lg border-gray-200 rich-text-content px-4 pb-4">
-            <p class="pt-4 px-4 text-center text-2xl font-medium text-green-700">{{job}}</p>
-            <p class="text-xl text-green-700 py-4">Description<p>
+    <div class="w-3/4 h-fit pb-4">
+        <div class="w-full border-2 bg-white rounded-sm  rich-text-content px-4 p-4">
+            <div class="flex flex-row h-fit">
+                <p class=" text-sm text-gray-600 ">Job Title: </p>    
+                <p class="pl-2 self-center text-2xl font-bold h-fit">{{job}}</p>
+            </div>
+            <p class="text-lg font-bold text-green-700 pt-2">Description<p>
             <p class="px-5">{{job.description | safe}}</p>
         </div>
     </div>

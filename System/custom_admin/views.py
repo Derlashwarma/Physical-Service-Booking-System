@@ -174,7 +174,10 @@ class AdminViews:
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
             if form.is_valid():
-                form.save()
+                user = form.save(commit=False)
+                user.is_superuser = request.POST.get('is_superuser',False)
+                user.is_worker = request.POST.get('is_worker',False)
+                user.save()
                 return redirect('custom_admin:users')
         else:
             form = RegistrationForm()
@@ -258,15 +261,12 @@ class AdminViews:
         if not logged_user.is_superuser:
             return render(request, "access_errors.html", {'status':403})
         
-        job_summary = cache.get('job_summary')
-        if job_summary is None:
-            job_summary = {
-                'job_posted': Job.objects.all().count(),
-                'active': Job.objects.filter(is_done=False).count(),
-                'completed': Job.objects.filter(is_done=True).count(),
-                'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
-            }
-            cache.set('job_summary', job_summary,500)
+        job_summary = {
+            'job_posted': Job.objects.all().count(),
+            'active': Job.objects.filter(is_done=False).count(),
+            'completed': Job.objects.filter(is_done=True).count(),
+            'revenue': Job.objects.filter(is_done=True).aggregate(Sum('budget'))['budget__sum']
+        }
 
         daily_jobs_created = cache.get('daily_jobs_created')
         if daily_jobs_created is None:
@@ -276,6 +276,10 @@ class AdminViews:
 
         job_types = Job.objects.values_list('category', flat=True)
         job_tags = Counter(job_types)
+        for tag in job_types:
+            updated_tag = tag.replace('_', ' ')
+            job_tags[updated_tag] = job_tags.pop(tag)
+            
         tag = {
             'label': list(job_tags.keys()),
             'count': list(job_tags.values())
