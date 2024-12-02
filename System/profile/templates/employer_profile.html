@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="bg flex flex-row gap-4 w-full px-28 p-4">
-        <div class="w-2/6 flex flex-col gap-4">
+        <div class="w-1/6 flex flex-col gap-4">
             <div class="bg-white rounded-md border h-fit p-4">
                 <img class="rounded-full" src="{% if profile_owner.image %}{{profile_owner.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
                 <p class="text-center text-2xl font-bold text-primary_color">{{profile_owner}}</p>
@@ -18,19 +18,21 @@
                 <a href="{% url 'profile:edit_profile' username=user %}" class="text-sm text-center w-full p-2 bg-green-700 text-white rounded-sm hover:bg-green-800">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="w-4/6 bg-white rounded-md border p-4 h-fit">
+        <div class="w-3/6 bg-white rounded-md border p-4 h-fit">
             <p class="text-lg font-bold text-green-700">Active Job Post</p>
-            <div class="job-contianer py-4 gap-4 flex flex-col px-2">
+            <div class="job-contianer py-4 gap-4 flex flex-col">
                 {% if active_jobs %}
                   {% for job in active_jobs %}
-                    <div class="flex flex-col gap-4 p-4 border-2 rounded-sm">
+                    <div class="flex flex-col gap-1 p-4 border-2 rounded-sm" >
                         {% if owner %}
                             <p class="font-bold"><a class="hover:text-green-900" href="{% url 'job:my_jobs' job_id=job.id %}">{{job}}</a></p>
+                        {% else %}
+                            <p class="font-bold"><a class="hover:text-green-900" href="{% url 'job:apply_job' job_id=job.id %}">{{job}}</a></p>
                         {% endif %}
                         <div class="flex flex-col">
-                            <small><span class="font-medium w-40 overflow-hidden">Date Posted:</span> {{job.created_at}} </small>
+                            <small class="text-gray-600"> {{job.created_at}} </small>
                             <div class="flex">
-                                <small><span class="font-medium">Salary:</span> {{job.budget}} </small>
+                                <small class="text-gray-600">P {{job.budget}} </small>
                                 <small class="ml-auto"><span class="font-medium">Status:</span> <span class="text-yellow-600">Active</span></small>    
                             </div>
                         </div>
@@ -79,17 +81,17 @@
                 <div class="job-contianer gap-4 flex flex-col">
                     {% if finished_jobs %}
                       {% for job in finished_jobs %}
-                        <div class="flex flex-col gap-4 p-2 border border-slate-300 rounded-md">
+                        <div class="flex flex-col gap-2 p-2 border-2 rounded-sm">
                             {% if owner %}    
                                 <a class="hover:text-green-900 hover:underline" href="{% url "job:my_jobs" job.id %}"><p class="font-medium">{{job}}</p></a>
                             {% else %}
                                 <p class="font-medium"><a class="hover:text-green-900" href="{% url 'job:apply_job' job.id %}">{{job}}</a></p>
                             {% endif %}
                             <div class="flex flex-col">
-                                <small><span class="font-medium">Date Posted:</span class="overflow-hidden"> {{job.created_at}} </small>
-                                <div class="flex flex-col">
-                                    <small><span class="font-medium">Salary:</span> {{job.budget}} </small>
-                                    <small><span class="font-medium">Status:</span> <span class="text-primary_color">Completed</span></small>    
+                                <small><span class="font-medium text-gray-500">Date Posted:</span class="overflow-hidden"> {{job.created_at}} </small>
+                                <div class="flex flex-row">
+                                    <small><span class="font-medium text-gray-500">Salary:</span> {{job.budget}} </small>
+                                    <small class="relative ml-auto"<span class="font-medium text-gray-500">Status:</span> <span class="text-primary_color">Completed</span></small>    
                                 </div>
                             </div>
                         </div>

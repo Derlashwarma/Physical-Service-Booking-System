@@ -51,3 +51,8 @@ class AdminUserForm(forms.ModelForm):
         model= CustomUser
         fields= '__all__'
         exclude=['password', 'groups', 'user_permissions']
+
+        widgets = {
+            'is_superuser': forms.CheckboxInput(attrs={'class': 'self-center'}),
+            'is_worker': forms.CheckboxInput(attrs={'class': 'self-center mt-0'})
+        }

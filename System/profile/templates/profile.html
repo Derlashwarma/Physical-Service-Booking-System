@@ -4,12 +4,12 @@
 
 {% block content %}
     <div class="bg flex flex-row w-full px-28 p-4 gap-4">
-        <div class="left w-1/4 h-full flex flex-col gap-4">
+        <div class="left w-1/6 h-full flex flex-col gap-4">
             <div class="top-left bg-white w-full h-full rounded-md border flex flex-col gap-4 p-4">
                 {% if profile %}
-                    <img class="justify-center self-center min-w-60 min-h-60 w-2/3 aspect-h-1 rounded-full" src="{{profile.url}}" alt="Profile picture of {{username}}"/>
+                    <img class="justify-center self-center aspect-h-1 rounded-full" src="{{profile.url}}" alt="Profile picture of {{username}}"/>
                     {% else %}
-                    <img class="justify-center self-center min-w-60 min-h-60 w-2/3 aspect-h-1 rounded-full" src="{% static "/images/default.webp" %}" alt="Profile picture of {{username}}"/>
+                    <img class="justify-center self-center aspect-h-1 rounded-full" src="{% static "/images/default.webp" %}" alt="Profile picture of {{username}}"/>
 
                 {% endif %}
                     <p class="text-center text-xl font-bold text-green-600">{{username}}</p>
@@ -24,7 +24,7 @@
                 class="text-center bg-green-600 text-white py-2 rounded-md border text-sm">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="middle bg-white w-1/2 rounded-md border p-5 rich-text-content h-fit">
+        <div class="middle bg-white w-3/6 rounded-md border p-5 rich-text-content h-fit">
             <h2 class="text-green-600 text-lg font-bold">Professional Summary</h2>
             {% if summary %}
                 <p class="text-sm text-justify">{{ summary|safe }}</p>
@@ -60,7 +60,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="right w-1/4 h-full">
+        <div class="right w-2/6 h-full">
             <div class="p-5 bg-white rounded-md border">
                 <p class="text-green-600 text-lg font-bold">Ratings</p>
                 <ul class="mt-5 flex flex-col gap-2">

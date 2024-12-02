@@ -19,13 +19,13 @@
 
 <div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28 gap-2">
     <div class="w-1/4 flex flex-col gap-8 bg-white rounded-sm border-2  px-4 h-fit p-4">
-        <div class="flex flex-row place-items-end gap-2 text-green-700 w-1/2 border">
+        <div class="flex flex-row place-items-end gap-2 text-green-700 w-1/2 ">
             {% if job.employer.image %}
             <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto" src="{{job.employer.image.url}}" alt="Profile picture of {{job.employerusername}}"/>
                 {% else %}
-            <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto border" src="{% static "/images/default.webp" %}" alt="Default Profile"/>
+            <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto " src="{% static "/images/default.webp" %}" alt="Default Profile"/>
             {% endif %}
-            <a href="{% url 'profile:profile' job.employer.username %}" class="border self-center text-lg font-bold hover:text-green-900">{{job.employer}}</a>
+            <a href="{% url 'profile:profile' job.employer.username %}" class=" self-center text-lg font-bold hover:text-green-900">{{job.employer}}</a>
         </div>
         <div class=" text-xs flex flex-col gap-2">
             {% if job.is_done and job.rated %}

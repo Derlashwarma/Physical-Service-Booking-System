@@ -8,7 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"> {% endcomment %}
   <link rel="stylesheet" href="{% static 'css/font.css' %}">
-  <link rel="stylesheet" href="{% static "css/override.css" %}">
   <link rel="stylesheet" href="{% static 'css/job.css' %}">
   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
   {% tailwind_css %}
@@ -19,15 +18,18 @@
   </title>
 </head>
 <body class="overflow-x-hidden h-screen bg-slate-50">
-  <nav class="sticky top-0 z-10 bg-white border-b-2 border-b-green-700 py-4 px-8">
+  <nav class="sticky w-full top-0 z-50 bg-white border-b-2 border-b-green-700 py-2 px-8">
     <div class="flex justify-between items-center">
-      <div class="logo">
+      <div class="logo self-center">
         <a href="#index">  
           <img class="h-5" src="{% static 'images/Serviso.png' %}" alt="Serviso Logo">
         </a>
       </div>
         {% if user.is_authenticated %}
           <ul class="flex space-x-6">
+            <li class="self-center">
+              <a class="hover:text-green-600 {% if home %}text-cyan-800 underline{% endif %}" href="{% url "landing:landing_page" %}">Home</a>
+            </li>
             <li class="self-center">
             {% if user.is_worker %}
               <a class="hover:text-green-600 {% if 'feed' in request.path %} text-cyan-800 underline{% endif %}" href="{% url 'employee:employee_feed' %}">Worker Feed</a>
@@ -49,7 +51,7 @@
           </li>
           </ul>
         {% else %}
-        <ul class="nav-links flex space-x-6">
+        <ul class="flex space-x-6 py-2">
           <li><a class="hover:text-green-600" href="#explore">Explore</a></li>
           <li><a class="hover:text-green-600" href="#about">About</a></li>
           <li><a class="hover:text-green-600" href="#">Hire</a></li>

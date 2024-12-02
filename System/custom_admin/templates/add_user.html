@@ -40,16 +40,24 @@
             </div>
             <div class="flex flex-col gap-0 p-0">
                 <label for="username">Password</label>
-                {{form.password}}
+                {{form.password.0}}
                 <div class="p-0 text-red-800 text-xs m-0">{{form.errors.password.0}}</div>
             </div>
             <div class="flex flex-col gap-0 p-0">
                 <label for="username">Create a Worker Account</label>
-                <div class="flex flex-row p-0 w-1/5">
-                    <div>{{form.is_worker.0}}</div>
-                    <div>{{form.is_worker.1}}</div>
+                <div class="flex flex-row justify-start p-0 w-1/5">
+                    {{form.is_worker.0}}
+                    {{form.is_worker.1}}
                 </div>
                 <div class="p-0 text-red-800 text-xs m-0">{{form.errors.is_worker.0}}</div>
+            </div>
+            <div class="flex flex-col gap-0 p-0">
+                <label for="username">Create an Admin Account</label>
+                <div class="flex flex-row justify-start p-0 w-1/5">
+                    <label for="id_is_superuser" class="w-fit">Yes</label>
+                    <input type="checkbox" name="id_is_superuser" value="true" class="my-auto">
+                </div>
+                <div class="p-0 text-red-800 text-xs m-0">{{form.errors.is_superuser.0}}</div>
             </div>
             <button class="mt-4 w-full bg-primary_color text-white py-2 hover:bg-green-700" type="submit">Create User</button>
         </form>
