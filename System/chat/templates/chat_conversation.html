@@ -6,13 +6,13 @@
     Chat
 {% endblock title %}
 {% block content %}
-<div class="px-40 mt-4 h-full flex flex-row">
-    <div class="flex flex-col bg-white w-full rounded-md shadow-custom_spread p-5 border">
-        <div class="w-full px-4 flex flex-row gap-5">
+<div class="px-40 p-4 h-full flex flex-row">
+    <div class="flex flex-col h-fit bg-white w-full rounded-md shadow-custom_spread border">
+        <div class="w-full px-4 flex flex-row gap-5 pt-4">
             {% if other_user.image %}
-                <img src="{{other_user.image.url}}" alt="profile of {{other_user}}" class="h-20 rounded-full border">
+                <img src="{{other_user.image.url}}" alt="profile of {{other_user}}" class="h-12 rounded-full border">
             {% else %}
-                <img src="{% static "images/default.webp" %}" alt="default profile" class="h-20 rounded-full border">
+                <img src="{% static "images/default.webp" %}" alt="default profile" class="h-12 rounded-full border">
             {% endif %}
             <p class="text-green-800 self-center font-medium text-2xl">{{other_user.username}}</p>
         </div>
@@ -25,7 +25,7 @@
                     </div>
                 {% endfor %}
             </div>            
-            <div class="h-1/5 w-full pb-4">
+            <div class="h-1/5 w-full">
                 <form id="send-message-form" method="post" class="flex flex-row gap-4 w-full h-full">
                     {% csrf_token %}
                     <textarea class="h-full w-full" id="message-input" name="message" placeholder="Type your message here..." required></textarea>

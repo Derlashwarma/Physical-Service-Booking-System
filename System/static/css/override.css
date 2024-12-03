@@ -1,11 +1,9 @@
-/* job.css */
+.rich-text-context,
 .rich-text-content ul,
 .rich-text-content li {
-    /* Override Tailwind's default styles */
     list-style-type: disc;
-    margin-left: 1.5em; /* Adjust as needed */
+    margin-left: 1.5em;
     padding: 0.5em 0;
-    /* Reset other styles Tailwind might add */
     color: inherit;
     font-size: inherit;
     line-height: inherit;

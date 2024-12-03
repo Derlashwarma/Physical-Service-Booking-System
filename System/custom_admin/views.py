@@ -29,7 +29,7 @@ class AdminViews:
     def overview(request):
         user = request.user
         if not user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         # Consolidate number of users and jobs into a single database hit
         aggregate_data = cache.get('overview_aggregate_data')
@@ -111,7 +111,7 @@ class AdminViews:
     def user_admin_view(request):
         user = request.user
         if not user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message':'You do not have permission to access this resource.'})
         
         user_counts = cache.get('user_count')
         if user_counts is None:
@@ -169,7 +169,7 @@ class AdminViews:
     @login_required(login_url="login:login")
     def add_user(request):
         if not request.user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
@@ -191,7 +191,7 @@ class AdminViews:
     def edit_user_admin_view(request, user_id):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         profile = CustomUser.objects.get(pk=user_id)
         if request.method == 'POST':
@@ -211,7 +211,7 @@ class AdminViews:
     def job_application_admin(request):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         applications_overview = cache.get('application_overview')
         if applications_overview is None:
@@ -238,7 +238,7 @@ class AdminViews:
     def edit_application(request, application_id):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         application = JobApplication.objects.get(pk=application_id)
         if request.method == 'POST':
@@ -259,7 +259,7 @@ class AdminViews:
     def job_admin(request):
         logged_user = request.user
         if not logged_user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         job_summary = {
             'job_posted': Job.objects.all().count(),
@@ -303,7 +303,7 @@ class AdminViews:
     @login_required(login_url="login:login")
     def job_edit(request, job_id):
         if not request.user.is_superuser:
-            return render(request, "access_errors.html", {'status':403})
+            return render(request, "access_errors.html", {'status':403, 'message': 'You do not have permission to access this resource.'})
         
         job = Job.objects.get(pk=job_id)
 
