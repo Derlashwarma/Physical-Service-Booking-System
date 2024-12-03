@@ -24,3 +24,15 @@
 button:disabled {
     opacity: 0.6;
 }
+
+.disappear{
+    animation: disappearAnimation 2s forwards;
+}
+@keyframes disappearAnimation{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}

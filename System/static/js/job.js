@@ -21,7 +21,7 @@ $(document).ready(function() {
     $('button:contains("Reject")').on('click', function(e) {
         e.preventDefault(); 
         const form = $(this).closest('form');
-        showPopup("Discard changes?", form);
+        showPopup("Are you sure you want to reject the application?", form);
     });
 
     $('#confirm-btn').on('click', function() {
