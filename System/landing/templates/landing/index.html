@@ -104,7 +104,7 @@
             </div>
         </div>
     
-        <div id="about" class=" flex flex-col gap-10 px-20 md:px-32 lg:px-48 2xl:px-52 py-20">
+        <div class=" flex flex-col gap-10 px-20 md:px-32 lg:px-48 2xl:px-52 py-20">
             <p class="text-4xl font-extrabold text-green-800">A thriving hub to find and offer local jobs with ease</p>
             <div class="flex flex-row w-full gap-4">
                 <div class="w-1/3 border-2 flex flex-col rounded-md bg-white">
@@ -131,8 +131,50 @@
             </div>
         </div>
 
-        <div id="about" class="h-screen flex flex-col gap-10 px-20 md:px-32 lg:px-48 2xl:px-52 py-20">
+        <div id="about" class="w-full h-fit flex flex-col gap-10 px-20 md:px-32 lg:px-48 2xl:px-52 py-20">
+            <p class="text-4xl font-extrabold text-green-800">About Us</p>
+            <div class="flex flex-row h-1/3 mx-auto gap-4 p-4">
+                <p class="text-justify w-3/5 my-auto to-right" id="animate">
+                    We make it easy to connect with skilled professionals who are ready to assist with 
+                    your home and business needs. From plumbing and electrical work to repairs and 
+                    installations, we offer a trusted and affordable way to get tasks done efficiently. 
+                    Our platform is built on quality, reliability, and convenience. Say goodbye to endless 
+                    searches—just choose a service, find a nearby expert, and let Serviso take care of the rest.
+                </p>
+                <img class="w-2/5 object-contain" src="{% static "images/connection.png" %}" alt="">
+            </div>
+            
+            <div class="flex flex-row-reverse h-1/3 p-4">
+                <div class="self-center  w-3/5">
+                    <p class=" text-justify to-left" id="animate">
+                        Discover a world of trusted and experienced professionals, carefully verified to 
+                        meet your needs across a wide range of services. With competitive rates and fully 
+                        transparent pricing, you can enjoy affordable solutions without worrying about hidden 
+                        charges or surprises. Our seamless booking process ensures a hassle-free experience,
+                         saving you time with quick confirmations and flexible scheduling options tailored to fit your busy lifestyle.
+                    </p>
+                </div>
+                <img class="w-2/5 object-contain" src="{% static "images/professional.png" %}" alt="">
+            </div>
+            
+            <div class="flex flex-row h-1/3 mx-auto gap-4 p-4">
+                <div class="self-center  w-3/5">
+                    <p class="text-justify to-right" id="animate">
+                        To provide you with peace of mind and professional support, no 
+                        matter the size of the task. Whether it’s a simple fix or a larger 
+                        project, Serviso connects you with the right pros for the job—fast, easy, and reliable.
+                    </p>
+                </div>
+                <img class="w-2/5 object-contain" src="{% static "images/support2.png" %}" alt="">
+            </div>
+        </div>
+        <div class="2-full h-40 bg-gray-200">
 
+        </div>
+        
+
+        <div class="bottom-0 p-2 fixed hover:scale-125 transition hover:ml-2 hover:mb-2">
+            <a href="#" class="text-xs bg-green-800 bg-opacity-25 p-1 backdrop-blur-sm text-white">Back to Top</a>
         </div>
     </div>
 {% endblock %}
