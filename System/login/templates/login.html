@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    {% tailwind_css %}
    <link rel="stylesheet" href="{% static "css/font.css" %}">
+   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+   <script src="{% static "js/login.js" %}"></script>
     <title>LOGIN</title>
 </head>
 <body class="flex flex-col justify-center h-screen bg-slate-100">
@@ -23,14 +25,19 @@
                     <div class="flex flex-col mt-5">
                         <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
                         {{ form.password }}
-                        
-                        <div class="w-full text-red-600 h-fit text-sm">
+                        <div class="w-fullh-fit text-sm flex flex-row p-2">
                             {% if form.username.errors %}
+                            <div class=" text-red-600 ">
                                 {{form.username.errors}}
+                            </div>
                             {% endif %}
+                            <div class="ml-auto flex flex-row gap-2">
+                            <label for="show_password">Show Password</label>
+                            <input type="checkbox" id="show_password">
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" class="my-10 w-full py-3 bg-green-700 rounded-lg text-white transition hover:bg-green-800">Login</button>
+                    <button type="submit" class="my-10 w-full py-3 bg-primary_color rounded-lg text-white transition hover:bg-green-800">Login</button>
                 </form>
             </div>
             <div class="w-1/2 h-full  bg-primary_color flex flex-col justify-center">

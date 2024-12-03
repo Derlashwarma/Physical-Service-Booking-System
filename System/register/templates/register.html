@@ -17,9 +17,9 @@
         <div class="left-right w-1/2  container  d-flex flex-column align-items-center">
             <form method="POST" class="w-70 justify-self-center ">
                 {% csrf_token %}
-                <div class="main-container bottom_part w-100 ">
-                    <div style="width: 50vw;" class=" m-5 bg-white border p-5 rounded-xl">
-                        <h1 class="to_find mb-5 text-3xl">Sign up </h1>
+                <div class="main-container bottom_part w-100">
+                    <div class=" bg-white border rounded-lg  flex flex-col gap-4 p-4">
+                        <h1 class="to_find text-3xl">Sign up </h1>
                         <div class="form-group w-100">
                             <label for="username">Username</label>
                             {{ form.username }}
@@ -30,13 +30,23 @@
                             {% endif %}
                         </div>
                         
-                        <div class="form-group w-100 mt-2">
+                        <div class="form-group w-100">
                             <label for="password">Password</label>
-                            {{ form.password }}
+                            <div class="flex flex-row gap-2">
+                                {{ form.password }}
+                                <div id="show_password" class="border-2 px-2 rounded-md flex flex-row">
+                                    <img class="object-fill my-auto" src="{% static "images/viewpassword.svg" %}" alt="">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group w-100 mt-2">
+                        <div class="form-group w-100">
                             <label for="confirm_password">Confirm password</label>
-                            <input type="password" name="confirm_password" class="w-full border border-gray-600 rounded-md" />
+                            <div class="flex flex-row gap-2">
+                                <input id="confirm_password" type="password" name="confirm_password" class="w-full border border-gray-600 rounded-md" />
+                                <div id="show_confirm_password" class="border-2 px-2 rounded-md flex flex-row">
+                                    <img class="object-fill my-auto" src="{% static "images/viewpassword.svg" %}" alt="">
+                                </div>
+                            </div>
                             {% if form.password.errors %}
                             <small class="text-danger">
                                 {{ form.password.errors }} 
@@ -44,25 +54,37 @@
                             {% endif %}
                         </div>
                         <div class="grid grid-cols-2 gap-5">
-                            <div id="client" class=" w-full border-2 rounded-3 px-2 mt-4">
+                            <div id="client" class=" w-full border-2 rounded-3 px-2">
                                 <div class="client ">
                                     <div class="w-100 d-flex justify-content-end">{{ form.is_worker.0 }}</div>
                                     <p class="p-3">join as a client seeking someone who can provide the services I seek</p>
                                 </div>
                             </div>
-                            <div id="worker" class="w-full border-2 rounded-3 px-2 mt-4 ">
+                            <div id="worker" class="w-full border-2 rounded-3 px-2">
                                 <div class="professional">
-                                    <div class="w-100 d-flex justify-content-end">{{ form.is_worker.1 }}</div>
+                                    <div class="w-100 d-flex justify-content-end">
+                                        {{ form.is_worker.1 }}
+                                    </div>
                                     <p class="p-3">Join as a professional capable of delivering the physical services</p>
                                 </div>
                             </div>
                         </div>
-                        <button class="form-control btn btn-success mt-10" type="submit">Sign up</button>
-                        <p>Already have an account? <a href="{% url "login:login" %}" class="text-success w-100 align-center">click here</a></p>  
+                        <div>
+                            <button class="form-control btn btn-success " type="submit">Sign up</button>
+                            <p>Already have an account? <a href="{% url "login:login" %}" class="text-success w-100 align-center hover:text-green-800">click here</a></p>  
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            showPassword("#show_password", '#id_password')
+            showPassword("#show_confirm_password", '#confirm_password')
+            function showPassword(button_name,password_id){
+                $(button_name).click(function() {var passwordField = $(password_id);var fieldType = passwordField.attr('type');if (fieldType === 'password') {passwordField.attr('type', 'text');} else {passwordField.attr('type', 'password');}});}
+        })
+    </script>
 </body>
 </html>
