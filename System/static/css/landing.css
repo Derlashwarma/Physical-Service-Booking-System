@@ -6,6 +6,18 @@
     animation-timeline: view(90% 30%);
 }
 
+#animate{
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-timeline: view(30% 20%);
+}
+.to-left {
+  animation: slideFromRight;
+}
+.to-right {
+  animation: slideFromLeft;
+}
+
 @keyframes autoShowAnimation {
   from {
     opacity: 0;
@@ -13,5 +25,26 @@
   }to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
