@@ -17,6 +17,16 @@
     </div>
 </div>
 
+{% for message in messages %}
+    {% if message %}
+        <div id="popup" class="fixed h-5/6 w-full flex flex-row transition-all">
+            <div class="bg-white w-1/4 mx-auto mt-auto p-4 border-l-4 border-green-600 shadow-custom_spread">
+                <p>{{ message }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
 <div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28 gap-2">
     <div class="w-1/4 flex flex-col gap-8 bg-white rounded-sm border-2  px-4 h-fit p-4">
         <div class="flex flex-row place-items-end gap-2 text-green-700 w-1/2 ">
@@ -36,9 +46,13 @@
                 <form action="{% url 'job:apply_job' job.pk %}" method="post">
                     {% csrf_token %}
                     {% if user.is_worker %}
-                        <button id="apply" type="submit" class="bg-green-600 w-full p-2 text-white block text-center rounded-md transition-all hover:bg-green-700">Apply Now</button>
+                        {% if applied %}
+                            <button type="submit" class=" w-full p-2 bg-gray-600 block text-center rounded-md transition-all" disabled>Application Already Sent</button>
                         {% else %}
-                    <button type="submit" class="bg-green-500 w-full p-2 text-white block text-center rounded-md transition-all" disabled>Apply Now</button>
+                            <button id="apply" type="submit" class="bg-green-600 w-full p-2 text-white block text-center rounded-md transition-all hover:bg-green-700">Apply Now</button>        
+                        {% endif %}
+                    {% else %}
+                        <button type="submit" class=" w-full p-2 bg-gray-600 block text-center rounded-md transition-all" disabled>This Action is Unavailable</button>
                     {% endif %}
                 </form>
                 <a href="{% url "chat:conversation" job.employer.username%}" class="white border border-green-600 w-full p-2 text-green-600 block text-center rounded-md transition-all hover:bg-green-600 hover:text-white">Message Me</a>
@@ -57,4 +71,15 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        const popup = document.getElementById('popup');
+
+        if (popup) {
+            setTimeout(() => {
+                $('#popup').addClass('hidden');
+            }, 2000);
+        }
+    });
+</script>
 {% endblock content %}

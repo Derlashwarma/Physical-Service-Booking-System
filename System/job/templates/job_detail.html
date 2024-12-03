@@ -2,7 +2,7 @@
 {% load static %}
 {% block custom_head_tag %}
     <script src="{% static "js/job.js" %}"></script>
-    <link rel="stylesheet" href="{% static 'css/job.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/job.css' %}"> {% endcomment %}
 {% endblock custom_head_tag %}
 
 {% block title %}My Jobs{% endblock title %}

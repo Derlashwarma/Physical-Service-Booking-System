@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import JobPostForm
 from .models import Job, JobApplication
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 class JobViews:
     @login_required(login_url="login:login")
@@ -48,16 +49,17 @@ class JobViews:
                                     'status': 403,
                                     'message': 'Action forbidden, you have already rated this job.'
                                 })
-                if job_application_exists:
-                    return render(request,'access_errors.html',
-                                {
-                                    'status': 403,
-                                    'message': 'Action forbidden, you already applied for this job'
-                                })
 
                 JobApplication.objects.create(job=job, worker=user)
+                messages.add_message(request,messages.SUCCESS,'Application Sent Successfully')
                 return redirect("job:apply_job", job_id=job_id)
-
+            if job_application_exists:
+                context = {
+                    'job': job,
+                    'user': user,
+                    'applied': job_application_exists
+                }
+                return render(request, 'apply_job.html', context)
             context = {
                 'job': job,
                 'user': user,
