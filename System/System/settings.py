@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django_components',
     'ckeditor',
     'job',
-    'livereload',
     'custom_admin',
     'chat',
     'channels',

@@ -35,6 +35,15 @@ def chat_conversation(request, username):
     except CustomUser.DoesNotExist:
             return render(request, 'access_errors.html', 
                           {'status':404, 'message':"User does not Exist"})
+    if request.method == 'POST':
+        message_text = request.POST.get('message')
+        if message_text:
+            Message.objects.create(
+                conversation=conversation,
+                author=request.user,
+                message=message_text
+            )
+            return redirect('chat:conversation', username=username)
     
     if request.method == 'POST':
         message_text = request.POST.get('message')
