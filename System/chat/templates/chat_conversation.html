@@ -35,7 +35,7 @@
         </div>
     </div>
 </div>
-<script>
+{% comment %} <script>
     const otherUsername = "{{ other_user.username }}";
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     const chatSocket = new WebSocket(
@@ -67,5 +67,5 @@
         }));
         messageInput.value = '';
     };
-</script>
+</script> {% endcomment %}
 {% endblock content %}
