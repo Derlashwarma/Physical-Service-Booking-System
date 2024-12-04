@@ -1,6 +1,5 @@
 {% load static %}
 {% load static tailwind_tags %}
-{% load livereload_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
     {% tailwind_css %}
-    {% livereload_script %}
     <title>request {{status}}</title>
 </head>
 <body class="flex flex-row h-screen">
