@@ -1,77 +1,59 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block title %}
-    Employee Feed {{user.is_authenticated}}
+    Employee Feed {{ user.is_authenticated }}
 {% endblock %}
 
 {% block content %}
     <div class="flex flex-col h-screen p-8">
         <div class="flex flex-1 w-full space-x-2">
-            <div class="w-1/4 h-full flex flex-col space-y-2 border-solid border-slate-800">
-                <div class="h-64 w-full border border-slate-200 bg-white shadow-md flex flex-col items-center justify-center space-y-4">
-                    <p class="text-3xl font-bold text-center">Get your best<br>profession<br>with serviso</p>
-                    <button class="bg-green-600 w-40 h-10 text-white text-xl px-2 py-1 rounded-2xl hover:bg-green-700">
-                        Learn more
-                    </button>
-                </div>                
-                <div class="flex-1 bg-white border border-slate-200 p-6">
-                    <div class='max-w-md mx-auto'>
-                        <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-                            <input
-                            class="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
-                            type="text"
-                            id="search"
-                            placeholder="Search something.." /> 
-
-                            <div class="grid place-items-center h-full w-12 text-gray-300 bg-green-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-2xl font-bold mt-6">Filters</div>
-                    <div class="text-xs font-bold text-gray-400">Working Schedule</div>
-                    <div class="space-y-1">
-                    </div>                    
-                </div>
+            <div class="w-1/4 h-full flex flex-col space-y-2 border-solid border-slate-800">              
+                {% include "employee-left-panel.html" %}
             </div>
 
-            <div class="flex-1 h-full flex flex-col space-y-2 border-solid overflow-y-auto">
-                <div class="flex space-x-2">
-                    <div class="text-xl font-bold">Recommended Jobs</div>
-                    <div class="border border-black bg-inherit rounded-2xl w-12 text-center">{{ jobs|length }}</div> 
-                </div>
-                <div class="flex-1 border border-gray-200 bg-slate-100 p-8 space-y-4">
-                    <!-- Card Container -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {% for job in jobs %}
-                        <div class="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72">
-                            <div class="relative mx-4 mt-4 overflow-hidden bg-orange-200 h-64 p-4">
-                                <div class="text-xs bg-white w-24 text-center rounded-md p-1">{{ job.date|date:"d M. Y" }}</div>
-                                <div class="text-xs mt-8">{{ job.employer.username }}</div> 
-                                <p class="text-3xl font-bold text-black">{{ job.title }}</p>
-                                <div class="flex mt-12 space-x-2">
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">{{ job.get_category_display }}</div>
-                                    <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">{{ job.get_schedule_display }}</div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">₱{{ job.budget }}/hr</p>
-                                        <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">{{ job.location }}</p>
-                                    </div>
-                                    <a href="{% url 'job:apply_job' job.id %}" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105">
-                                        Details
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
+            <div class="flex-1 h-full w-2/4 flex flex-col space-y-2 border-solid overflow-y-auto">
+                <div class="flex-1 border rounded-md border-2 bg-slate-100 p-8 space-y-4">
+                    <div class="flex space-x-2">
+                        <div class="text-xl font-bold">Recommended Jobs</div>
+                        <div class="border border-black bg-inherit rounded-2xl w-12 text-center">{{ jobs|length }}</div> 
                     </div>
+                    {% if jobs|length == 0 %}
+                        <div class="flex items-center justify-center w-full h-full">
+                            <p class="text-lg font-semibold text-gray-600">No results found</p>
+                        </div>
+                    {% else %}
+                        <!-- Card Container -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {% for job in jobs %}
+                                <div class="flex flex-col text-gray-900 bg-white shadow-md bg-clip-border rounded-xl w-72">
+                                    <div class="relative mx-4 mt-4 overflow-hidden rounded-md bg-orange-200 h-64 p-4">
+                                        <div class="text-xs bg-white w-24 text-center rounded-md p-1">{{ job.date|date:"d M. Y" }}</div>
+                                        <div class="text-xs mt-8">{{ job.employer.username }}</div> 
+                                        <p class="text-3xl font-bold text-black">{{ job.title }}</p>
+                                        <div class="flex mt-12 space-x-2">
+                                            <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">{{ job.get_category_display }}</div>
+                                            <div class="text-xs border bg-inherit rounded-lg p-1 w-20 text-center border-black">{{ job.get_schedule_display }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="block font-sans text-sm antialiased font-medium leading-relaxed text-blue-gray-900">₱{{ job.budget }}/hr</p>
+                                                <p class="block font-sans text-xs antialiased font-normal leading-tight text-gray-700 opacity-75">{{ job.location }}</p>
+                                            </div>
+                                            <a href="{% url 'job:apply_job' job.id %}" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-green-600 text-white shadow-none hover:scale-105">
+                                                Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
+            </div>
+            <div class="w-1/4 border-2 rounded-md ">
+                {% include "employee-right-panel.html" %}
             </div>    
         </div>
     </div>

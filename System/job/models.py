@@ -18,6 +18,9 @@ class Job(models.Model):
         ('one_time', 'One-Time'),
         ('fulltime', 'Full-Time'),
         ('parttime', 'Part-Time'),
+        ('internship', 'Internship'),
+        ('project_work', 'Project-Work'),
+        ('volunteering', 'Volunteering'),
     ]
 
     PAYMENT_METHOD_CHOICES = [

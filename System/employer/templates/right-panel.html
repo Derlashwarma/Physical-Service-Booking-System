@@ -1,0 +1,40 @@
+<div class=" bg-white rounded-md  h-fit p-4 border-2 " >
+    <div class="text-center w-full text-xl font-bold text-green-600 mb-5">
+        Job Applications
+    </div>
+    {% if applications and owner %}
+        {% for application in applications %}
+        <div class="border-2 border-green-300 p-5 mt-5 w-full rounded grid">
+            <div class="text-sm">
+                Application ID: <strong>{{application.id}}</strong>
+            </div>
+            <a class="text-2xl mt-4 font-bold w-fit hover:text-green-600 transition-all" href="{% url "profile:profile" username=application.worker %}">{{application.worker}}</a>
+            <p>Status: <span class="font-medium {% if application.status == 'completed' %}text-green-700 {% else %} text-orange-700 {% endif %}">{{application.status}}</span>
+            </p>
+            <p class="text-sm">{{application.applied_at}}</p>
+                {% if application.status == 'completed' %}
+                    {% if application.rated %}    
+                        <a class=" bg-gray-300 border-2 border-gray-300 p-2 w-full my-1 rounded-sm text-gray-500 text-center bg-opacity-85 text-sm"> Finished Rating </a>
+                        {% else %}
+                            <a href="{% url "rate:rate_user" username=application.worker.username job_id=application.job.id %}" class="hover:bg-green-700 bg-green-600 p-2 w-full my-1 rounded-sm text-white text-center text-sm"> Rate User </a>
+                    {% endif %}
+                {% elif application.status == 'declined' %}
+
+                {% elif application.status == 'accepted' %}
+                    <button class="bg-orange-500 p-2 w-full mt-1 rounded-sm text-white">Job Ongoing</button>
+                {% else %}
+                    <form action="{% url 'job:accept' application.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-green-500 p-2 w-full my-1 rounded-sm text-white text-sm">Accept</button>
+                    </form>
+                    <form action="{% url 'job:reject' application.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-600 p-2 w-full mt-1 rounded-sm text-white text-sm">Reject</button>
+                    </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No applicants applied</p>
+    {% endif %}
+</div>
