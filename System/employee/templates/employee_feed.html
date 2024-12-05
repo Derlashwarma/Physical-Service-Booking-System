@@ -7,7 +7,7 @@
 {% block content %}
     <div class="flex flex-col h-screen p-8">
         <div class="flex flex-1 w-full space-x-2">
-            <div class="w-1/4 h-full flex flex-col space-y-2 border-solid border-slate-800">              
+            <div class="w-1/4 h-full flex flex-col space-y-2 border-solid border-slate-800">               
                 {% include "employee-left-panel.html" %}
             </div>
 
@@ -23,9 +23,9 @@
                         </div>
                     {% else %}
                         <!-- Card Container -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                             {% for job in jobs %}
-                                <div class="flex flex-col text-gray-900 bg-white shadow-md bg-clip-border rounded-xl w-72">
+                                <div class="flex flex-col text-gray-900 bg-white shadow-md bg-clip-border rounded-xl w-full sm:w-80 md:w-72">
                                     <div class="relative mx-4 mt-4 overflow-hidden rounded-md bg-orange-200 h-64 p-4">
                                         <div class="text-xs bg-white w-24 text-center rounded-md p-1">{{ job.date|date:"d M. Y" }}</div>
                                         <div class="text-xs mt-8">{{ job.employer.username }}</div> 

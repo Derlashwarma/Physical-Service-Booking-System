@@ -1,0 +1,40 @@
+<div class="bg-white mb-4 p-8">
+    <p class="font-bold text-2xl mb-4">Filter</p>
+
+    <div class="pl-4">
+        <form method="get" action="">
+            <!-- Category Filter -->
+            <div class="mb-12">
+                <p class="font-bold text-lg">Category</p>
+                <div class=" translate-x-8"> 
+                    {% for value, label in CATEGORY_CHOICES %}
+                        <div class="ml-8 flex items-center space-x-2">
+                            <input type="checkbox" id="category_{{ value }}" name="category" value="{{ value }}"
+                                {% if value in request.GET.category %}checked{% endif %}>
+                            <label for="category_{{ value }}" class="text-gray-400">{{ label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Schedule Filter -->
+            <div class="mb-6">
+                <p class="font-bold text-lg">Schedule</p>
+                <div class="pl-12"> 
+                    {% for value, label in SCHEDULE_CHOICES %}
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="schedule_{{ value }}" name="schedule" value="{{ value }}"
+                                {% if value in request.GET.schedule %}checked{% endif %}>
+                            <label for="schedule_{{ value }}" class="text-gray-400">{{ label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Button for Filter -->
+            <div class="mt-4">
+                <button type="submit" class="font-semibold bg-green-600 px-4 py-2 rounded-md text-white">Apply Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
