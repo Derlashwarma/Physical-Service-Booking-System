@@ -57,12 +57,14 @@ class JobViews:
                 context = {
                     'job': job,
                     'user': user,
-                    'applied': job_application_exists
+                    'applied': job_application_exists,
+                'category': ((job.category).replace('_',' '))
                 }
                 return render(request, 'apply_job.html', context)
             context = {
                 'job': job,
                 'user': user,
+                'category': ((job.category).replace('_',' '))
             }
             return render(request, 'apply_job.html', context)
         except Job.DoesNotExist:

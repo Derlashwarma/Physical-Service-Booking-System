@@ -27,8 +27,8 @@
     {% endif %}
 {% endfor %}
 
-<div class="h-screen w-screen bg-slate-100 flex flex-row  py-4 px-28 gap-2">
-    <div class="w-1/4 flex flex-col gap-8 bg-white rounded-sm border-2  px-4 h-fit p-4">
+<div class="h-screen w-screen bg-slate-100 flex flex-col md:flex-row  py-4 px-2 lg:px-28 gap-4">
+    <div class="w-full md:w-2/5 flex flex-col gap-4 bg-white rounded-sm border-2  px-4 h-fit p-4">
         <div class="flex flex-row place-items-end gap-2 text-green-700 w-1/2 ">
             {% if job.employer.image %}
             <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto" src="{{job.employer.image.url}}" alt="Profile picture of {{job.employerusername}}"/>
@@ -36,6 +36,13 @@
             <img class="w-1/2 aspect-h-1 rounded-sm self-center my-auto " src="{% static "/images/default.webp" %}" alt="Default Profile"/>
             {% endif %}
             <a href="{% url 'profile:profile' job.employer.username %}" class=" self-center text-lg font-bold hover:text-green-900">{{job.employer}}</a>
+        </div>
+        <div class="flex flex-col gap-2">
+            <p class="text-green-800 self-centerh-fit font-semibold text-xl">{{job}}</p>
+            <div class="text-sm">
+                <p class="text-green-700 self-centerh-fit">{{category}}</p>
+                <p class="text-green-700 self-centerh-fit">{{job.location}}</p>
+            </div>
         </div>
         <div class=" text-xs flex flex-col gap-2">
             {% if job.is_done and job.rated %}
@@ -60,12 +67,8 @@
                 <button id="go-back" class="white bg-red-600 w-full p-2 text-white block text-center rounded-md  transition-all hover:bg-red-700 ">Back</button>
         </div>
     </div>
-    <div class="w-3/4 h-fit pb-4">
+    <div class="w-full md:w-4/5 h-fit pb-4">
         <div class="w-full border-2 bg-white rounded-sm  rich-text-content px-4 p-4">
-            <div class="flex flex-row h-fit text-xl">
-                <p class=" font-bold ">Job Title: </p>    
-                <p class="text-gray-600 pl-2 self-centerh-fit">{{job}}</p>
-            </div>
             <p class="text-lg text-green-700 pt-2 ">Description<p>
             <p class="px-5">{{job.description | safe}}</p>
         </div>
