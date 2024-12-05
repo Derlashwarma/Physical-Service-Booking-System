@@ -119,7 +119,7 @@ class JobViews:
                     application = JobApplication.objects.get(pk=application_id)
                     application.status = "accepted"
                     application.save()
-
+                    messages.add_message(request,messages.SUCCESS,'Application was Accepted Successfully')
                     return redirect("job:my_jobs", job_id=application.job.id)
             except JobApplication.DoesNotExist:
                     return render(request,'access_errors.html',
@@ -147,6 +147,7 @@ class JobViews:
                     
                 application.status = "declined"
                 application.save()
+                messages.add_message(request,messages.SUCCESS,'Application was Declined Successfully')
                 return redirect("job:my_jobs", job_id=application.job.id)
             except JobApplication.DoesNotExist:
                 return render(request, 'access_errors.html', {
@@ -172,6 +173,7 @@ class JobViews:
                 form = JobPostForm(request.POST, instance=job)
                 if form.is_valid():
                     form.save()
+                    messages.add_message(request,messages.SUCCESS,'Job Was Successfully Changed')
                     return redirect("job:my_jobs", job_id=job.id)
             else:
                 form = JobPostForm(instance=job)
