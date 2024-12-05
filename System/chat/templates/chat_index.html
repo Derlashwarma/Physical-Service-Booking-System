@@ -6,22 +6,27 @@
     Chat
 {% endblock title %}
 {% block content %}
-    <div class="px-40 mt-4 h-full">
-        <div class="flex flex-col bg-white w-full rounded-md border p-5">
+    <div class="px-4 md:px-20 xl:px-40 p-4 h-full flex flex-col">
+        <div class="flex flex-col bg-white w-full rounded-md mx-auto border-2 p-5 xl:w-4/5">
             <p class="text-center text-xl font-semibold text-green-800">Start a Conversation</p>
             <div class=" w-full h-full flex flex-wrap gap-2 p-4">
-                {% for user in users %}
-                <a href="{% url 'chat:conversation' username=user.username %}" id="conversation">
-                    <div class=" rounded-full overflow-hidden border">
-                        {% if user.image %}
-                            <img src="{{ user.image.url }}" alt="profile of {{ user }}" class="w-28 h-28 object-contain">
-                        {% else %}
-                            <img src="{% static 'images/worker.svg' %}" alt="profile of {{ user }}" class="w-28 h-28 object-cover">
-                        {% endif %}
-                    </div>
-                    <p class="text-center font-medium">{{user}}</p>
-                </a>
-                {% endfor %}
+                {% if users %}
+                    {% for user in users %}
+                    <a class="border-2 rounded-md p-2 border-gray-500 hover:scale-110 transition" href="{% url 'chat:conversation' username=user.username %}" id="conversation">
+                        <div class=" rounded-full overflow-hidden border">
+                            {% if user.image %}
+                                <img src="{{ user.image.url }}" alt="profile of {{ user }}" class="w-28 h-28 object-contain">
+                            {% else %}
+                                <img src="{% static 'images/worker.svg' %}" alt="profile of {{ user }}" class="w-28 h-28 object-cover">
+                            {% endif %}
+                        </div>
+                        <p class="text-center font-medium text-gray-700">{{user}}</p>
+                    </a>
+                    {% endfor %}
+                    
+                {% else %}
+                    <p class="text-center w-full">Connect with users and create conversations</p>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -106,8 +106,8 @@
                 {{ form.description }}
                 <small class="text-red-700">{{ form.description.errors }}</small>
             </div>
-            <button id="post" type="submit" class="w-full py-2 bg-green-600 text-white mt-3 rounded-sm hover:bg-green-700">Save Changes</button>
-            <a href="{% url 'job:delete_job' job.id %}" class="w-full text-center bg-red-700 p-2 text-white inline-block mt-3 rounded-sm hover:bg-red-800">Delete job</a>
+            <button id="post" type="submit" class="text-sm w-full py-2 bg-green-600 text-white mt-3 rounded-sm hover:bg-green-700">Save Changes</button>
+            <a href="{% url 'job:delete_job' job.id %}" class="text-sm w-full text-center bg-red-700 p-2 text-white inline-block mt-3 rounded-sm hover:bg-red-800">Delete job</a>
         </form>
     </div>
 </div>

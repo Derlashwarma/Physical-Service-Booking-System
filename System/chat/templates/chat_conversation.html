@@ -6,8 +6,8 @@
     Chat
 {% endblock title %}
 {% block content %}
-<div class="px-40 p-4 h-full flex flex-row">
-    <div class="flex flex-col h-fit bg-white w-full rounded-md shadow-custom_spread border">
+<div class="p-4 h-full mx-auto my-auto flex flex-row w-full lg:px-40 xl:w-4/5 ">
+    <div class="flex flex-col h-full bg-white w-full rounded-md shadow-custom_spread border">
         <div class="w-full px-4 flex flex-row gap-5 pt-4">
             {% if other_user.image %}
                 <img src="{{other_user.image.url}}" alt="profile of {{other_user}}" class="h-12 rounded-full border">
@@ -20,7 +20,7 @@
             <div id="message-container" class="h-full w-full border overflow-scroll middle p-2 flex flex-col gap-2">
                 {% for message in messages %}
                     <div class="message p-2 px-4 rounded-sm {% if user.username == message.author.username %}ml-auto text-right bg-gray-200{% else %} w-fit bg-slate-100{% endif %}">
-                        <p><strong>{{ message.author.username }}</strong></p>
+                        <p class="text-sm font-medium">{{ message.author.username }}</p>
                         <p>{{message.message}}</p>
                     </div>
                 {% endfor %}
