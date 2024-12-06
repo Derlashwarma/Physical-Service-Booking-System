@@ -3,9 +3,18 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {% block content %}
-    <div class="bg flex flex-row gap-4 w-full px-28 p-4">
-        <div class="w-1/6 flex flex-col gap-4">
-            <div class="bg-white rounded-md border h-fit p-4">
+    {% for message in messages %}
+        {% if message %}
+            <div id="popup" class="fixed h-5/6 w-full flex flex-row transition-all">
+                <div class="bg-white w-1/4 mx-auto mt-auto p-4 border-l-4 border-green-600 shadow-custom_spread">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="bg flex flex-col gap-4 w-full p-4 md:flex-row md:px-4 xl:px-24- 2xl:w-4/5 2xl:mx-auto">
+        <div class="w-full gap-4 flex flex-col md:w-1/6">
+            <div class="bg-white rounded-md border h-fit p-4 w-3/12 md:w-full">
                 <img class="rounded-full" src="{% if profile_owner.image %}{{profile_owner.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
                 <p class="text-center text-2xl font-bold text-primary_color">{{profile_owner}}</p>
                 <p>
@@ -15,10 +24,10 @@
                 </p>
             </div>
             {% if owner %}
-                <a href="{% url 'profile:edit_profile' username=user %}" class="text-sm text-center w-full p-2 bg-green-700 text-white rounded-sm hover:bg-green-800">Edit Profile</a>
+                <a href="{% url 'profile:edit_profile' username=user %}" class="text-sm text-center w-3/12 md:w-full p-2 bg-green-700 text-white rounded-sm hover:bg-green-800">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="w-3/6 bg-white rounded-md border p-4 h-fit">
+        <div class="w-full md:w-3/6 bg-white rounded-md border p-4 h-fit">
             <p class="text-lg font-bold text-green-700">Active Job Post</p>
             <div class="job-contianer py-4 gap-4 flex flex-col">
                 {% if active_jobs %}
@@ -56,9 +65,9 @@
                 {% endif %}
             </div>
         </div>
-        <div class="w-2/6 flex flex-col gap-4">
-            <div class="bg-white rounded-md border p-4">
-                <p class="text-lg font-bold text-green-700">Ratings</p>
+        <div class="w-full md:w-2/6 flex flex-row md:flex-col gap-4">
+            <div class="bg-white rounded-md border p-4 w-4/12 h-fit md:w-full">
+                <p class="text-lg font-bold text-green-700 ">Ratings</p>
                 {% if ratings %}
                     <div>
                         <p class="text-gray-600 mt-5">Communication</p>
@@ -76,7 +85,7 @@
                     <p>No Ratings Available</p>
                 {% endif %}
             </div>
-            <div class="bg-white rounded-md border p-4">
+            <div class="bg-white rounded-md border p-4 w-8/12 md:w-full">
                 <p class="text-lg font-bold text-green-700">Employer History</p>
                 <div class="job-contianer gap-4 flex flex-col">
                     {% if finished_jobs %}
@@ -103,4 +112,15 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            const popup = document.getElementById('popup');
+
+            if (popup) {
+                setTimeout(() => {
+                    $('#popup').addClass('hidden');
+                }, 2000);
+            }
+        });
+    </script>
 {% endblock content %}

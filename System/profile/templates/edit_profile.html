@@ -1,6 +1,5 @@
 {% load static %}
 {% load static tailwind_tags %}
-{% load livereload_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +25,7 @@
         </div>
     </div>
     
-    <div class="bg flex flex-col w-4/5 h-fit px-28 self-center py-4">
+    <div class="bg flex flex-col h-fit py-4 mx-auto md:px-16 md:w-4/5 lg:px-28 xl:w-4/6">
         <div class="middle bg-white w-11/12 rounded-md border p-8 justify-center self-center">
             <p class="text-green-600 text-3xl font-bold text-center">Edit Profile</p>
             <form id="form" method="post" class="w-full mt-4" enctype="multipart/form-data">
@@ -101,8 +100,9 @@
                 </div>
             </form>
             <button id="save-button" class="w-full py-2 bg-green-600 text-white text-md mt-2 rounded-md">Save<button>
-            <button id="cancel-changes" class="w-full py-2 bg-red-600 text-white text-md mt-2 rounded-md">Cancel Changes<button>
         </div>
     </div>
+    
+    <button id="cancel-changes" class="fixed p-2 bg-red-600 text-white text-md m-2 rounded-md">Cancel Changes<button>
 </body>
 </html>

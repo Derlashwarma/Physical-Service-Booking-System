@@ -5,6 +5,7 @@ from register.models import CustomUser
 from job.models import JobApplication, Job
 from .models import Rating, Review
 from django.http import Http404
+from django.contrib import messages
 
 @login_required(login_url='login:login')
 def rate_user(request, username, job_id):
@@ -62,7 +63,7 @@ def process_worker_rating(request, application):
     save_worker_rating(request.user, application.worker, timeliness_rating, professionalism_rating, communication_rating, review)
     application.rated = True
     application.save()
-    
+    messages.add_message(request,messages.SUCCESS,'Rating the user is successful')
     return redirect('job:my_jobs', application.job.id)
 
 def save_worker_rating(from_user, to_user, timeliness, professionalism, communication, review):
@@ -117,7 +118,8 @@ def process_employer_rating(request, job):
     save_employer_rating(request.user, job.employer, communication_rating, fairness_respect_rating, timeliness_payment_rating, review)
     job.rated = True
     job.save()
-
+    
+    messages.add_message(request,messages.SUCCESS,'Rating the user is successful')
     return redirect('job:apply_job', job.id)
 
 def save_employer_rating(from_user, to_user, communication, fairness, timeliness, review):
