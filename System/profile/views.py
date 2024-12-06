@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from job.models import JobApplication
 from job.models import Job
 from django.db.models import Q
+from django.contrib import messages
 
 @login_required(login_url="login:login")
 def profile(request, username):
@@ -113,6 +114,7 @@ def edit_profile(request,username):
             form = UserProfileForm(request.POST, request.FILES, instance=user)
             if form.is_valid():
                 form.save()
+                messages.add_message(request,messages.SUCCESS,'Changes was Successfuly saved')
                 return redirect('profile:profile', username=username)
         else:
             form = UserProfileForm(instance=user)

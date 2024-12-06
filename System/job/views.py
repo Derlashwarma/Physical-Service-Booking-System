@@ -19,6 +19,7 @@ class JobViews:
                 job = form.save(commit=False)
                 job.employer = user
                 job.save()
+                messages.add_message(request,messages.SUCCESS,'Job Added Successfully')
                 return redirect('employer:employer_feed')
         else:
             form = JobPostForm()
@@ -201,6 +202,7 @@ class JobViews:
             if request.method == 'POST':
                 job.is_active = False
                 job.save()
+                messages.add_message(request,messages.SUCCESS,'Job was Deleted Successfully')
                 return redirect('profile:profile', username=request.user.username)
         except Job.DoesNotExist:
             return render(request, 'access_errors.html', {
