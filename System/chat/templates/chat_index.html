@@ -12,8 +12,8 @@
             <div class=" w-full h-full flex flex-wrap gap-2 p-4">
                 {% if users %}
                     {% for user in users %}
-                    <a class="border-2 rounded-md p-2 border-gray-500 hover:scale-110 transition" href="{% url 'chat:conversation' username=user.username %}" id="conversation">
-                        <div class=" rounded-full overflow-hidden border">
+                    <a class="border-2 rounded-md p-2  hover:scale-110 transition" href="{% url 'chat:conversation' username=user.username %}" id="conversation">
+                        <div class=" rounded-full overflow-hidden">
                             {% if user.image %}
                                 <img src="{{ user.image.url }}" alt="profile of {{ user }}" class="w-28 h-28 object-contain">
                             {% else %}

@@ -12,7 +12,7 @@
             </div>
         {% endif %}
     {% endfor %}
-    <div class="bg flex flex-col gap-4 w-full p-4 md:flex-row md:px-4 xl:px-24- 2xl:w-4/5 2xl:mx-auto">
+    <div class="flex flex-col gap-4 w-full p-4 md:flex-row md:px-4 xl:px-24- 2xl:w-4/5 2xl:mx-auto">
         <div class="w-full gap-4 flex flex-col md:w-1/6">
             <div class="bg-white rounded-md border h-fit p-4 w-3/12 md:w-full">
                 <img class="rounded-full" src="{% if profile_owner.image %}{{profile_owner.image.url}}{% else %}{% static "images/default.webp" %}{% endif %}" alt="Profile Picture">
@@ -90,7 +90,7 @@
                 <div class="job-contianer gap-4 flex flex-col">
                     {% if finished_jobs %}
                       {% for job in finished_jobs %}
-                        <div class="flex flex-col gap-2 p-2 border-2 rounded-sm">
+                        <div class="flex flex-col gap-2 p-2 border-2 rounded-sm hover:scale-105 hover:border-green-700 transition-all">
                             {% if owner %}    
                                 <a class="hover:text-green-900 hover:underline" href="{% url "job:my_jobs" job.id %}"><p class="font-medium">{{job}}</p></a>
                             {% else %}
