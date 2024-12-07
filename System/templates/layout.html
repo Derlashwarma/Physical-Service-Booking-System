@@ -53,14 +53,12 @@
         <ul class="hidden sm:flex space-x-6 py-2">
           <li><a class="hover:text-green-600" href="#explore">Explore</a></li>
           <li><a class="hover:text-green-600" href="#about">About</a></li>
-          <li><a class="hover:text-green-600" href="#">Hire</a></li>
           <li><a class="hover:text-green-600" href="{% url 'login:login' %}">Sign In</a></li>
           <li><a class="join-button bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600" href="{% url 'register:register' %}">Join</a></li>
         </ul>
         <select class="sm:hidden" name="" id=""  onchange="window.location.href=this.value;">
           <option value="#explore"><a class="hover:text-green-600" href="#explore">Explore</a></option>
           <option value="#about"><a class="hover:text-green-600" href="#about">About</a></option>
-          <option value="#"><a class="hover:text-green-600" href="#">Hire</a></option>
           <option value="{% url 'login:login' %}"><a class="hover:text-green-600" href="{% url 'login:login' %}">Sign In</a></option>
           <option value="{% url 'register:register' %}"><a class="join-button bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600" href="{% url 'register:register' %}">Join</a></option>
         </select>

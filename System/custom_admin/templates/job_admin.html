@@ -87,6 +87,7 @@
                     <th class="py-2 text-gray-600 font-semibold text-sm">Created Date</th>
                     <th class="py-2 text-gray-600 font-semibold text-sm">Budget</th>
                     <th class="py-2 text-gray-600 font-semibold text-sm">Location</th>
+                    <th class="py-2 text-gray-600 font-semibold text-sm">Status</th>
                 </tr>
             </thead>
             <tbody class="text-sm">
@@ -98,6 +99,11 @@
                         <td class="py-2 px-6 border">{{job.created_at}}</td>
                         <td class="py-2 px-6 border">{{job.budget}}</td>
                         <td class="py-2 px-6 border">{{job.location}}</td>
+                        {% if job.finished_at %}
+                            <td class="py-2 px-6 border text-green-600">Completed</td>
+                        {% else %}
+                            <td class="py-2 px-6 border text-orange-700">Active</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

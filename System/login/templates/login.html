@@ -12,11 +12,15 @@
     <title>LOGIN</title>
 </head>
 <body class="flex flex-col justify-center h-screen bg-slate-100">
-    <div class="h-full w-full flex flex-col">
-        <div class="self-center flex flex-row w-9/12 bg-white rounded-xl m-4 overflow-hidden my-auto border-2">
-            <div class="my-20 w-50 w-1/2 h-full">
-                <h3 class="mt-5 text-center text-3xl font-bold">Sign into Your Account</h3>
-                <form method="POST" class="form p-4 mx-5 my-10">
+    <input type=button value="Back" onClick="javascript:history.go(-1);" class="w-fit p-2 px-4 fixed top-10 left-10 bg-red-500 text-white rounded-sm transition hover:bg-red-700 ">
+    <div class="h-full w-full flex flex-col px-2 sm:px-0">
+        <div class="self-center flex flex-row w-full sm:w-9/12 xl:w-7/12 bg-white rounded-xl m-4 overflow-hidden my-auto border-2">
+            <div class="w-50 w-full md:w-1/2 h-full p-4">
+                <div class="w-full flex justify-center">
+                    <img src="{% static "images/Serviso.svg" %}" alt="logo" class="h-10">
+                </div>
+                <h3 class="text-2xl font-semibold pt-4 text-center">Welcome Back</h3>
+                <form method="POST" class="form">
                     {% csrf_token %}
                     <div class="flex flex-col">
                         <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
@@ -37,14 +41,17 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="my-10 w-full py-3 bg-primary_color rounded-lg text-white transition hover:bg-green-800">Login</button>
+                    <button type="submit" class="w-full py-3 bg-primary_color rounded-lg text-white transition hover:bg-green-800">Login</button>
+                    <p class="font-medium md:hidden">Don't have an account? <a href="{% url 'register:register' %}" class="text-green-700 hover:text-green-800">Create one</a></p>
                 </form>
             </div>
-            <div class="w-1/2 h-full  bg-primary_color flex flex-col justify-center">
-                <div class="flex flex-col text-center mx-5 p-4">
-                    <h1 class="font-bold text-5xl text-white">New Here?</h1>
-                    <p class="self-center  mt-4 text-xl">Embrace new beginnings <br> Sign up and enjoy endless opportunities</p>
-                    <a href="{% url 'register:register' %}" class="mt-20 self-center bg-white text-green-700 rounded-md p-3 w-full transition hover:bg-slate-200">Sign up</a>
+            <div class="hidden md:w-1/2 h-full bg-primary_color md:flex flex-col justify-center">
+                <div class="flex flex-col text-center mx-4 relative h-full">
+                    <div class="my-auto pb-10">
+                        <h1 class="font-bold text-3xl lg:text-5xl text-white">New Here?</h1>
+                        <p class="self-center mt-4  text-white">Embrace new beginnings <br> Sign up and enjoy endless opportunities</p>
+                    </div>
+                    <a href="{% url 'register:register' %}" class="bg-white text-green-700 rounded-md p-3 w-full transition hover:bg-slate-200 absolute bottom-4 left-0">Sign up</a>
                 </div>
             </div>
         </div>
