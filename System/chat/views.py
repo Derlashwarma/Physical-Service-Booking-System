@@ -45,15 +45,16 @@ def chat_conversation(request, username):
             )
             return redirect('chat:conversation', username=username)
     
-    if request.method == 'POST':
-        message_text = request.POST.get('message')
-        if message_text:
-            Message.objects.create(
-                conversation=conversation,
-                author=request.user,
-                message=message_text
-            )
-            return redirect('chat:conversation',username=username)
+    # If websocket is running unpredictably uncomment this and comment out the inline script
+    # if request.method == 'POST':
+    #     message_text = request.POST.get('message')
+    #     if message_text:
+    #         Message.objects.create(
+    #             conversation=conversation,
+    #             author=request.user,
+    #             message=message_text
+    #         )
+    #         return redirect('chat:conversation',username=username)
 
     messages = conversation.chat_messages.order_by('created_at')
     context = {

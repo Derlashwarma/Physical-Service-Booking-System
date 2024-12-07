@@ -17,7 +17,7 @@
   </title>
 </head>
 <body class="overflow-x-hidden h-screen bg-slate-50">
-  <nav class="sticky w-full top-0 z-50 bg-white border-b-2 border-b-green-700 py-2 px-8">
+  <nav class="sticky w-full top-0 z-50 bg-white border-b-2 border-b-green-700 py-2 px-20 md:px-32 lg:px-48 2xl:px-52">
     <div class="flex justify-between items-center">
       <div class="logo self-center">
         <a href="#index">  
@@ -25,7 +25,7 @@
         </a>
       </div>
         {% if user.is_authenticated %}
-          <ul class="flex space-x-6">
+          <ul class="hidden space-x-6 md:flex">
             <li class="self-center">
               <a class="hover:text-green-600 {% if home %}text-cyan-800 underline{% endif %}" href="{% url "landing:landing_page" %}">Home</a>
             </li>
@@ -50,13 +50,20 @@
           </li>
           </ul>
         {% else %}
-        <ul class="flex space-x-6 py-2">
+        <ul class="hidden sm:flex space-x-6 py-2">
           <li><a class="hover:text-green-600" href="#explore">Explore</a></li>
           <li><a class="hover:text-green-600" href="#about">About</a></li>
           <li><a class="hover:text-green-600" href="#">Hire</a></li>
           <li><a class="hover:text-green-600" href="{% url 'login:login' %}">Sign In</a></li>
           <li><a class="join-button bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600" href="{% url 'register:register' %}">Join</a></li>
         </ul>
+        <select class="sm:hidden" name="" id=""  onchange="window.location.href=this.value;">
+          <option value="#explore"><a class="hover:text-green-600" href="#explore">Explore</a></option>
+          <option value="#about"><a class="hover:text-green-600" href="#about">About</a></option>
+          <option value="#"><a class="hover:text-green-600" href="#">Hire</a></option>
+          <option value="{% url 'login:login' %}"><a class="hover:text-green-600" href="{% url 'login:login' %}">Sign In</a></option>
+          <option value="{% url 'register:register' %}"><a class="join-button bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600" href="{% url 'register:register' %}">Join</a></option>
+        </select>
         {% endif %}
     </div>
   </nav>
