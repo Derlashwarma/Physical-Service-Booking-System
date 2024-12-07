@@ -3,9 +3,18 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {% block content %}
-    <div class="bg flex flex-row w-full px-28 p-4 gap-4">
-        <div class="left w-1/6 h-full flex flex-col gap-4">
-            <div class="top-left bg-white w-full h-full rounded-md border flex flex-col gap-4 p-4">
+{% for message in messages %}
+    {% if message %}
+        <div id="popup" class="fixed h-5/6 w-full flex flex-row transition-all">
+            <div class="bg-white w-1/4 mx-auto mt-auto p-4 border-l-4 border-green-600 shadow-custom_spread">
+                <p>{{ message }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+    <div class="flex flex-col gap-4 w-full p-4 md:flex-row md:px-4 xl:px-24- 2xl:w-4/5 2xl:mx-auto">
+        <div class="left h-full w-full gap-4 flex flex-col md:w-1/6">
+            <div class="top-left flex flex-col gap-4 bg-white rounded-md border h-fit p-4 w-3/12 md:w-full">
                 {% if profile %}
                     <img class="justify-center self-center aspect-h-1 rounded-full" src="{{profile.url}}" alt="Profile picture of {{username}}"/>
                     {% else %}
@@ -20,10 +29,10 @@
             </div>
             {% if owner %}
                 <a href="{% url "profile:edit_profile" username=logged_in_user.username%}" 
-                class="text-center bg-green-600 text-white py-2 rounded-md border text-sm">Edit Profile</a>
+                class="text-sm text-center w-3/12 md:w-full p-2 bg-green-700 text-white rounded-sm hover:bg-green-800">Edit Profile</a>
             {% endif %}
         </div>
-        <div class="middle bg-white w-3/6 rounded-md border p-5 rich-text-content h-fit">
+        <div class="middle bg-white rounded-md border p-5 rich-text-content h-fit w-full md:w-3/6">
             <h2 class="text-green-600 text-lg font-bold">Professional Summary</h2>
             {% if summary %}
                 <p class="text-sm text-justify">{{ summary|safe }}</p>
@@ -59,8 +68,8 @@
                 {% endif %}
             </div>
         </div>
-        <div class="right w-2/6 h-full">
-            <div class="p-5 bg-white rounded-md border">
+        <div class="right h-full w-full md:w-2/6 flex flex-row md:flex-col gap-4">
+            <div class="bg-white rounded-md border p-4 w-4/12 h-fit md:w-full">
                 <p class="text-green-600 text-lg font-bold">Ratings</p>
                 <ul class="mt-5 flex flex-col gap-2">
                     <div>
@@ -77,30 +86,38 @@
                     </div>
                 </ul>
             </div>
-            
-            {% if owner %}
-                <div class="mt-4 p-4 bg-white rounded-md border">
-                    <p class="text-green-600 text-lg font-bold">History</p>
-                    <div class="pt-4 flex flex-col gap-4">
-                        {% for job  in jobs %}
-                            <div class="border-2 border-gray-300 p-3 rounded-md">
-                                <a href="{% url "job:apply_job" job.job.id %}" class="hover:text-secondary hover:underline "><h3 class="font-bold text-lg">{{ job.job }}</h3></a>
-                                <p class="text-xs">Status:
-                                    {% if job.status == "pending" or job.status == "accepted" %}
-                                        <span class="text-orange-600">{{job.status}}</span>
-                                    {% elif job.status == "completed" %}
-                                        <span class="text-green-700">{{job.status}}</span>
-                                    {% elif job.status == "completed" %}
-                                        <span class="text-green-600-700">{{ job.status }}</span>
-                                    {% else %}
-                                        <span class="text-red-700">{{ job.status }}</span>
-                                    {% endif %}
-                                </p>
-                            </div>
-                        {% endfor %}
-                    </div>
+            <div class="bg-white rounded-md border p-4 w-8/12 md:w-full">
+                <p class="text-green-600 text-lg font-bold">History</p>
+                <div class="pt-4 flex flex-col gap-4">
+                    {% for job  in jobs %}
+                        <div class="border-2 border-gray-300 p-3 rounded-md">
+                            <a href="{% url "job:apply_job" job.job.id %}" class="hover:text-secondary hover:underline "><h3 class="font-bold text-lg">{{ job.job }}</h3></a>
+                            <p class="text-xs">Status:
+                                {% if job.status == "pending" or job.status == "accepted" %}
+                                    <span class="text-orange-600">{{job.status}}</span>
+                                {% elif job.status == "completed" %}
+                                    <span class="text-green-700">{{job.status}}</span>
+                                {% elif job.status == "completed" %}
+                                    <span class="text-green-600-700">{{ job.status }}</span>
+                                {% else %}
+                                    <span class="text-red-700">{{ job.status }}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endif %}
+            </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            const popup = document.getElementById('popup');
+
+            if (popup) {
+                setTimeout(() => {
+                    $('#popup').addClass('hidden');
+                }, 2000);
+            }
+        });
+    </script>
 {% endblock content %}

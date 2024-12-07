@@ -9,8 +9,8 @@
 
 {% block content %}
     <div class="landing-div flex flex-col">
-        <div class="h-screen flex flex-row items-right w-full">
-            <div class="px-20 md:px-32 lg:px-48 2xl:px-52 w-full my-auto flex flex-row">
+        <div class="flex flex-row items-right w-full lg:h-screen">
+            <div class="px-20 md:px-32 lg:px-48 2xl:px-52 w-full lg:my-auto flex flex-row">
                 <div  class="w-3/5 -z-0 text-white">
                     <div class="font-extrabold text-6xl flex flex-col">    
                     {% if request.user and request.user.is_worker %}
@@ -33,9 +33,9 @@
                         <a href="{% url 'register:register' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-8 rounded-sm">Get Started</a>
                     {% endif %}
                 </div>
-                <div  class="w-2/5 -z-20 overflow-hidden">  
+                <div class="-z-20 overflow-hidden">  
                     <img class="object-scale-down absolute left-0 bottom-0" src="{% static "images/landing_bg.png" %}" alt="">
-                    <img class="absolute right-0 z-10 bottom-0 w-2/5 xl:w-6/12" src="{% static "images/worker.png" %}" alt="">
+                    <img class="absolute right-0 z-10 w-2/5 xl:w-6/12 bottom-0" src="{% static "images/worker.png" %}" alt="">
                 </div>
             </div>
         </div>
@@ -174,7 +174,7 @@
         
 
         <div class="bottom-0 p-2 fixed hover:scale-125 transition hover:ml-2 hover:mb-2">
-            <a href="#" class="text-xs bg-green-800 bg-opacity-25 p-1 backdrop-blur-sm text-white">Back to Top</a>
+            <a href="#" class="text-xs bg-green-800 bg-opacity-55 hover:opacity-100 p-1 backdrop-blur-sm text-white">Back to Top</a>
         </div>
     </div>
 {% endblock %}
