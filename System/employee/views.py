@@ -3,7 +3,7 @@ from job.models import Job, JobApplication
 from rate.models import Rating
 # Create your views here.
 def employee_feed(request):
-    jobs = Job.objects.filter(is_done=False)
+    jobs = Job.objects.filter(is_done=False, is_active=True)
     owner = request.user
     jobs_applied = JobApplication.objects.filter(worker=owner)
 

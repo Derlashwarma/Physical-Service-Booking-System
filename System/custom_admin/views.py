@@ -276,9 +276,6 @@ class AdminViews:
 
         job_types = Job.objects.values_list('category', flat=True)
         job_tags = Counter(job_types)
-        for tag in job_types:
-            updated_tag = tag.replace('_', ' ')
-            job_tags[updated_tag] = job_tags.pop(tag)
             
         tag = {
             'label': list(job_tags.keys()),
