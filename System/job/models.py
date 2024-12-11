@@ -55,6 +55,8 @@ class Job(models.Model):
                 self.finished_at = None 
                 self.is_active = True
                 self.mark_declined_pending()
+            elif not old_instance.is_done and not self.is_active:
+                self.decline_all_applications()
 
         super().save(*args, **kwargs)
 
@@ -68,7 +70,11 @@ class Job(models.Model):
 
     def mark_declined_pending(self):
         job_applications = self.jobapplication_set.filter(status__iexact='declined')
-        job_applications.update(status='pending')        
+        job_applications.update(status='pending')     
+        
+    def decline_all_applications(self):
+        job_applications = self.jobapplication_set.all()
+        job_applications.update(status='declined')   
 
     def __str__(self):
         return self.title
