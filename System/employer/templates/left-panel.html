@@ -11,7 +11,7 @@
     <div class="ml-8 mr-8">
       {% if profile %}
       <img
-        class=" absolute transform translate-y-14 rounded-full w-20 h-20 border-4 border-white"
+        class="absolute transform translate-y-14 rounded-full w-20 h-20 border-4 border-white"
         src="{{profile.url}}"
         alt="Profile picture of {{username}}"
       />
@@ -26,8 +26,7 @@
     <div class="mt-8">
       <div class="text-base text-black">@{{ user.username }}</div>
       <div class="text-sm text-gray-font mt-2">
-        {% if user.social_contacts %} {{ user.social_contacts|safe }} {% endif
-        %}
+        {% if user.social_contacts %} {{ user.social_contacts|safe }} {% endif %}
       </div>
     </div>
   </div>
@@ -60,43 +59,35 @@
 </div>
 
 <div class="flex flex-col min-h-screen">
-  <div class="mt-12 border-2 p-4 rounded-xl flex-grow flex flex-col">
+  <div class="mt-12 border-2 p-4 rounded-xl flex-grow flex flex-col h-full">
     <p class="text-lg font-bold text-green-700">Active Job Posts</p>
-    <div
-      class="job-container py-4 gap-4 flex flex-col overflow-y-auto flex-grow"
-    >
-      {% if active_jobs %} {% for job in active_jobs %}
-      <div class="flex flex-col gap-1 p-4 border-2 rounded-sm">
-        {% if owner %}
-        <p class="font-bold">
-          <a
-            class="hover:text-green-900"
-            href="{% url 'job:my_jobs' job_id=job.id %}"
-            >{{ job }}</a
-          >
-        </p>
-        {% else %}
-        <p class="font-bold">
-          <a
-            class="hover:text-green-900"
-            href="{% url 'job:apply_job' job_id=job.id %}"
-            >{{ job }}</a
-          >
-        </p>
-        {% endif %}
-        <div class="flex flex-col">
-          <small class="text-gray-600"> {{ job.created_at }} </small>
-          <div class="flex">
-            <small class="text-gray-600">P {{ job.budget }} </small>
-            <small class="ml-auto">
-              <span class="font-medium">Status:</span>
-              <span class="text-yellow-600">Active</span>
-            </small>
+    <div class="job-container py-4 gap-4 flex flex-col flex-grow overflow-y-auto" style="max-height: 400px;">
+      {% if active_jobs %}
+        {% for job in active_jobs %}
+          <div class="flex flex-col gap-1 p-4 border-2 rounded-sm">
+            {% if owner %}
+              <p class="font-bold">
+                <a class="hover:text-green-900" href="{% url 'job:my_jobs' job_id=job.id %}">{{ job }}</a>
+              </p>
+            {% else %}
+              <p class="font-bold">
+                <a class="hover:text-green-900" href="{% url 'job:apply_job' job_id=job.id %}">{{ job }}</a>
+              </p>
+            {% endif %}
+            <div class="flex flex-col">
+              <small class="text-gray-600">{{ job.created_at }}</small>
+              <div class="flex">
+                <small class="text-gray-600">P {{ job.budget }}</small>
+                <small class="ml-auto">
+                  <span class="font-medium">Status:</span>
+                  <span class="text-yellow-600">Active</span>
+                </small>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {% endfor %} {% else %}
-      <p class="text-gray-500">You have no active job posts.</p>
+        {% endfor %}
+      {% else %}
+        <p class="text-gray-500">You have no active job posts.</p>
       {% endif %}
     </div>
   </div>

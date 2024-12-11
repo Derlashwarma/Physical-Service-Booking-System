@@ -1,4 +1,4 @@
-<div class=" bg-white rounded-md  h-fit p-4 border-2 " >
+<div class="bg-white rounded-md h-full p-4 border-2 overflow-y-auto">
     <div class="text-center w-full text-xl font-bold text-green-600 mb-5">
         Job Applications
     </div>
@@ -14,12 +14,11 @@
             <p class="text-sm">{{application.applied_at}}</p>
                 {% if application.status == 'completed' %}
                     {% if application.rated %}    
-                        <a class=" bg-gray-300 border-2 border-gray-300 p-2 w-full my-1 rounded-sm text-gray-500 text-center bg-opacity-85 text-sm"> Finished Rating </a>
-                        {% else %}
-                            <a href="{% url "rate:rate_user" username=application.worker.username job_id=application.job.id %}" class="hover:bg-green-700 bg-green-600 p-2 w-full my-1 rounded-sm text-white text-center text-sm"> Rate User </a>
+                        <a class="bg-gray-300 border-2 border-gray-300 p-2 w-full my-1 rounded-sm text-gray-500 text-center bg-opacity-85 text-sm"> Finished Rating </a>
+                    {% else %}
+                        <a href="{% url "rate:rate_user" username=application.worker.username job_id=application.job.id %}" class="hover:bg-green-700 bg-green-600 p-2 w-full my-1 rounded-sm text-white text-center text-sm"> Rate User </a>
                     {% endif %}
                 {% elif application.status == 'declined' %}
-
                 {% elif application.status == 'accepted' %}
                     <button class="bg-orange-500 p-2 w-full mt-1 rounded-sm text-white">Job Ongoing</button>
                 {% else %}
@@ -31,10 +30,10 @@
                         {% csrf_token %}
                         <button type="submit" class="bg-red-600 p-2 w-full mt-1 rounded-sm text-white text-sm">Reject</button>
                     </form>
-            {% endif %}
+                {% endif %}
         </div>
         {% endfor %}
-        {% else %}
+    {% else %}
         <p>No applicants applied</p>
     {% endif %}
 </div>
