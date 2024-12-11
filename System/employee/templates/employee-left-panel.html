@@ -1,22 +1,22 @@
 {% load static %}
-<div class="h-auto bg-white rounded-xl p-4 flex flex-col relative border-2">
+<div class="bg-white rounded-xl p-4 flex flex-col relative border-2">
   <!-- Profile Background -->
   <div class="h-16">
     <img src="{% static '/images/profileback.jpg' %}" alt="Profile Background" class="w-full h-16 rounded-xl z-0">
   </div>
 
   <!-- Profile Details -->
-  <div class="flex sm:flex-col items-center sm:items-start mt-4">
-    <div class="ml-8 sm:ml-0 sm:mb-4">
+  <div class="flex items-center mt-4">
+    <div>
       {% if profile %}
         <img class="rounded-full w-20 h-20 border-4 border-white" src="{{profile.url}}" alt="Profile picture of {{username}}" />
       {% else %}
         <img class="rounded-full w-20 h-20 border-4 border-white" src="{% static '/images/default.webp' %}" alt="Profile picture of {{username}}" />
       {% endif %}
     </div>
-    <div class="mt-2 text-center sm:text-left">
-      <div class="text-base text-black">@{{ user.username }}</div>
-      <div class="text-sm text-gray-font mt-2">
+    <div class="ml-4">
+      <div class="text-base text-black font-bold">@{{ user.username }}</div>
+      <div class="text-sm text-gray-500 mt-1">
         {% if user.social_contacts %}
           {{ user.social_contacts|safe }}
         {% endif %}
@@ -24,17 +24,22 @@
     </div>
   </div>
 
-  <!-- Ratings Section  -->
-  <div class="flex space-x-4 mt-4 justify-center sm:flex-col sm:space-x-0 sm:space-y-4 sm:text-center">
-    <div class="flex-1 flex flex-col items-center mb-4 sm:mb-2">
+  <!-- Ratings Section (in one row) -->
+  <div class="flex justify-around mt-4">
+    <!-- Timeliness -->
+    <div class="flex flex-col items-center">
       <div class="text-gray-500 font-bold text-lg">{{ ratings.Timeliness }}</div>
       <div class="text-xs text-gray-400 font-light mt-1">Timeliness</div>
     </div>
-    <div class="flex-1 flex flex-col items-center mb-4 sm:mb-2">
+
+    <!-- Communication -->
+    <div class="flex flex-col items-center">
       <div class="text-gray-500 font-bold text-lg">{{ ratings.Communication }}</div>
       <div class="text-xs text-gray-400 font-light mt-1">Communication</div>
     </div>
-    <div class="flex-1 flex flex-col items-center mb-4 sm:mb-2">
+
+    <!-- Professionalism -->
+    <div class="flex flex-col items-center">
       <div class="text-gray-500 font-bold text-lg">{{ ratings.Professionalism }}</div>
       <div class="text-xs text-gray-400 font-light mt-1">Professionalism</div>
     </div>
@@ -42,21 +47,19 @@
 </div>
 
 <!-- Applied Jobs Section -->
-<div class="mt-4 border-2 h-auto p-4 rounded-xl">
+<div class="mt-4 border-2 h-auto p-4 rounded-xl flex-grow">
   {% if owner %}
-    <div class="p-4 bg-white rounded-md">
+    <div class="p-4 bg-white rounded-md h-full">
         <p class="text-black text-lg font-bold">Applied Jobs</p>
-        <div class="pt-4 flex flex-col gap-4">
-            {% for job  in jobs_applied %}
+        <div class="pt-4 flex flex-col gap-4 overflow-y-auto h-full">
+            {% for job in jobs_applied %}
                 <div class="border-2 border-gray-300 p-3 rounded-md">
-                    <a href="{% url "job:apply_job" job.job.id %}" class="hover:text-secondary hover:underline "><h3 class="font-bold text-lg">{{ job.job }}</h3></a>
+                    <a href="{% url 'job:apply_job' job.job.id %}" class="hover:text-secondary hover:underline"><h3 class="font-bold text-lg">{{ job.job }}</h3></a>
                     <p class="text-xs">Status:
                         {% if job.status == "pending" or job.status == "accepted" %}
-                            <span class="text-orange-600">{{job.status}}</span>
+                            <span class="text-orange-600">{{ job.status }}</span>
                         {% elif job.status == "completed" %}
-                            <span class="text-green-700">{{job.status}}</span>
-                        {% elif job.status == "completed" %}
-                            <span class="text-green-600-700">{{ job.status }}</span>
+                            <span class="text-green-700">{{ job.status }}</span>
                         {% else %}
                             <span class="text-red-700">{{ job.status }}</span>
                         {% endif %}

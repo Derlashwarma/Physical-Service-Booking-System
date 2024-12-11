@@ -5,22 +5,30 @@
 {% endblock %}
 
 {% block content %}
-    <div class="flex flex-col h-screen p-8">
-        <div class="flex flex-1 w-full space-x-2">
-            <div class="w-1/4 h-full flex flex-col space-y-2 p-4">
-                {% include "left-panel.html" %}
-            </div>
-            <div class="w-2/4 flex-1 h-full flex flex-col items-center justify-center space-y-4 border-2 bg-white shadow-md mt-4 rounded-xl">
-                <p class="text-5xl text-center font-bold">Find the Perfect Talent for 
-                    <br>Your Needs!</p>
-                <p class="text-l text-center font-light">Post a job now and connect with skilled professionals <br>ready to meet your needs.</p>
-                <a href="{% url 'job:add_job' %}" class="bg-green-600 w-2/3 h-12 text-white px-2 py-1 rounded hover:bg-green-700 text-center flex items-center justify-center">
-                    Post a Job
-                </a>
-            </div>            
-            <div class= "w-1/4 border-2 p-4 rounded-xl mt-4">
-                {% include "right-panel.html" %}
-            </div>    
+<div class="flex flex-col h-screen p-8">
+    <div class="flex flex-1 w-full space-x-2 h-screen">
+        <!-- Left Panel -->
+        <div class="w-1/4 border-2 p-4 rounded-xl mt-4 h-full overflow-hidden">
+            {% include "left-panel.html" %}
+        </div>
+
+        <!-- Main Content -->
+        <div class="w-full lg:w-2/4 flex-1 h-full flex flex-col items-center justify-center space-y-4 border-2 bg-white shadow-md mt-4 rounded-xl">
+            <p class="text-5xl text-center font-bold">
+                Find the Perfect Talent for <br>Your Needs!
+            </p>
+            <p class="text-l text-center font-light">
+                Post a job now and connect with skilled professionals <br>ready to meet your needs.
+            </p>
+            <a href="{% url 'job:add_job' %}" class="bg-green-600 w-2/3 h-12 text-white px-2 py-1 rounded hover:bg-green-700 text-center flex items-center justify-center">
+                Post a Job
+            </a>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="w-1/4 border-2 p-4 rounded-xl mt-4 h-full overflow-y-auto">
+            {% include "right-panel.html" %}
         </div>
     </div>
+</div>
 {% endblock %}

@@ -4,3 +4,5 @@
 *pyc*
 *env*
 */System/theme*
+*.nv*
+*System/db.sqlite3*

@@ -50,7 +50,10 @@ module.exports = {
             },
             boxShadow: {
                 custom_spread: '0 0 10px rgba(0, 0, 0, 0.1)',
-            }
+            },
+            screens: {
+                'small-screen': { max: '75vw' },  
+            },
         },
     },
     plugins: [
